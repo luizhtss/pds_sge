@@ -1,0 +1,25 @@
+# Use a imagem base do Node.js
+FROM node:alpine as builder
+
+# Configuração do diretório de trabalho
+WORKDIR /app
+
+# Copiar o código do frontend React para o contêiner
+COPY ./sge-frontend /app
+
+# Instalar as dependências e compilar a aplicação React
+RUN npm install && npm run build
+
+# Use a imagem base do Node.js para a execução
+FROM node:alpine
+
+# Configuração do diretório de trabalho
+WORKDIR /app
+
+# Copiar o código compilado do frontend React para o contêiner
+COPY --from=builder /app/build /app
+
+# Comando para iniciar o servidor HTTP do React
+CMD ["npx", "serve", "-s", "."]
+
+EXPOSE 3000
