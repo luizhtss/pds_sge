@@ -1,0 +1,25 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+sge-frontend/node_modules
+sge-frontend/pnp
+sge-frontend/pnp.js
+
+# testing
+sge-frontend/coverage
+
+# production
+sge-frontend/build
+
+# misc
+sge-frontend/.DS_Store
+sge-frontend/.env.local
+sge-frontend/.env.development.local
+sge-frontend/.env.test.local
+sge-frontend/.env.production.local
+
+sge-frontend/npm-debug.log*
+sge-frontend/yarn-debug.log*
+sge-frontend/yarn-error.log*
+
+.idea
