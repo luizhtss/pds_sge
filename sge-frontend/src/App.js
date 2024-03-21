@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import ReactHookFormDemo from './new_form/Form'; 
 
-function App() {
+/*function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +19,14 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
+  );
+}*/
+
+function App() {
+  return (
+    <div className="app">
+      <ReactHookFormDemo /> {/* Adicione o componente Form */}
     </div>
   );
 }
