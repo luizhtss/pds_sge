@@ -4,7 +4,7 @@ services:
   springboot:
     build:
       context: .
-      dockerfile: sge/Dockerfile.springboot
+      dockerfile: sge/Dockerfile
     ports:
       - "8080:8080"  # Mapear a porta do contêiner para a porta do host
     depends_on:
