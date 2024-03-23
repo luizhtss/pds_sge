@@ -26,4 +26,27 @@ public class Discente {
     private List<MatriculaDiscente> matriculaDiscente;
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public DadosPessoais getDadosPessoais() {
+        return dadosPessoais;
+    }
+
+    public void setDadosPessoais(DadosPessoais dadosPessoais) {
+        this.dadosPessoais = dadosPessoais;
+    }
+
+    public List<MatriculaDiscente> getMatriculaDiscente() {
+        return matriculaDiscente;
+    }
+
+    public void setMatriculaDiscente(List<MatriculaDiscente> matriculaDiscente) {
+        this.matriculaDiscente = matriculaDiscente;
+    }
 }

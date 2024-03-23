@@ -15,24 +15,24 @@ import java.util.Optional;
 public class DadosPessoaisService {
 
     @Autowired
-    private DadosPessoaisRepository pessoaRepository;
+    private DadosPessoaisRepository dadosPessoaisRepository;
 
     public List<DadosPessoais> listarTodos() {
-        return pessoaRepository.findAll();
+        return dadosPessoaisRepository.findAll();
     }
 
     public Optional<DadosPessoais> encontrarPorId(Long id) {
-        return pessoaRepository.findById(id);
+        return dadosPessoaisRepository.findById(id);
     }
 
     @Transactional
     public DadosPessoais salvar(DadosPessoais pessoa) {
-        return pessoaRepository.save(pessoa);
+        return dadosPessoaisRepository.save(pessoa);
     }
 
     @Transactional
     public void deletar(Long id) {
-        pessoaRepository.deleteById(id);
+        dadosPessoaisRepository.deleteById(id);
     }
 
     public List<DadosPessoais> buscarDadosPeloAnoDeCriacao(int ano) {
@@ -41,6 +41,6 @@ public class DadosPessoaisService {
 
         Date data = calendar.getTime();
 
-        return pessoaRepository.findByYearOfCreation(data);
+        return dadosPessoaisRepository.findByYearOfCreation(data);
     }
 }

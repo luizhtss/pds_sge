@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/pessoas")
+@RequestMapping(path="/api/pessoas", produces="application/json")
 public class DadosPessoaisController {
 
     @Autowired
@@ -24,10 +24,14 @@ public class DadosPessoaisController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosPessoais> obterPessoaPorId(@PathVariable Long id) {
+    public ResponseEntity<?> obterPessoaPorId(@PathVariable Long id) {
         Optional<DadosPessoais> pessoa = dadosPessoaisService.encontrarPorId(id);
-        return pessoa.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+
+        if (pessoa.isPresent()){
+            return ResponseEntity.ok().body(pessoa.get());
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa com o ID " + id + " não encontrada");
+        }
     }
 
     @PostMapping
