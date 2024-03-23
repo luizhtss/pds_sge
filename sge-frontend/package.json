@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "final-form": "^4.20.10",
+    "nodemon": "^3.1.0",
+    "npm-watch": "^0.11.0",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primereact": "^10.5.3",
@@ -18,11 +20,15 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "watch": {
+    "test": "{src,test}/*.js"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-watch": "WATCHPACK_POLLING=true react-scripts start"
   },
   "eslintConfig": {
     "extends": [

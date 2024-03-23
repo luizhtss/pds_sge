@@ -7,9 +7,6 @@ COPY sge ./
 
 RUN ./mvnw package -DskipTests
 
-# Etapa de compilação para o aplicativo React
-FROM node:alpine AS react
-
 # Etapa final de construção
 FROM openjdk:17-jdk-slim
 
