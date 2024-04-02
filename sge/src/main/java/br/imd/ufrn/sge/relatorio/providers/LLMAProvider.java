@@ -1,7 +1,7 @@
 package br.imd.ufrn.sge.relatorio.providers;
 
 import br.imd.ufrn.sge.models.relatorio.Relatorio;
-import br.imd.ufrn.sge.relatorio.IRelatorioProvider;
+import br.imd.ufrn.sge.relatorio.interfaces.IRelatorioProvider;
 import br.imd.ufrn.sge.relatorio.configuration.LLMAProviderConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

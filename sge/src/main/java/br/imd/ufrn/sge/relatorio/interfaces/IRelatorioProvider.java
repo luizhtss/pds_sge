@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.relatorio;
+package br.imd.ufrn.sge.relatorio.interfaces;
 
 import br.imd.ufrn.sge.models.relatorio.Relatorio;
 
