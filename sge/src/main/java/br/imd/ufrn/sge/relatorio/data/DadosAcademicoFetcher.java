@@ -1,10 +1,11 @@
-package br.imd.ufrn.sge.relatorio.providers;
+package br.imd.ufrn.sge.relatorio.data;
 
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
+import br.imd.ufrn.sge.relatorio.interfaces.IDataFetcher;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataProvider {
+public class DadosAcademicoFetcher implements IDataFetcher {
 
     // Por hora, hardcoded.
     public String fetchData(MatriculaDiscente matriculaDiscente){
