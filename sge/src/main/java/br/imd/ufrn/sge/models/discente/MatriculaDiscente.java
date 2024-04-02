@@ -21,27 +21,27 @@ public class MatriculaDiscente {
     private Discente discente;
 
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
-    private void setMatricula(String matricula) {
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
-    private String getMatricula() {
+    public String getMatricula() {
         return matricula;
     }
 
-    private void setDiscente(Discente discente) {
+    public void setDiscente(Discente discente) {
         this.discente = discente;
     }
 
-    private Discente getDiscente() {
+    public Discente getDiscente() {
         return discente;
     }
 
