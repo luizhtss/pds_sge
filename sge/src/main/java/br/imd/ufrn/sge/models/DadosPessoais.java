@@ -10,7 +10,7 @@ import java.util.Date;
 public class DadosPessoais {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_dados_pessoais", nullable = false)
     private Long id;
 
