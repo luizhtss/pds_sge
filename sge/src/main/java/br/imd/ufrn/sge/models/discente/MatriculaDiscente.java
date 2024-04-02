@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class MatriculaDiscente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_matricula_discente", nullable = false)
     private Long id;
 
@@ -19,7 +19,6 @@ public class MatriculaDiscente {
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)
     private Discente discente;
-
 
     public void setId(Long id) {
         this.id = id;
