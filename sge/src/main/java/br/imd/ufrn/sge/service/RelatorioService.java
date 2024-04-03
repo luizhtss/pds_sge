@@ -4,7 +4,7 @@ import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 import br.imd.ufrn.sge.relatorio.data.DadosAcademicoFetcher;
 import br.imd.ufrn.sge.relatorio.data.DadosObservacaoFetcher;
-import br.imd.ufrn.sge.relatorio.interfaces.IRelatorioProvider;
+import br.imd.ufrn.sge.relatorio.interfaces.ILLMProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,12 @@ public class RelatorioService {
     @Autowired
     DadosObservacaoFetcher dadosObservacaoFetcher;
 
-    public Relatorio obterRelatorioAcademico(IRelatorioProvider relatorioProvider,MatriculaDiscente matriculaDiscente){
+    public Relatorio obterRelatorioAcademico(ILLMProvider relatorioProvider, MatriculaDiscente matriculaDiscente){
         String data = dadosAcademicoFetcher.fetchData(matriculaDiscente);
         return relatorioProvider.gerarRelatorioBaseAcademico(data);
     }
 
-    public Relatorio obterRelatorioPessoal(IRelatorioProvider relatorioProvider,MatriculaDiscente matriculaDiscente){
+    public Relatorio obterRelatorioPessoal(ILLMProvider relatorioProvider, MatriculaDiscente matriculaDiscente){
         String data = dadosAcademicoFetcher.fetchData(matriculaDiscente);
         return relatorioProvider.gerarRelatorioBasePessoal(data);
     }

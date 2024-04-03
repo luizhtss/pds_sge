@@ -2,7 +2,7 @@ package br.imd.ufrn.sge.relatorio.interfaces;
 
 import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 
-public interface IRelatorioProvider {
+public interface ILLMProvider {
     Relatorio gerarRelatorioBasePessoal(String data);
     Relatorio gerarRelatorioBaseAcademico(String data);
 }
