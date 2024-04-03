@@ -1,7 +1,7 @@
 package br.imd.ufrn.sge.service;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
-import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
+import br.imd.ufrn.sge.relatorio.repository.DadosPessoaisRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

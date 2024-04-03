@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.models.relatorio;
+package br.imd.ufrn.sge.relatorio.relatorio;
 
 
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "tipo_relatorio")
-public class Relatorio {
+public abstract class Relatorio {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

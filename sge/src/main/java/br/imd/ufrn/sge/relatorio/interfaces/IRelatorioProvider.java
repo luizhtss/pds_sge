@@ -1,7 +1,8 @@
 package br.imd.ufrn.sge.relatorio.interfaces;
 
-import br.imd.ufrn.sge.models.relatorio.Relatorio;
+import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 
 public interface IRelatorioProvider {
-    Relatorio gerarRelatorioBase(String data);
+    Relatorio gerarRelatorioBasePessoal(String data);
+    Relatorio gerarRelatorioBaseAcademico(String data);
 }

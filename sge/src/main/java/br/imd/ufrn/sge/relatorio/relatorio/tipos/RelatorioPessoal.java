@@ -1,6 +1,6 @@
-package br.imd.ufrn.sge.models.relatorio.tipos;
+package br.imd.ufrn.sge.relatorio.relatorio.tipos;
 
-import br.imd.ufrn.sge.models.relatorio.Relatorio;
+import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 

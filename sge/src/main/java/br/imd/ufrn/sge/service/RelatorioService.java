@@ -1,9 +1,10 @@
 package br.imd.ufrn.sge.service;
 
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
-import br.imd.ufrn.sge.models.relatorio.Relatorio;
+import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 import br.imd.ufrn.sge.relatorio.data.DadosAcademicoFetcher;
-import br.imd.ufrn.sge.relatorio.providers.LLMAProvider;
+import br.imd.ufrn.sge.relatorio.data.DadosObservacaoFetcher;
+import br.imd.ufrn.sge.relatorio.interfaces.IRelatorioProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,20 @@ import org.springframework.stereotype.Service;
 public class RelatorioService {
 
     @Autowired
-    LLMAProvider llmaProvider;
+    DadosAcademicoFetcher dadosAcademicoFetcher;
 
     @Autowired
-    DadosAcademicoFetcher dataProvider;
+    DadosObservacaoFetcher dadosObservacaoFetcher;
 
-    public Relatorio obterRelatorio(MatriculaDiscente matriculaDiscente){
-       Relatorio relatorio = llmaProvider.gerarRelatorioBase(dataProvider.fetchData(matriculaDiscente));
-       return relatorio;
+    public Relatorio obterRelatorioAcademico(IRelatorioProvider relatorioProvider,MatriculaDiscente matriculaDiscente){
+        String data = dadosAcademicoFetcher.fetchData(matriculaDiscente);
+        return relatorioProvider.gerarRelatorioBaseAcademico(data);
     }
+
+    public Relatorio obterRelatorioPessoal(IRelatorioProvider relatorioProvider,MatriculaDiscente matriculaDiscente){
+        String data = dadosAcademicoFetcher.fetchData(matriculaDiscente);
+        return relatorioProvider.gerarRelatorioBasePessoal(data);
+    }
+
 
 }
