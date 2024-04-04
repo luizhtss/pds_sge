@@ -25,6 +25,10 @@ public class DadosPessoaisService {
         return dadosPessoaisRepository.findById(id);
     }
 
+    public List<DadosPessoais> findByName(String name) {
+        return dadosPessoaisRepository.findByName(name);
+    }
+
     @Transactional
     public DadosPessoais salvar(DadosPessoais pessoa) {
         return dadosPessoaisRepository.save(pessoa);

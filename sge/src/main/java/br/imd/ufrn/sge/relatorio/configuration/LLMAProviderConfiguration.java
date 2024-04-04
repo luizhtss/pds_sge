@@ -56,4 +56,5 @@ public class LLMAProviderConfiguration {
     public OkHttpClient okHttpClient() {
         return new OkHttpClient();
     }
+
 }

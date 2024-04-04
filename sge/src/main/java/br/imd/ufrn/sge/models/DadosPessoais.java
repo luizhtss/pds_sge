@@ -14,7 +14,7 @@ public class DadosPessoais {
     @Column(name = "id_dados_pessoais", nullable = false)
     private Long id;
 
-    @Column(nullable = false, name = "nome")
+    @Column(name = "nome")
     private String nome;
 
     @Column(name = "email")

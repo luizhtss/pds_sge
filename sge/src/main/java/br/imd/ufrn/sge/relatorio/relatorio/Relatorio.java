@@ -28,7 +28,7 @@ public abstract class Relatorio {
     }
 
     @Column(name = "melhorado_por_ia", insertable = false, updatable = false)
-    private boolean enchancedByAI;
+    private boolean enhancedByAI;
 
     public Long getId() {
         return id;
@@ -47,9 +47,9 @@ public abstract class Relatorio {
     }
 
     public boolean isEnchancedByAI() {
-        return enchancedByAI;
+        return enhancedByAI;
     }
     public void setEnchancedByAI(boolean enchancedByAI) {
-        this.enchancedByAI = enchancedByAI;
+        this.enhancedByAI = enchancedByAI;
     }
 }

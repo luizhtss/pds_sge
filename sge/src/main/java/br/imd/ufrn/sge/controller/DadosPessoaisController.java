@@ -34,7 +34,13 @@ public class DadosPessoaisController {
         }
     }
 
-    @PostMapping
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<DadosPessoais>> buscarPessoasPeloNome(@PathVariable String nome) {
+        List<DadosPessoais> pessoas = dadosPessoaisService.findByName(nome);
+        return ResponseEntity.ok().body(pessoas);
+    }
+
+    @PostMapping("/criar")
     public ResponseEntity<DadosPessoais> criarPessoa(@RequestBody DadosPessoais pessoa) {
         DadosPessoais novaPessoa = dadosPessoaisService.salvar(pessoa);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaPessoa);
@@ -44,8 +50,9 @@ public class DadosPessoaisController {
     public ResponseEntity<DadosPessoais> atualizarPessoa(@PathVariable Long id, @RequestBody DadosPessoais pessoa) {
         Optional<DadosPessoais> pessoaExistente = dadosPessoaisService.encontrarPorId(id);
         if (pessoaExistente.isPresent()) {
-            pessoa.setId(id);
-            DadosPessoais pessoaAtualizada = dadosPessoaisService.salvar(pessoa);
+            DadosPessoais dadosPessoais = pessoaExistente.get();
+            dadosPessoais.setEmail(pessoa.getEmail());
+            DadosPessoais pessoaAtualizada = dadosPessoaisService.salvar(dadosPessoais);
             return ResponseEntity.ok().body(pessoaAtualizada);
         } else {
             return ResponseEntity.notFound().build();

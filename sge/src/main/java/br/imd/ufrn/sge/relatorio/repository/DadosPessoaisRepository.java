@@ -13,5 +13,8 @@ import java.util.List;
 public interface DadosPessoaisRepository extends JpaRepository<DadosPessoais, Long> {
     @Query("SELECT p FROM DadosPessoais p WHERE YEAR(p.dataCriacao) = YEAR(:dataCriacao)")
     List<DadosPessoais> findByYearOfCreation(@Param("dataCriacao") Date dataCriacao);
+
+    @Query("SELECT p FROM DadosPessoais p WHERE p.nome = :nome")
+    List<DadosPessoais> findByName(@Param("nome") String nome);
 }
 
