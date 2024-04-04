@@ -2,6 +2,7 @@ package br.imd.ufrn.sge.models.discente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
 import jakarta.persistence.*;
+import br.imd.ufrn.sge.models.responsavel.Responsavel;
 
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class Discente {
     @OneToMany(mappedBy = "discente")
     private List<MatriculaDiscente> matriculaDiscente;
 
+    /**
+     * Responsável pelo discente.
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_responsavel", nullable = false)
+    private Responsavel responsavel;
 
     public Long getId() {
         return id;
