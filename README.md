@@ -27,7 +27,7 @@ cd pds_sge
 2. Execute o Docker Compose para criar e iniciar os contêineres Docker:
 
 ```bash
-docker-compose up 
+docker compose up 
 ```
 
 3. Aguarde até que todos os contêineres sejam construídos e iniciados. Isso pode levar alguns minutos na primeira execução.
