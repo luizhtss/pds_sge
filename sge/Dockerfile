@@ -5,7 +5,10 @@ WORKDIR /appback/backend
 
 COPY sge ./
 
-RUN ./mvnw package -DskipTests
+RUN chmod +x mvnw && ./mvnw package -DskipTests
+
+# Install PostgreSQL client
+RUN apt-get update && apt-get install -y postgresql-client
 
 # Etapa final de construção
 FROM openjdk:17-jdk-slim
