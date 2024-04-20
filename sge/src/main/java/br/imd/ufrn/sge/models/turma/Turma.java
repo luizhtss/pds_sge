@@ -15,7 +15,7 @@ public class Turma {
     @Column(name = "id_turma", nullable = false)
     private Long id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome")
     private String nome;
 
     @ManyToMany(mappedBy = "turmas")
