@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.models.turma;
 
 import br.imd.ufrn.sge.models.docente.Docente;
+import br.imd.ufrn.sge.models.docente.MatriculaDocente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ public class Turma {
 
 
     @ManyToMany(mappedBy = "turmas")
-    private Set<Docente> docentes;
+    private Set<MatriculaDocente> docentes;
 
     /**
      * Definindo junção de turmas com materias

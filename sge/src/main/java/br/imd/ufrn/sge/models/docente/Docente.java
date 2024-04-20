@@ -24,20 +24,8 @@ public class Docente {
      * Matrículas do docente
      * 1 docente pode ter várias matrículas.
      */
-    @OneToMany(mappedBy = "docente")
+    @OneToMany(mappedBy = "matriculaDocente")
     private List<MatriculaDocente> matriculaDocente;
-
-    /**
-     * Definindo junção de docente com turmas
-     * */
-    @ManyToMany
-    @JoinTable(
-            name = "DocenteTurma",
-            joinColumns = @JoinColumn(name = "id_docente"),
-            inverseJoinColumns = @JoinColumn(name = "id_turma")
-    )
-    Set<Turma> turmas;
-
 
     public Long getId() {
         return id;

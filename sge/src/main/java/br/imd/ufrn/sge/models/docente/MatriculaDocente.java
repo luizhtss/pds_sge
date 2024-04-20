@@ -1,6 +1,9 @@
 package br.imd.ufrn.sge.models.docente;
 
+import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 public class MatriculaDocente {
@@ -18,7 +21,16 @@ public class MatriculaDocente {
      */
     @ManyToOne
     @JoinColumn(name = "id_docente", nullable = false)
-    private Docente MatriculaDocente;
+    private Docente matriculaDocente;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "DocenteTurma",
+            joinColumns = @JoinColumn(name = "id_docente"),
+            inverseJoinColumns = @JoinColumn(name = "id_turma")
+    )
+    private Set<Turma> turmas;
 
     public void setId(Long id) {
         this.id = id;
@@ -37,11 +49,11 @@ public class MatriculaDocente {
     }
 
     public void setDocente(Docente docente) {
-        this.MatriculaDocente = docente;
+        this.matriculaDocente = docente;
     }
 
     public Docente getDocente() {
-        return MatriculaDocente;
+        return matriculaDocente;
     }
 
     public MatriculaDocente() {

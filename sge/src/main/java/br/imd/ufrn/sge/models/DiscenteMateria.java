@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.models;
 import br.imd.ufrn.sge.models.discente.Discente;
+import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import jakarta.persistence.*;
 @Entity
@@ -12,7 +13,7 @@ public class DiscenteMateria {
 
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)
-    private Discente discente;
+    private MatriculaDiscente discente;
 
     @ManyToOne
     @JoinColumn(name = "id_materia", nullable = false)
@@ -59,11 +60,11 @@ public class DiscenteMateria {
         this.unidade3 = unidade3;
     }
 
-    public Discente getDiscente() {
+    public MatriculaDiscente getDiscente() {
         return discente;
     }
 
-    public void setDiscente(Discente discente) {
+    public void setDiscente(MatriculaDiscente discente) {
         this.discente = discente;
     }
 
