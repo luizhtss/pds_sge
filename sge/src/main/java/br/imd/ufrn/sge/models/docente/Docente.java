@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.models.docente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
+import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 
 import java.util.List;

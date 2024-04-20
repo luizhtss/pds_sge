@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.models.discente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
+import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 import br.imd.ufrn.sge.models.responsavel.Responsavel;
 
@@ -17,6 +18,13 @@ public class Discente {
     @OneToOne
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
+
+    /**
+     * Turma do discente.
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_turma", nullable = false)
+    private Turma turma;
 
 
     /**

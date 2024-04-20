@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.models.materia;
 
+import br.imd.ufrn.sge.models.docente.Docente;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +10,17 @@ public class Materia {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_materia", nullable = false)
     private Long id;
+
     @Column(name = "nome_materia", nullable = false)
     private String nome;
+
+    /**
+     * Professor da matéria
+     */
+    @ManyToOne
+    @JoinColumn(name = "id_docente", nullable = false)
+    private Docente docente;
+
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
