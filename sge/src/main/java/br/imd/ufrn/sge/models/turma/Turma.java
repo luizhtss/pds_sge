@@ -15,6 +15,8 @@ public class Turma {
     @Column(name = "id_turma", nullable = false)
     private Long id;
 
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
     @ManyToMany(mappedBy = "turmas")
     private Set<MatriculaDocente> docentes;
@@ -37,6 +39,14 @@ public class Turma {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 
