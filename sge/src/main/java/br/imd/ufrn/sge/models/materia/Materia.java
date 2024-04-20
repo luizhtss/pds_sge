@@ -12,10 +12,10 @@ public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_materia", nullable = false)
-    private Long id;
+    private Long id_materia;
 
     @Column(name = "nome_materia", nullable = false)
-    private String nome;
+    private String nome_materia;
 
     /**
      * Professor da matéria
@@ -31,19 +31,19 @@ public class Materia {
     private Set<Turma> turmas;
 
     public Long getId() {
-        return id;
+        return id_materia;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_materia= id;
     }
 
     public String getNome() {
-        return nome;
+        return nome_materia;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome_materia= nome;
     }
 
     public String getDescricao() {
