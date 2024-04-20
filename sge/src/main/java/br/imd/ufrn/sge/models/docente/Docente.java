@@ -1,10 +1,12 @@
 package br.imd.ufrn.sge.models.docente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
+import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Docente {
@@ -24,6 +26,17 @@ public class Docente {
      */
     @OneToMany(mappedBy = "docente")
     private List<MatriculaDocente> matriculaDocente;
+
+    /**
+     * Definindo junção de docente com turmas
+     * */
+    @ManyToMany
+    @JoinTable(
+            name = "DocenteTurma",
+            joinColumns = @JoinColumn(name = "id_docente"),
+            inverseJoinColumns = @JoinColumn(name = "id_turma")
+    )
+    Set<Turma> turmas;
 
 
     public Long getId() {

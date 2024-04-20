@@ -18,13 +18,6 @@ public class Responsavel {
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
 
-    /**
-     * Discentes dos quais este responsável é responsável.
-     * Um responsável pode ser responsável por vários discentes.
-     */
-    @OneToMany
-    @JoinColumn(name = "id_responsavel") // Esta coluna deve existir em Discente para referenciar o responsável.
-    private List<Discente> discentes;
 
     // Getters e Setters
     public Long getId() {
@@ -43,12 +36,6 @@ public class Responsavel {
         this.dadosPessoais = dadosPessoais;
     }
 
-    public List<Discente> getDiscentes() {
-        return discentes;
-    }
 
-    public void setDiscentes(List<Discente> discentes) {
-        this.discentes = discentes;
-    }
 
 }
