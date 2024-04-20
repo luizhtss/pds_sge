@@ -1,7 +1,10 @@
 package br.imd.ufrn.sge.models.materia;
 
 import br.imd.ufrn.sge.models.docente.Docente;
+import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 public class Materia {
@@ -23,6 +26,9 @@ public class Materia {
 
     @Column(name = "descricao", nullable = false)
     private String descricao;
+
+    @ManyToMany(mappedBy = "materias")
+    private Set<Turma> turmas;
 
     public Long getId() {
         return id;
