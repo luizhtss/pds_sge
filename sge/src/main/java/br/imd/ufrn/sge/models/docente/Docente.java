@@ -17,7 +17,6 @@ public class Docente {
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
 
-
     /**
      * Matrículas do docente
      * 1 docente pode ter várias matrículas.
