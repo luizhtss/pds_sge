@@ -24,7 +24,7 @@ public class AssociacaoPessoaService {
     @Autowired
     MatriculaDiscenteService matriculaDiscenteService;
 
-    public void associarPessoaDiscente(Long idPessoa) throws IllegalArgumentException {
+    public MatriculaDiscente associarPessoaDiscente(Long idPessoa) throws IllegalArgumentException {
      Optional<DadosPessoais> dp =  dadosPessoaisService.encontrarPorId(idPessoa);
         if(dp.isPresent()){
             int anoAtual = Year.now().getValue();
@@ -48,7 +48,7 @@ public class AssociacaoPessoaService {
                     .withAno(anoAtual)
                     .withMatricula(matricula).build();
 
-            matriculaDiscenteService.salvarMatricula(matriculaDiscenteBuilder);
+            return matriculaDiscenteService.salvarMatricula(matriculaDiscenteBuilder);
         }else {
             throw new IllegalArgumentException("Pessoa com o ID " + idPessoa + " não encontrada");
         }

@@ -20,7 +20,5 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
     @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Turma t JOIN t.discentes d WHERE d.id = :idDiscente AND t.id = :idTurma")
     boolean isDiscenteMatriculado(@Param("idDiscente") Long idDiscente, @Param("idTurma") Long idTurma);
 
-    @Query("UPDATE Turma t SET t.discentes = :idMatriculaDiscente WHERE t.id = :idTurma")
-    void matricularDiscente(Long idMatriculaDiscente, Long idTurma);
 }
 

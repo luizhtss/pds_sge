@@ -21,6 +21,10 @@ public class MatriculaDiscenteService {
         return matriculaDiscenteRepository.findByIdDiscente(idDiscente);
     }
 
+    public Optional<MatriculaDiscente> findById(Long id) {
+        return matriculaDiscenteRepository.findById(id);
+    }
+
     public Optional<MatriculaDiscente> encontrarMatriculaPorIdMatriculaEAno(Long idMatricula, int ano) {
         return matriculaDiscenteRepository.findByIdMatriculaAndAno(idMatricula, ano);
     }
