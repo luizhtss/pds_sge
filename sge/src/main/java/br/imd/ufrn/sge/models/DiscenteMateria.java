@@ -8,25 +8,25 @@ public class DiscenteMateria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_notas_aluno", nullable = false)
+    @Column(name = "id_discente_materia", nullable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_discente", nullable = false)
-    private MatriculaDiscente discente;
+    @JoinColumn(name = "matricula_discente", nullable = false)
+    private MatriculaDiscente matricula_discente;
 
     @ManyToOne
     @JoinColumn(name = "id_materia", nullable = false)
     private Materia materia;
 
-    @Column(name = "nota_unidade_1")
-    private float unidade1;
+    @Column(name = "unidade_1")
+    private Float unidade1;
 
-    @Column(name = "nota_unidade_1")
-    private float unidade2;
+    @Column(name = "unidade_2")
+    private Float unidade2;
 
-    @Column(name = "nota_unidade_1")
-    private float unidade3;
+    @Column(name = "unidade_3")
+    private Float unidade3;
 
     public Long getId() {
         return id;
@@ -36,36 +36,36 @@ public class DiscenteMateria {
         this.id = id;
     }
 
-    public float getUnidade1() {
+    public Float getUnidade1() {
         return unidade1;
     }
 
-    public void setUnidade1(float unidade1) {
+    public void setUnidade1(Float unidade1) {
         this.unidade1 = unidade1;
     }
 
-    public float getUnidade2() {
+    public Float getUnidade2() {
         return unidade2;
     }
 
-    public void setUnidade2(float unidade2) {
+    public void setUnidade2(Float unidade2) {
         this.unidade2 = unidade2;
     }
 
-    public float getUnidade3() {
+    public Float getUnidade3() {
         return unidade3;
     }
 
-    public void setUnidade3(float unidade3) {
+    public void setUnidade3(Float unidade3) {
         this.unidade3 = unidade3;
     }
 
     public MatriculaDiscente getDiscente() {
-        return discente;
+        return matricula_discente;
     }
 
-    public void setDiscente(MatriculaDiscente discente) {
-        this.discente = discente;
+    public void setDiscente(MatriculaDiscente matricula_discente) {
+        this.matricula_discente = matricula_discente;
     }
 
     public Materia getMateria() {

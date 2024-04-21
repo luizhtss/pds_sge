@@ -1,6 +1,5 @@
 package br.imd.ufrn.sge.models.discente;
 
-import br.imd.ufrn.sge.models.DadosPessoais;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,78 +12,38 @@ public class MatriculaDiscente {
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
 
+    /**
+     * Discente que está matriculado.
+     * Um discente pode ter várias matrículas.
+     */
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)
     private Discente discente;
 
-    @Column(name = "ano", nullable = false)
-    private int ano;
-
-
-    public MatriculaDiscente() {
-
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    // Getter para o ID
     public Long getId() {
         return id;
     }
 
-    // Getter para a matrícula
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
     public String getMatricula() {
         return matricula;
     }
 
-    // Getter para o discente
+    public void setDiscente(Discente discente) {
+        this.discente = discente;
+    }
+
     public Discente getDiscente() {
         return discente;
     }
 
-    // Getter para o ano
-    public int getAno() {
-        return ano;
-    }
-
-    // Classe Builder estática dentro da classe MatriculaDiscente
-    public static class Builder {
-        private String matricula;
-        private Discente discente;
-        private int ano;
-
-        // Construtor do Builder com os campos obrigatórios
-        public Builder(String matricula, Discente discente) {
-            this.matricula = matricula;
-            this.discente = discente;
-        }
-
-        public Builder() {
-
-        }
-
-        // Método para configurar a matrícula
-        public Builder withMatricula(String matricula) {
-            this.matricula = matricula;
-            return this;
-        }
-
-        // Método para configurar o discente
-        public Builder withDiscente(Discente discente) {
-            this.discente = discente;
-            return this;
-        }
-
-        // Método para configurar o ano
-        public Builder withAno(int ano) {
-            this.ano = ano;
-            return this;
-        }
-
-        // Método para construir uma instância de MatriculaDiscente
-        public MatriculaDiscente build() {
-            MatriculaDiscente matriculaDiscente = new MatriculaDiscente();
-            matriculaDiscente.matricula = this.matricula;
-            matriculaDiscente.discente = this.discente;
-            return matriculaDiscente;
-        }
+    public MatriculaDiscente() {
     }
 }

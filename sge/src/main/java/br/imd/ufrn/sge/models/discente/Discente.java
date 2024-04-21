@@ -1,14 +1,17 @@
 package br.imd.ufrn.sge.models.discente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
+import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
-import br.imd.ufrn.sge.models.responsavel.Responsavel;
 import jakarta.persistence.*;
+import br.imd.ufrn.sge.models.responsavel.Responsavel;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Discente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_discente", nullable = false)
@@ -18,32 +21,42 @@ public class Discente {
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
 
+    /**
+     * Turma do discente.
+     */
     @ManyToOne
-    @JoinColumn(name = "id_turma", nullable = true)
+    @JoinColumn(name = "id_turma", nullable = false)
     private Turma turma;
 
+    /**
+     * Responsável pelo discente.
+     */
     @OneToMany(mappedBy = "discente")
     private List<MatriculaDiscente> matriculaDiscente;
 
+    /**
+     * Responsável pelo discente.
+     */
     @ManyToOne
-    @JoinColumn(name = "id_responsavel", nullable = true)
+    @JoinColumn(name = "id_responsavel", nullable = false)
     private Responsavel responsavel;
 
 
-    public Discente() {
-
-    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public DadosPessoais getDadosPessoais() {
         return dadosPessoais;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public void setDadosPessoais(DadosPessoais dadosPessoais) {
+        this.dadosPessoais = dadosPessoais;
     }
 
     public List<MatriculaDiscente> getMatriculaDiscente() {

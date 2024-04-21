@@ -50,6 +50,7 @@ public class TurmaController {
         Optional<Turma> turmaExistente = turmaService.encontrarPorId(id);
         if (turmaExistente.isPresent()) {
             Turma turma = turmaExistente.get();
+            turma.setNome(t.getNome());
             Turma turmaAtualizada = turmaService.salvar(turma);
             return ResponseEntity.ok().body(turmaAtualizada);
         } else {
