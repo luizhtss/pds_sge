@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.repository.TurmaRepository;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,9 @@ public class TurmaService {
 
     @Autowired
     private TurmaRepository turmaRepository;
+
+    @Autowired
+    MatriculaDiscenteService matriculaDiscenteService;
 
     public List<Turma> listarTodos() {
         return turmaRepository.findAll();
@@ -42,6 +46,18 @@ public class TurmaService {
     }
 
     public void matricularDiscente(Long idMatriculaDiscente, Long idTurma) {
-        turmaRepository.matricularDiscente(idMatriculaDiscente, idTurma);
+        Optional<Turma> turma = turmaRepository.findById(idTurma);
+        if (turma.isPresent()){
+            Optional<MatriculaDiscente> matriculaDiscente = matriculaDiscenteService.findById(idMatriculaDiscente);
+
+            if (matriculaDiscente.isEmpty()){
+                throw new IllegalArgumentException("Matricula de discente com o ID " + idMatriculaDiscente + " não encontrada");
+            }
+
+            turma.get().getDiscentes().add(matriculaDiscente.get());
+            turmaRepository.save(turma.get());
+        }else {
+            throw new IllegalArgumentException("Turma com o ID " + idTurma + " não encontrada");
+        }
     }
 }

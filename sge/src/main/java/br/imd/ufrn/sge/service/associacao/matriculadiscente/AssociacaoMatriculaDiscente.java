@@ -19,7 +19,7 @@ public class AssociacaoMatriculaDiscente {
     @Autowired
     TurmaService turmaService;
 
-    public void associarMatriculaDiscenteEmTurma(Long idMatriculaDiscente, Long idTurma) {
+    public void associarMatriculaDiscenteEmTurma(Long idMatriculaDiscente, Long idTurma) throws IllegalArgumentException{
         Optional<MatriculaDiscente> matriculaDiscenteDB = matriculaDiscenteService.encontrarMatriculaPorIdMatriculaEAno(idMatriculaDiscente, Year.now().getValue());
         if (matriculaDiscenteDB.isPresent()){
             if (turmaService.encontrarPorId(idTurma).isPresent()){

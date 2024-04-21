@@ -1,11 +1,13 @@
 package br.imd.ufrn.sge.models.turma;
 
+import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.models.docente.MatriculaDocente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,8 +24,13 @@ public class Turma {
     @ManyToMany(mappedBy = "turmas")
     private Set<MatriculaDocente> docentes;
 
-     @ManyToMany(mappedBy = "turmas")
-     private Set<MatriculaDiscente> discentes;
+    @ManyToMany
+    @JoinTable(
+            name = "matricula_turma",
+            joinColumns = @JoinColumn(name = "id_turma"),
+            inverseJoinColumns = @JoinColumn(name = "id_matricula")
+    )
+    private Set<MatriculaDiscente> discentes;
 
 
     /**
@@ -36,6 +43,11 @@ public class Turma {
             inverseJoinColumns = @JoinColumn(name = "id_materia")
     )
     Set<Materia> materias;
+
+
+    public Set<MatriculaDiscente> getDiscentes(){
+        return this.discentes;
+    }
 
 
     public Long getId() {
