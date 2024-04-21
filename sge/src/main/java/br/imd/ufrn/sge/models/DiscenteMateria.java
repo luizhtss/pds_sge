@@ -28,7 +28,7 @@ public class DiscenteMateria {
     private Float unidade3;
 
     @Column(name = "presenca")
-    private Integer presenca;
+    private Integer presenca = 0;
 
     public Long getId() {
         return id;
