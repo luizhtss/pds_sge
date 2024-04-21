@@ -22,7 +22,6 @@ public class Turma {
     @ManyToMany(mappedBy = "turmas")
     private Set<MatriculaDocente> docentes;
 
-    // Discentes
      @ManyToMany(mappedBy = "turmas")
      private Set<MatriculaDiscente> discentes;
 

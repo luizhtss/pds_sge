@@ -1,7 +1,6 @@
 package br.imd.ufrn.sge.controller;
 
 import br.imd.ufrn.sge.models.materia.Materia;
-import br.imd.ufrn.sge.relatorio.repository.MateriaRepository;
 import br.imd.ufrn.sge.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
