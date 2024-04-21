@@ -41,7 +41,7 @@ public class NotaController {
             if (!notasEncontradas.isEmpty()) {
                 return ResponseEntity.ok().body(notasEncontradas);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno com a matrícula" + matricula_discente + " não encontrados");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno com a matrícula " + matricula_discente + " não encontrado");
             }
         }
 
@@ -52,7 +52,7 @@ public class NotaController {
             if (!notasEncontradas.isEmpty()) {
                 return ResponseEntity.ok().body(notasEncontradas);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Matéria com o ID" + id + " não encontrada");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Matéria com o ID " + id + " não encontrada");
             }
         }
 

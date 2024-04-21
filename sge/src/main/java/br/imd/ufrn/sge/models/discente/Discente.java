@@ -28,11 +28,14 @@ public class Discente {
     @JoinColumn(name = "id_turma", nullable = false)
     private Turma turma;
 
+
+    /*
     /**
      * Responsável pelo discente.
-     */
+
     @OneToMany(mappedBy = "discente")
     private List<MatriculaDiscente> matriculaDiscente;
+    */
 
     /**
      * Responsável pelo discente.
@@ -59,9 +62,9 @@ public class Discente {
         this.dadosPessoais = dadosPessoais;
     }
 
-    public List<MatriculaDiscente> getMatriculaDiscente() {
+    /*public List<MatriculaDiscente> getMatriculaDiscente() {
         return matriculaDiscente;
-    }
+    }*/
 
     public Responsavel getResponsavel() {
         return responsavel;
@@ -70,7 +73,7 @@ public class Discente {
     public static class Builder {
         private DadosPessoais dadosPessoais;
         private Turma turma;
-        private List<MatriculaDiscente> matriculaDiscente;
+       /* private List<MatriculaDiscente> matriculaDiscente;*/
         private Responsavel responsavel;
 
         public Builder() {}
@@ -85,11 +88,11 @@ public class Discente {
             return this;
         }
 
-        public Builder withMatriculaDiscente(List<MatriculaDiscente> matriculaDiscente) {
+      /*  public Builder withMatriculaDiscente(List<MatriculaDiscente> matriculaDiscente) {
             this.matriculaDiscente = matriculaDiscente;
             return this;
         }
-
+    */
         public Builder withResponsavel(Responsavel responsavel) {
             this.responsavel = responsavel;
             return this;
@@ -99,7 +102,7 @@ public class Discente {
             Discente discente = new Discente();
             discente.dadosPessoais = this.dadosPessoais;
             discente.turma = this.turma;
-            discente.matriculaDiscente = this.matriculaDiscente;
+            /*discente.matriculaDiscente = this.matriculaDiscente;*/
             discente.responsavel = this.responsavel;
             return discente;
         }

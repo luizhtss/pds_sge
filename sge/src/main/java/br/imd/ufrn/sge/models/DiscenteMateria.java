@@ -1,5 +1,4 @@
 package br.imd.ufrn.sge.models;
-import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import jakarta.persistence.*;

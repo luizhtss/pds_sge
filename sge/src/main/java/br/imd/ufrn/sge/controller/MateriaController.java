@@ -55,8 +55,10 @@ public class MateriaController {
         Optional<Materia> materiaExistente = materiaService.encontrarPorId(id);
         if (materiaExistente.isPresent()) {
             Materia dadosMateria = materiaExistente.get();
-            dadosMateria.setNome(materia.getNome());
-            dadosMateria.setDescricao(materia.getDescricao());
+            if(materia.getNome() != null)
+                dadosMateria.setNome(materia.getNome());
+            if(materia.getDescricao() != null)
+                dadosMateria.setDescricao(materia.getDescricao());
             Materia materiaAtualizada = materiaService.salvar(dadosMateria);
             return ResponseEntity.ok().body(materiaAtualizada);
         } else {
