@@ -19,6 +19,15 @@ public class MatriculaDiscente {
     @JoinColumn(name = "id_discente", nullable = false)
     private Discente discente;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status = Status.MATRICULADO;
+
+    public enum Status {
+        MATRICULADO,
+        APROVADO,
+        REPROVADO
+    }
 
     @Column(name = "ano", nullable = false)
     private int ano;

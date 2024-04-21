@@ -76,13 +76,6 @@ public class Discente {
        /* private List<MatriculaDiscente> matriculaDiscente;*/
         private Responsavel responsavel;
 
-        private enum status {
-            MATRICULADO,
-            APROVADO,
-            REPROVADO
-        }
-
-
         public Builder() {}
 
         public Builder withDadosPessoais(DadosPessoais dadosPessoais) {
