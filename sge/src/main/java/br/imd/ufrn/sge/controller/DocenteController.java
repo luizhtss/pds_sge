@@ -1,7 +1,5 @@
 package br.imd.ufrn.sge.controller;
 
-
-import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
