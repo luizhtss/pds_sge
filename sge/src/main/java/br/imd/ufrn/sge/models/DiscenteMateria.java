@@ -8,12 +8,12 @@ public class DiscenteMateria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_notas_aluno", nullable = false)
+    @Column(name = "id_discente_materia", nullable = false)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)
-    private MatriculaDiscente discente;
+    private MatriculaDiscente discente_mat;
 
     @ManyToOne
     @JoinColumn(name = "id_materia", nullable = false)
@@ -61,11 +61,11 @@ public class DiscenteMateria {
     }
 
     public MatriculaDiscente getDiscente() {
-        return discente;
+        return discente_mat;
     }
 
     public void setDiscente(MatriculaDiscente discente) {
-        this.discente = discente;
+        this.discente_mat = discente;
     }
 
     public Materia getMateria() {
