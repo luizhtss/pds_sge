@@ -14,7 +14,7 @@ public class MatriculaDiscente {
 
     /**
      * Discente que está matriculado.
-     * Varias matrículas podem ter o mesmo discente.
+     * Um discente pode ter várias matrículas.
      */
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)

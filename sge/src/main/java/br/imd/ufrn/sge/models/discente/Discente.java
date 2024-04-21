@@ -28,23 +28,12 @@ public class Discente {
     @JoinColumn(name = "id_turma", nullable = false)
     private Turma turma;
 
-
-    /**
-     * Matrículas do discente
-     * 1 discente pode ter várias matrículas.
-     */
-    @OneToMany(mappedBy = "discente")
-    private List<MatriculaDiscente> matriculaDiscente;
-
     /**
      * Responsável pelo discente.
      */
-
     @ManyToOne
     @JoinColumn(name = "id_responsavel", nullable = false)
     private Responsavel responsavel;
-
-
 
     public Long getId() {
         return id;
@@ -62,11 +51,4 @@ public class Discente {
         this.dadosPessoais = dadosPessoais;
     }
 
-    public List<MatriculaDiscente> getMatriculaDiscente() {
-        return matriculaDiscente;
-    }
-
-    public void setMatriculaDiscente(List<MatriculaDiscente> matriculaDiscente) {
-        this.matriculaDiscente = matriculaDiscente;
-    }
 }
