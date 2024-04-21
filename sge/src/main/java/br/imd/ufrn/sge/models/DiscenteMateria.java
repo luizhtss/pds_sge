@@ -1,5 +1,4 @@
 package br.imd.ufrn.sge.models;
-import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import jakarta.persistence.*;
@@ -27,6 +26,9 @@ public class DiscenteMateria {
 
     @Column(name = "unidade_3")
     private Float unidade3;
+
+    @Column(name = "presenca")
+    private Integer presenca = 0;
 
     public Long getId() {
         return id;
@@ -74,5 +76,13 @@ public class DiscenteMateria {
 
     public void setMateria(Materia materia) {
         this.materia = materia;
+    }
+
+    public Integer getPresenca() {
+        return presenca;
+    }
+
+    public void setPresenca(Integer presenca) {
+        this.presenca = presenca;
     }
 }

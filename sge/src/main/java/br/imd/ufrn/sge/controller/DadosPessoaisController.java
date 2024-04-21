@@ -51,7 +51,10 @@ public class DadosPessoaisController {
         Optional<DadosPessoais> pessoaExistente = dadosPessoaisService.encontrarPorId(id);
         if (pessoaExistente.isPresent()) {
             DadosPessoais dadosPessoais = pessoaExistente.get();
-            dadosPessoais.setEmail(pessoa.getEmail());
+            if(pessoa.getEmail() != null)
+                dadosPessoais.setEmail(pessoa.getEmail());
+            if(pessoa.getNome() != null)
+                dadosPessoais.setNome(pessoa.getNome());
             DadosPessoais pessoaAtualizada = dadosPessoaisService.salvar(dadosPessoais);
             return ResponseEntity.ok().body(pessoaAtualizada);
         } else {

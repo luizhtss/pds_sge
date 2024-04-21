@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/api/docente", produces="application/json")
+@RequestMapping(path="/api/docentes", produces="application/json")
 public class DocenteController {
     @Autowired
     private DocenteService docenteService;
