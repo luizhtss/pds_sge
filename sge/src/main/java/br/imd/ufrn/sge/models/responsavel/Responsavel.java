@@ -11,7 +11,7 @@ public class Responsavel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_responsavel", nullable = false)
+    @Column(name = "id_responsavel")
     private Long id;
 
     @OneToOne

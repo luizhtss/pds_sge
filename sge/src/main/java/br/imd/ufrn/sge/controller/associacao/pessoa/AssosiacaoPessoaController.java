@@ -1,7 +1,7 @@
 package br.imd.ufrn.sge.controller.associacao.pessoa;
 
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
-import br.imd.ufrn.sge.service.associacao.pessoa.AssociacaoPessoaService;
+import br.imd.ufrn.sge.service.associacao.AssociacaoPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +16,14 @@ public class AssosiacaoPessoaController {
     @Autowired
     AssociacaoPessoaService associacaoPessoaService;
 
-
     @PostMapping("/discente/{idPessoa}")
-    public void associarPessoaDiscente(@PathVariable Long idPessoa) {
+    public ResponseEntity<?> associarPessoaDiscente(@PathVariable Long idPessoa) {
         try{
             MatriculaDiscente matriculaDiscente = associacaoPessoaService.associarPessoaDiscente(idPessoa);
-            ResponseEntity.ok().body(matriculaDiscente);
+            return ResponseEntity.ok().body(matriculaDiscente);
         }catch (IllegalArgumentException e){
-            ResponseEntity.status(400).body(e.getMessage());
-            throw new IllegalArgumentException(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(400).body(e.getMessage());
         }
     }
 }

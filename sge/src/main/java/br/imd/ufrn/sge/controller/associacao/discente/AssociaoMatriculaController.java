@@ -1,7 +1,8 @@
 package br.imd.ufrn.sge.controller.associacao.discente;
 
 
-import br.imd.ufrn.sge.service.associacao.matriculadiscente.AssociacaoMatriculaDiscente;
+import br.imd.ufrn.sge.models.turma.Turma;
+import br.imd.ufrn.sge.service.associacao.AssociacaoMatriculaDiscente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,13 @@ public class AssociaoMatriculaController {
     AssociacaoMatriculaDiscente associacaoMatriculaDiscente;
 
     @PutMapping("/turma/{idMatriculaDiscente}/{idTurma}")
-    public void associarDiscenteTurma(@PathVariable Long idMatriculaDiscente, @PathVariable Long idTurma) {
+    public ResponseEntity<?> associarDiscenteTurma(@PathVariable Long idMatriculaDiscente, @PathVariable Long idTurma) {
         try{
-            associacaoMatriculaDiscente.associarMatriculaDiscenteEmTurma(idMatriculaDiscente, idTurma);
-            ResponseEntity.ok().build();
+            Turma turma = associacaoMatriculaDiscente.associarMatriculaDiscenteEmTurma(idMatriculaDiscente, idTurma);
+            return ResponseEntity.ok().body(turma);
         }catch (IllegalArgumentException e){
-            ResponseEntity.status(400).body(e.getMessage());
-            throw new IllegalArgumentException(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(400).body(e.getMessage());
         }
     }
 

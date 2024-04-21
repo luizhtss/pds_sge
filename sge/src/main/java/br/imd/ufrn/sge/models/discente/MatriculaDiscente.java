@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.models.discente;
 
+import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 
@@ -26,6 +27,9 @@ public class MatriculaDiscente {
     @ManyToMany(mappedBy = "discentes")
     private Set<Turma> turmas;
 
+    @OneToMany(mappedBy = "matricula_discente")
+    private Set<DiscenteMateria> discenteMaterias;
+
 
     public MatriculaDiscente() {
 
@@ -45,6 +49,10 @@ public class MatriculaDiscente {
 
     public int getAno() {
         return ano;
+    }
+
+    public Set<Turma> getTurmas() {
+        return turmas;
     }
 
     public static class Builder {
