@@ -27,6 +27,17 @@ public class DiscenteMateria {
     @Column(name = "unidade_3")
     private Float unidade3;
 
+    public Integer getPresenca() {
+        return presenca;
+    }
+
+    public void setPresenca(Integer presenca) {
+        this.presenca = presenca;
+    }
+
+    @Column(name = "presenca")
+    private Integer presenca;
+
     public Long getId() {
         return id;
     }
