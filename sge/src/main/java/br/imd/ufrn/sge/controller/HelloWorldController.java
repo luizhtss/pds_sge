@@ -16,4 +16,6 @@ public class HelloWorldController {
     }
 
 
+    public static class DocenteController {
+    }
 }
