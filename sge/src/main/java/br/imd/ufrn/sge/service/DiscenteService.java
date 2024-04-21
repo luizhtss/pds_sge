@@ -14,9 +14,12 @@ public class DiscenteService {
     @Autowired
     DiscenteRepository discenteRepository;
 
-    public Discente encontrarDiscente(Long idDiscente) {
-        return discenteRepository.findById(idDiscente).orElse(null);
-    }
+//    public Discente encontrarDiscente(Long idDiscente) {
+//        return discenteRepository.findById(idDiscente).orElse(null);
+//    }
+    public Optional<Discente>  encontrarDiscente(Long idDiscente) {
+    return discenteRepository.findById(idDiscente);
+}
 
     @Transactional
     public Discente salvarDiscente(Discente discente) {
