@@ -1,6 +1,5 @@
 package br.imd.ufrn.sge.controller;
 
-import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.relatorio.repository.MateriaRepository;
 import br.imd.ufrn.sge.service.MateriaService;
