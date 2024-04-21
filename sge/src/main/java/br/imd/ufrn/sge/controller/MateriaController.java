@@ -52,4 +52,18 @@ public class MateriaController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Materia> atualizarMateria(@PathVariable Long id, @RequestBody Materia materia) {
+        Optional<Materia> materiaExistente = materiaService.encontrarPorId(id);
+        if (materiaExistente.isPresent()) {
+            Materia dadosMateria = materiaExistente.get();
+            dadosMateria.setNome(materia.getNome());
+            dadosMateria.setDescricao(materia.getDescricao());
+            Materia materiaAtualizada = materiaService.salvar(dadosMateria);
+            return ResponseEntity.ok().body(materiaAtualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
