@@ -23,8 +23,8 @@ public class NotaService {
         return notaRepository.findById(id);
     }
 
-    public List<DiscenteMateria> encontrarPorIdDiscente(Long id_discente) {
-        return notaRepository.findByDiscenteId(id_discente);
+    public List<DiscenteMateria> encontrarPorMatriculaDiscente(Long matricula_discente) {
+        return notaRepository.findByDiscenteMatricula(matricula_discente);
     }
 
     public List<DiscenteMateria> encontrarPorIdMateria(Long id_materia) {

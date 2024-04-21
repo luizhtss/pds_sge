@@ -2,6 +2,7 @@ package br.imd.ufrn.sge.controller;
 
 import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.service.NotaService;
+import jdk.jfr.Name;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/api/discente", produces="application/json")
+@RequestMapping(path="/api/notas", produces="application/json")
 public class NotaController {
 
         @Autowired
@@ -21,6 +22,7 @@ public class NotaController {
         public List<DiscenteMateria> listarNotas() {
             return notaService.listarTodos();
         }
+
 
         @GetMapping("/{id}")
         public ResponseEntity<?> obterNotasPorId(@PathVariable Long id) {
@@ -32,19 +34,19 @@ public class NotaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro de Notas com o ID " + id + " não encontrado");
             }
         }
-        @GetMapping("/discente/{id}")
-        public ResponseEntity<?> obterNotasPorIdDiscente(@RequestParam Long id) {
-            List<DiscenteMateria> notasEncontradas = notaService.encontrarPorIdDiscente(id);
+        @GetMapping("/discente/{matricula_discente}")
+        public ResponseEntity<?> obterNotasPorMatriculaDiscente(@PathVariable Long matricula_discente) {
+            List<DiscenteMateria> notasEncontradas = notaService.encontrarPorMatriculaDiscente(matricula_discente);
 
             if (!notasEncontradas.isEmpty()) {
                 return ResponseEntity.ok().body(notasEncontradas);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno com o ID" + id + " não encontrados");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno com a matrícula" + matricula_discente + " não encontrados");
             }
         }
 
         @GetMapping("/materia/{id}")
-        public ResponseEntity<?> obterNotasPorIdMateria(@RequestParam Long id) {
+        public ResponseEntity<?> obterNotasPorIdMateria(@PathVariable Long id) {
             List<DiscenteMateria> notasEncontradas = notaService.encontrarPorIdMateria(id);
 
             if (!notasEncontradas.isEmpty()) {
@@ -59,9 +61,12 @@ public class NotaController {
             Optional<DiscenteMateria> notaExistente = notaService.encontrarPorId(id);
             if (notaExistente.isPresent()) {
                 DiscenteMateria discenteMateria = notaExistente.get();
-                discenteMateria.setUnidade1(nota.getUnidade1());
-                discenteMateria.setUnidade1(nota.getUnidade2());
-                discenteMateria.setUnidade1(nota.getUnidade3());
+                if(nota.getUnidade1() != null)
+                    discenteMateria.setUnidade1(nota.getUnidade1());
+                if(nota.getUnidade2() != null)
+                    discenteMateria.setUnidade2(nota.getUnidade2());
+                if(nota.getUnidade3() != null)
+                    discenteMateria.setUnidade3(nota.getUnidade3());
                 DiscenteMateria notaAtualizada = notaService.salvar(discenteMateria);
                 return ResponseEntity.ok().body(notaAtualizada);
             } else {

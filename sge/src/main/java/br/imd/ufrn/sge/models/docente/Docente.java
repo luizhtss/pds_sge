@@ -20,13 +20,6 @@ public class Docente {
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
 
-    /**
-     * Matrículas do docente
-     * 1 docente pode ter várias matrículas.
-     */
-    @OneToMany(mappedBy = "matriculaDocente")
-    private List<MatriculaDocente> matriculaDocente;
-
     public Long getId() {
         return id;
     }
@@ -43,11 +36,4 @@ public class Docente {
         this.dadosPessoais = dadosPessoais;
     }
 
-    public List<MatriculaDocente> getMatriculaDocente() {
-        return matriculaDocente;
-    }
-
-    public void setMatriculaDocente(List<MatriculaDocente> matriculaDocente) {
-        this.matriculaDocente = matriculaDocente;
-    }
 }
