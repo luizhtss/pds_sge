@@ -1,7 +1,7 @@
 package br.imd.ufrn.sge.service;
 
 import br.imd.ufrn.sge.models.materia.Materia;
-import br.imd.ufrn.sge.relatorio.repository.MateriaRepository;
+import br.imd.ufrn.sge.repository.MateriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

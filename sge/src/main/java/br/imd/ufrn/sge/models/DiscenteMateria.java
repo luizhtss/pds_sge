@@ -19,13 +19,13 @@ public class DiscenteMateria {
     @JoinColumn(name = "id_materia", nullable = false)
     private Materia materia;
 
-    @Column(name = "unidade_1")
+    @Column(name = "nota_unidade_1")
     private float unidade1;
 
-    @Column(name = "unidade_2")
+    @Column(name = "nota_unidade_1")
     private float unidade2;
 
-    @Column(name = "unidade_3")
+    @Column(name = "nota_unidade_1")
     private float unidade3;
 
     public Long getId() {

@@ -1,8 +1,7 @@
 package br.imd.ufrn.sge.service;
 
-import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.turma.Turma;
-import br.imd.ufrn.sge.relatorio.repository.TurmaRepository;
+import br.imd.ufrn.sge.repository.TurmaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,4 +37,11 @@ public class TurmaService {
         turmaRepository.deleteById(id);
     }
 
+    public boolean isDiscenteMatriculado(Long idDiscente, Long idTurma) {
+        return turmaRepository.isDiscenteMatriculado(idDiscente, idTurma);
+    }
+
+    public void matricularDiscente(Long idMatriculaDiscente, Long idTurma) {
+        turmaRepository.matricularDiscente(idMatriculaDiscente, idTurma);
+    }
 }

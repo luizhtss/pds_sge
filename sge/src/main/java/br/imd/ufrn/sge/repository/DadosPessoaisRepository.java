@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.relatorio.repository;
+package br.imd.ufrn.sge.repository;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
 import org.springframework.data.jpa.repository.JpaRepository;
