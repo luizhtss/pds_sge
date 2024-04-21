@@ -14,7 +14,7 @@ public class Materia {
     @Column(name = "id_materia", nullable = false)
     private Long id_materia;
 
-    @Column(name = "nome_materia", nullable = false)
+    @Column(name = "nome_materia")
     private String nome_materia;
 
     /**
@@ -24,7 +24,7 @@ public class Materia {
     @JoinColumn(name = "id_docente", nullable = false)
     private Docente docente;
 
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao")
     private String descricao;
 
     @ManyToMany(mappedBy = "materias")
@@ -52,6 +52,14 @@ public class Materia {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
     }
 
 }
