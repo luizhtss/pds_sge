@@ -7,12 +7,11 @@ import br.imd.ufrn.sge.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.Year;
 import java.util.Optional;
 
 @Service
-public class AssociacaoMatriculaDiscente {
+public class AssociacaoMatriculaDiscenteService {
 
     @Autowired
     MatriculaDiscenteService matriculaDiscenteService;

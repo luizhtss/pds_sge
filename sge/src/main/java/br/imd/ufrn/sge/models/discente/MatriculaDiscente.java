@@ -33,7 +33,7 @@ public class MatriculaDiscente {
     @Column(name = "ano", nullable = false)
     private int ano;
 
-    @ManyToMany(mappedBy = "discentes")
+    @ManyToMany(mappedBy = "discentes", fetch = FetchType.LAZY)
     private Set<Turma> turmas;
 
     @OneToMany(mappedBy = "matricula_discente")
@@ -98,6 +98,7 @@ public class MatriculaDiscente {
             matriculaDiscente.matricula = this.matricula;
             matriculaDiscente.discente = this.discente;
             matriculaDiscente.ano = this.ano;
+            matriculaDiscente.status = Status.MATRICULADO;
             return matriculaDiscente;
         }
     }
