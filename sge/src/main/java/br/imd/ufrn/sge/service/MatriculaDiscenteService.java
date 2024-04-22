@@ -36,4 +36,8 @@ public class MatriculaDiscenteService {
     public Optional<MatriculaDiscente> obterMatriculaDiscente(Long idMatriculaDiscente) {
         return matriculaDiscenteRepository.findById(idMatriculaDiscente);
     }
+
+    public void salvar(MatriculaDiscente matDis) {
+        matriculaDiscenteRepository.save(matDis);
+    }
 }

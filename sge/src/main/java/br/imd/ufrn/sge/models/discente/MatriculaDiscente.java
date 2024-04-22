@@ -23,7 +23,7 @@ public class MatriculaDiscente {
     @Column(name = "status", nullable = false)
     private Status status = Status.MATRICULADO;
 
-    @OneToMany(mappedBy = "matricula_discente")
+    @OneToMany(mappedBy = "matricula_discente", cascade = CascadeType.ALL)
     private Set<DiscenteMateria> discenteMaterias;
 
     public enum Status {

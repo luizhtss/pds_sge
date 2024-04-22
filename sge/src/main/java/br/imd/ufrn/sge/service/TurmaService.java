@@ -1,7 +1,9 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
+import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.repository.TurmaRepository;
 import jakarta.transaction.Transactional;
@@ -60,7 +62,15 @@ public class TurmaService {
             }else {
                 MatriculaDiscente matDis = matriculaDiscente.get();
                 matDis.setTurma(turma.get());
-                return turmaRepository.save(turma.get());
+                Turma turmaSalva =  turmaRepository.save(turma.get());
+                for (Materia turmaMateria : turmaSalva.getMaterias()) {
+                    DiscenteMateria disMatDis = new DiscenteMateria();
+                    disMatDis.setMatriculaDiscente(matDis);
+                    disMatDis.setMateria(turmaMateria);
+                    matDis.getDiscenteMaterias().add(disMatDis);
+                }
+                matriculaDiscenteService.salvar(matDis);
+                return turmaSalva;
             }
         }else {
             throw new IllegalArgumentException("Turma com o ID " + idTurma + " não encontrada");

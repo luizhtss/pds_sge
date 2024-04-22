@@ -21,13 +21,14 @@ public class Materia {
      * Professor da matéria
      */
     @ManyToOne
-    @JoinColumn(name = "id_docente", nullable = false)
+    @JoinColumn(name = "id_docente", nullable = true)
     private Docente docente;
 
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToMany(mappedBy = "materias")
+
+    @ManyToMany(mappedBy = "materias", cascade = CascadeType.ALL)
     private Set<Turma> turmas;
 
     public Long getId() {

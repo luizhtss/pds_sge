@@ -28,7 +28,7 @@ public class Turma {
     /**
      * Definindo junção de turmas com materias
      * */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "TurmaMateria",
             joinColumns = @JoinColumn(name = "id_turma"),
