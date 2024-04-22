@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.models.discente;
 
+import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 
@@ -21,6 +22,9 @@ public class MatriculaDiscente {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.MATRICULADO;
+
+    @OneToMany(mappedBy = "matricula_discente")
+    private Set<DiscenteMateria> discenteMaterias;
 
     public enum Status {
         MATRICULADO,
@@ -69,6 +73,10 @@ public class MatriculaDiscente {
 
     public int getAno() {
         return ano;
+    }
+
+    public Set<DiscenteMateria> getDiscenteMaterias() {
+        return discenteMaterias;
     }
 
     public static class Builder {

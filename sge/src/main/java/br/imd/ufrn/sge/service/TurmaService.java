@@ -50,7 +50,7 @@ public class TurmaService {
         return turmaRepository.isDiscenteMatriculado(idDiscente, idTurma);
     }
 
-    public void matricularDiscente(Long idMatriculaDiscente, Long idTurma) {
+    public Turma matricularDiscente(Long idMatriculaDiscente, Long idTurma) {
         Optional<Turma> turma = turmaRepository.findById(idTurma);
         if (turma.isPresent()){
             Optional<MatriculaDiscente> matriculaDiscente = matriculaDiscenteService.findById(idMatriculaDiscente);
@@ -60,7 +60,7 @@ public class TurmaService {
             }else {
                 MatriculaDiscente matDis = matriculaDiscente.get();
                 matDis.setTurma(turma.get());
-                turmaRepository.save(turma.get());
+                return turmaRepository.save(turma.get());
             }
         }else {
             throw new IllegalArgumentException("Turma com o ID " + idTurma + " não encontrada");

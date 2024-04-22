@@ -33,4 +33,7 @@ public class MatriculaDiscenteService {
         return matriculaDiscenteRepository.save(matriculaDiscente);
     }
 
+    public Optional<MatriculaDiscente> obterMatriculaDiscente(Long idMatriculaDiscente) {
+        return matriculaDiscenteRepository.findById(idMatriculaDiscente);
+    }
 }

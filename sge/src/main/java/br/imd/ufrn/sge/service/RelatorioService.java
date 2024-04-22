@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class RelatorioService {
@@ -19,14 +20,31 @@ public class RelatorioService {
     @Autowired
     DadosObservacaoFetcher dadosObservacaoFetcher;
 
-    public Relatorio obterRelatorioAcademico(ILLMProvider relatorioProvider, MatriculaDiscente matriculaDiscente) throws IOException, InterruptedException {
-        String data = dadosAcademicoFetcher.fetchData(matriculaDiscente);
-        return relatorioProvider.gerarRelatorioBaseAcademico(data);
+    @Autowired
+    MatriculaDiscenteService matriculaDiscenteService;
+
+    @Autowired
+    NotaService notaService;
+
+    public Relatorio obterRelatorioAcademico(ILLMProvider relatorioProvider, Long idMatriculaDiscente) throws IOException, InterruptedException, IllegalArgumentException {
+        Optional<MatriculaDiscente> matriculaDiscenteDB = matriculaDiscenteService.obterMatriculaDiscente(idMatriculaDiscente);
+        if (matriculaDiscenteDB.isPresent()) {
+            if (notaService.todasUnidadesPreenchidas(idMatriculaDiscente)) {
+                String data = dadosAcademicoFetcher.fetchData(matriculaDiscenteDB.get());
+                return relatorioProvider.gerarRelatorioBaseAcademico(data);
+            } else {
+                throw new IllegalArgumentException("Impossível gerar relatório acadêmico, nem todas as unidades estão preenchidas.");
+            }
+
+        }else{
+            throw new IllegalArgumentException("Matricula não encontrada");
+        }
     }
 
-    public Relatorio obterRelatorioPessoal(ILLMProvider relatorioProvider, MatriculaDiscente matriculaDiscente) throws IOException, InterruptedException {
-        String data = dadosObservacaoFetcher.fetchData(matriculaDiscente);
-        return relatorioProvider.gerarRelatorioBasePessoal(data);
+    public Relatorio obterRelatorioPessoal(ILLMProvider relatorioProvider, Long idMatriculaEstudante) throws IOException, InterruptedException {
+       /* String data = dadosObservacaoFetcher.fetchData(idMatriculaEstudante);
+        return relatorioProvider.gerarRelatorioBasePessoal(data);*/
+        return null;
     }
 
 

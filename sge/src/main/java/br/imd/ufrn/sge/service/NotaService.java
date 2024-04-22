@@ -31,6 +31,10 @@ public class NotaService {
         return notaRepository.findByMateriaId(id_materia);
     }
 
+    public boolean todasUnidadesPreenchidas(Long idMatriculaDiscente) {
+        return notaRepository.todasUnidadesPreenchidas(idMatriculaDiscente);
+    }
+
     @Transactional
     public DiscenteMateria salvar(DiscenteMateria nota) {
         return notaRepository.save(nota);

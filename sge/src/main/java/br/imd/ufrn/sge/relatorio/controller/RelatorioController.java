@@ -31,11 +31,11 @@ public class RelatorioController {
     @Autowired
     RelatorioPessoalRepository relatorioPessoalRepository;
 
-    @GetMapping("/academico")
-    ResponseEntity<RelatorioAcademico> getRelatorioAcademico() {
+    @GetMapping("/academico/{idMatriculaDiscente}")
+    ResponseEntity<RelatorioAcademico> getRelatorioAcademico(@PathVariable Long idMatriculaDiscente) {
         RelatorioAcademico rel = null;
         try {
-            rel = (RelatorioAcademico) relatorioService.obterRelatorioAcademico(llmaProvider, new MatriculaDiscente());
+            rel = (RelatorioAcademico) relatorioService.obterRelatorioAcademico(llmaProvider, idMatriculaDiscente);
         } catch (IOException | InterruptedException e) {
             return ResponseEntity.internalServerError().build();
         }
@@ -43,11 +43,11 @@ public class RelatorioController {
         return ResponseEntity.ok().body(rel);
     }
 
-    @GetMapping("/pessoal")
-    ResponseEntity<RelatorioPessoal> getRelatorioPessoal() {
+    @GetMapping("/pessoal/{idMatriculaDiscente}")
+    ResponseEntity<RelatorioPessoal> getRelatorioPessoal(@PathVariable Long idMatriculaDiscente) {
         RelatorioPessoal rel = null;
         try {
-            rel = (RelatorioPessoal) relatorioService.obterRelatorioPessoal(llmaProvider, new MatriculaDiscente());
+            rel = (RelatorioPessoal) relatorioService.obterRelatorioPessoal(llmaProvider, idMatriculaDiscente);
         } catch (IOException | InterruptedException e) {
             return ResponseEntity.internalServerError().build();
         }
