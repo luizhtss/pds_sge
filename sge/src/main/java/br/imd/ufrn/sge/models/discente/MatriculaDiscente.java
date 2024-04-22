@@ -18,7 +18,6 @@ public class MatriculaDiscente {
     @ManyToOne
     @JoinColumn(name = "id_discente", nullable = false)
     private Discente discente;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status = Status.MATRICULADO;
@@ -32,12 +31,28 @@ public class MatriculaDiscente {
     @Column(name = "ano", nullable = false)
     private int ano;
 
-    @ManyToMany(mappedBy = "discentes")
-    private Set<Turma> turmas;
+    @ManyToOne
+    @JoinColumn(name = "id_turma")
+    private Turma turma;
 
+    public Status getStatus() {
+        return status;
+    }
 
-    public MatriculaDiscente() {
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public Long getId() {

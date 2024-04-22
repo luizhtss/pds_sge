@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.repository.TurmaRepository;
@@ -21,6 +22,10 @@ public class TurmaService {
 
     public List<Turma> listarTodos() {
         return turmaRepository.findAll();
+    }
+
+    public Optional<Discente> listarMatriculados(Long idTurma) {
+        return turmaRepository.findMatriculados(idTurma);
     }
 
     public Optional<Turma> encontrarPorId(Long id) {
@@ -52,10 +57,11 @@ public class TurmaService {
 
             if (matriculaDiscente.isEmpty()){
                 throw new IllegalArgumentException("Matricula de discente com o ID " + idMatriculaDiscente + " não encontrada");
+            }else {
+                MatriculaDiscente matDis = matriculaDiscente.get();
+                matDis.setTurma(turma.get());
+                turmaRepository.save(turma.get());
             }
-
-            turma.get().getDiscentes().add(matriculaDiscente.get());
-            turmaRepository.save(turma.get());
         }else {
             throw new IllegalArgumentException("Turma com o ID " + idTurma + " não encontrada");
         }

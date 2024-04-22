@@ -72,8 +72,7 @@ public class Discente {
 
     public static class Builder {
         private DadosPessoais dadosPessoais;
-        private Turma turma;
-       /* private List<MatriculaDiscente> matriculaDiscente;*/
+
         private Responsavel responsavel;
 
         public Builder() {}
@@ -83,16 +82,6 @@ public class Discente {
             return this;
         }
 
-        public Builder withTurma(Turma turma) {
-            this.turma = turma;
-            return this;
-        }
-
-      /*  public Builder withMatriculaDiscente(List<MatriculaDiscente> matriculaDiscente) {
-            this.matriculaDiscente = matriculaDiscente;
-            return this;
-        }
-    */
         public Builder withResponsavel(Responsavel responsavel) {
             this.responsavel = responsavel;
             return this;
@@ -101,8 +90,6 @@ public class Discente {
         public Discente build() {
             Discente discente = new Discente();
             discente.dadosPessoais = this.dadosPessoais;
-            discente.turma = this.turma;
-            /*discente.matriculaDiscente = this.matriculaDiscente;*/
             discente.responsavel = this.responsavel;
             return discente;
         }

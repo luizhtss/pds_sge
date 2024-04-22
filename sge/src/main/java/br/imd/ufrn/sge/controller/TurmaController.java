@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.controller;
 
+import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class TurmaController {
     @GetMapping
     public List<Turma> listarTurma() {
         return turmaService.listarTodos();
+    }
+
+    @GetMapping("{id}/discentes")
+    public Optional<Discente> listarDiscentesTurma(@PathVariable Long id) {
+        return turmaService.listarMatriculados(id);
     }
 
     @GetMapping("/{id}")

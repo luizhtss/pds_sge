@@ -24,14 +24,6 @@ public class Turma {
     @ManyToMany(mappedBy = "turmas")
     private Set<MatriculaDocente> docentes;
 
-    @ManyToMany
-    @JoinTable(
-            name = "matricula_turma",
-            joinColumns = @JoinColumn(name = "id_turma"),
-            inverseJoinColumns = @JoinColumn(name = "id_matricula")
-    )
-    private Set<MatriculaDiscente> discentes;
-
 
     /**
      * Definindo junção de turmas com materias
@@ -43,12 +35,6 @@ public class Turma {
             inverseJoinColumns = @JoinColumn(name = "id_materia")
     )
     Set<Materia> materias;
-
-
-    public Set<MatriculaDiscente> getDiscentes(){
-        return this.discentes;
-    }
-
 
     public Long getId() {
         return id;
