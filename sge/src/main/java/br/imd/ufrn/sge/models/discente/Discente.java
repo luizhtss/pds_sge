@@ -14,7 +14,7 @@ public class Discente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_discente", nullable = false)
+    @Column(name = "id_discente")
     private Long id;
 
     @OneToOne
@@ -25,7 +25,7 @@ public class Discente {
      * Turma do discente.
      */
     @ManyToOne
-    @JoinColumn(name = "id_turma", nullable = false)
+    @JoinColumn(name = "id_turma")
     private Turma turma;
 
 
@@ -41,7 +41,7 @@ public class Discente {
      * Responsável pelo discente.
      */
     @ManyToOne
-    @JoinColumn(name = "id_responsavel", nullable = false)
+    @JoinColumn(name = "id_responsavel", nullable = true)
     private Responsavel responsavel;
 
 

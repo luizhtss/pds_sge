@@ -52,5 +52,21 @@ public class Turma {
         this.nome = nome;
     }
 
+    public Set<MatriculaDocente> getDocentes() {
+        return docentes;
+    }
+
+    public void setDocentes(Set<MatriculaDocente> docentes) {
+        this.docentes = docentes;
+    }
+
+    public Set<Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(Set<Materia> materias) {
+        this.materias = materias;
+    }
+
 
 }

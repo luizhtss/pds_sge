@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.service.associacao.pessoa;
+package br.imd.ufrn.sge.service.associacao;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.discente.Discente;
@@ -35,6 +35,7 @@ public class AssociacaoPessoaService {
                 throw new IllegalArgumentException("Discente já matriculado no ano de " + anoAtual);
 
             Optional<Discente> discenteDB = discenteService.buscarDiscentePorIdPessoa(idPessoa);
+
             Discente discente = discenteDB.orElseGet(() -> discenteService.salvarDiscente(new Discente.Builder()
                     .withDadosPessoais(dp.get())
                     .build()));

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DiscenteRepository extends JpaRepository<Discente, Long>{
 
-    @Query("SELECT d FROM Discente d WHERE d.dadosPessoais = :idPessoa")
+    @Query("SELECT d FROM Discente d WHERE d.dadosPessoais.id = :idPessoa")
     Optional<Discente> findByIdPessoa(Long idPessoa);
 
 }
