@@ -4,6 +4,7 @@ import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,10 @@ public class MatriculaDiscente {
 
     @OneToMany(mappedBy = "matricula_discente", cascade = CascadeType.ALL)
     private Set<DiscenteMateria> discenteMaterias;
+
+
+    @OneToMany(mappedBy = "matriculaDiscente", cascade = CascadeType.DETACH)
+    private List<ObservacaoDiscente> observacoes;
 
     public enum Status {
         MATRICULADO,
@@ -77,6 +82,14 @@ public class MatriculaDiscente {
 
     public Set<DiscenteMateria> getDiscenteMaterias() {
         return discenteMaterias;
+    }
+
+    public List<ObservacaoDiscente> getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(List<ObservacaoDiscente> observacoes) {
+        this.observacoes = observacoes;
     }
 
     public static class Builder {
