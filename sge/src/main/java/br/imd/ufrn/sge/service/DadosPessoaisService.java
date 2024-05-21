@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,9 @@ public class DadosPessoaisService {
     }
 
     public Optional<DadosPessoais> encontrarPorId(Long id) {
+        if (dadosPessoaisRepository.findById(id).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
         return dadosPessoaisRepository.findById(id);
     }
 

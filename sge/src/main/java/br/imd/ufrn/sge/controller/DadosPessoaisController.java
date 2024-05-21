@@ -26,12 +26,7 @@ public class DadosPessoaisController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obterPessoaPorId(@PathVariable Long id) {
         Optional<DadosPessoais> pessoa = dadosPessoaisService.encontrarPorId(id);
-
-        if (pessoa.isPresent()){
             return ResponseEntity.ok().body(pessoa.get());
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa com o ID " + id + " não encontrada");
-        }
     }
 
     @GetMapping("/nome/{nome}")
