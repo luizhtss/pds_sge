@@ -38,6 +38,9 @@ public class DocenteService {
     }
 
     public Optional<Docente> encontrarPorId(Long id) {
+        if (docenteRepository.findById(id).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
         return docenteRepository.findById(id);
     }
 
