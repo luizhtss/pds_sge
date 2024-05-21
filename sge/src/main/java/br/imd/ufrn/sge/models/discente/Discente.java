@@ -25,7 +25,7 @@ public class Discente {
      * Turma do discente.
      */
     @ManyToOne
-    @JoinColumn(name = "id_turma")
+    @JoinColumn(name = "id_turma", nullable = true)
     private Turma turma;
 
 

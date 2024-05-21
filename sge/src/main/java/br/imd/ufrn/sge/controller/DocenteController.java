@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.controller;
 
+import br.imd.ufrn.sge.exceptions.IdJaExisteException;
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.service.DocenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +42,27 @@ public class DocenteController {
     @PostMapping("/criar")
     public ResponseEntity<Docente> criarDocente(@RequestBody Docente docente) {
         Docente novoDocente = docenteService.salvar(docente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoDocente);
+        if (novoDocente != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoDocente);
+        }
+        throw new IdJaExisteException();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarDocente(@PathVariable Long id) {
-        Optional<Docente> docenteExistente = docenteService.encontrarPorId(id);
-        if (docenteExistente.isPresent()) {
+    public void deletarDocente(@PathVariable Long id) {
             docenteService.deletar(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
+
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deletarDocente(@PathVariable Long id) {
+//        Optional<Docente> docenteExistente = docenteService.encontrarPorId(id);
+//        if (docenteExistente.isPresent()) {
+//            docenteService.deletar(id);
+//            return ResponseEntity.noContent().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 
 

@@ -1,7 +1,6 @@
 package br.imd.ufrn.sge.controller;
 
 import br.imd.ufrn.sge.models.discente.Discente;
-import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.service.DiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
