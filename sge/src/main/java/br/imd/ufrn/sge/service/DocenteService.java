@@ -2,11 +2,13 @@ package br.imd.ufrn.sge.service;
 
 import br.imd.ufrn.sge.exceptions.IdJaExisteException;
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
+import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
 import br.imd.ufrn.sge.repository.DocenteRepository;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,11 +36,15 @@ public class DocenteService {
         return docenteRepository.findAll();
     }
 
-    public List<Docente> findByName(String name) {
+    public List<Docente> findByName(@NotNull String name) {
+        if(name.isEmpty()){throw new NomeNaoEncontradoException();}
         return docenteRepository.findByName(name);
     }
 
     public Optional<Docente> encontrarPorId(Long id) {
+        if (docenteRepository.findById(id).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
         return docenteRepository.findById(id);
     }
 
