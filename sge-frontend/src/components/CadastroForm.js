@@ -2,7 +2,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
-import '../index.css';
+import '../assets/css/index.css';
 import ReactDOM from 'react-dom';
 
 import React, { useEffect, useState } from 'react';
@@ -16,8 +16,8 @@ import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
-import { CountryService } from './CountryService';
-import './FormDemo.css';
+import { CountryService } from '../services/CountryService';
+import '../assets/css/FormDemo.css';
 
 export const ReactHookFormDemo = () => {
     const [countries, setCountries] = useState([]);
