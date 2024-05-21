@@ -20,7 +20,8 @@ public class DocenteService {
     private DocenteRepository docenteRepository;
 
     public boolean dadosPessoaisJaExistem(Docente docente) {
-        return docenteRepository.findByDadosPessoais(docente.getDadosPessoais().getId()) != null;
+        List<Docente> dadosPessoaisJaExistem = docenteRepository.findByDadosPessoais(docente.getDadosPessoais().getId());
+        return !dadosPessoaisJaExistem.isEmpty();
     }
     public boolean docenteExiste(Long id) {
         Optional<Docente> docenteExistente = encontrarPorId(id);
