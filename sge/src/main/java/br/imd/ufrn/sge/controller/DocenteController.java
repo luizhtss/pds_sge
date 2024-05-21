@@ -26,17 +26,19 @@ public class DocenteController {
     public ResponseEntity<List<Docente>> buscarDocentePeloNome(@PathVariable String nome) {
         List<Docente> docente = docenteService.findByName(nome);
         return ResponseEntity.ok().body(docente);
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> obterDocentePorId(@PathVariable Long id) {
         Optional<Docente> docente = docenteService.encontrarPorId(id);
+        return ResponseEntity.ok().body(docente.get());
 
-        if (docente.isPresent()){
-            return ResponseEntity.ok().body(docente.get());
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Docente com o ID " + id + " não encontrada");
-        }
+//        if (docente.isPresent()){
+//            return ResponseEntity.ok().body(docente.get());
+//        }else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Docente não encontrada");
+//        }
     }
 
     @PostMapping("/criar")
