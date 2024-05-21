@@ -31,12 +31,7 @@ public class DocenteController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obterDocentePorId(@PathVariable Long id) {
         Optional<Docente> docente = docenteService.encontrarPorId(id);
-
-        if (docente.isPresent()){
-            return ResponseEntity.ok().body(docente.get());
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Docente com o ID " + id + " não encontrada");
-        }
+        return ResponseEntity.ok().body(docente.get());
     }
 
     @PostMapping("/criar")
