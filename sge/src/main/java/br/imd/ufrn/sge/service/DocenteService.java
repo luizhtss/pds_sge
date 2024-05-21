@@ -26,6 +26,7 @@ public class DocenteService {
     public boolean docenteExiste(Long id) {
         Optional<Docente> docenteExistente = encontrarPorId(id);
         return docenteExistente.isPresent();
+
     }
 
     public List<Docente> listarTodos() {
