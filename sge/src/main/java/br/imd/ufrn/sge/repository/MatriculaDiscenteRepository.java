@@ -23,5 +23,6 @@ public interface MatriculaDiscenteRepository extends JpaRepository<MatriculaDisc
     @Query("SELECT m FROM MatriculaDiscente m WHERE m.discente.id = :idDiscente")
     Optional<MatriculaDiscente> findByIdDiscente(Long idDiscente);
 
-
+    @Query("SELECT m FROM MatriculaDiscente m WHERE m.matricula = :numeroMatricula")
+    Optional<MatriculaDiscente> findByNumeroMatricula(String numeroMatricula);
 }
