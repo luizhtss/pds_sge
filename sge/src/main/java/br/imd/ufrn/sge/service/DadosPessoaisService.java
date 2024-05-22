@@ -6,11 +6,10 @@ import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.RecebendoValoresNullException;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
-import br.imd.ufrn.sge.repository.DiscenteRepository;
 import br.imd.ufrn.sge.repository.DocenteRepository;
+import br.imd.ufrn.sge.repository.MatriculaDiscenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -25,7 +24,7 @@ public class DadosPessoaisService {
     private DadosPessoaisRepository dadosPessoaisRepository;
 
     @Autowired
-    private DiscenteRepository discenteRepository;
+    private MatriculaDiscenteRepository matriculaDiscenteRepository ;
 
     @Autowired
     private DocenteRepository docenteRepository;
@@ -66,7 +65,7 @@ public class DadosPessoaisService {
     public void deletar(Long id) {
         if (!pessoaExiste(id)){
             throw new IdNaoEncontradoException();
-        }if (docenteRepository.findByDadosPessoais(id).isEmpty()&& discenteRepository.findByDadosPessoais(id).isEmpty()){
+        }if (docenteRepository.findByDadosPessoaisId(id).isPresent() && matriculaDiscenteRepository.findByIdDiscente(id).isPresent()){
             dadosPessoaisRepository.deleteById(id);
         }else {
             throw new DeletandoDadosLigadosException();
