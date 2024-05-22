@@ -29,13 +29,13 @@ public class Discente {
     private Turma turma;
 
 
-    /*
     /**
-     * Responsável pelo discente.
+     * Matrículas do discente.
+     */
 
-    @OneToMany(mappedBy = "discente")
+    @OneToMany(mappedBy = "discente", cascade = CascadeType.ALL)
     private List<MatriculaDiscente> matriculaDiscente;
-    */
+
 
     /**
      * Responsável pelo discente.
