@@ -42,7 +42,12 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthFilter, UsernamePasswordAuthenticationFilter.class
                 );*/
-        return httpSecurity.cors(Customizer.withDefaults()).build();
+        //return httpSecurity.cors(Customizer.withDefaults()).build();
+        httpSecurity.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest()
+                        .permitAll())
+                .csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.cors(Customizer.withDefaults());
+        return httpSecurity.build();
     }
 
     @Bean
