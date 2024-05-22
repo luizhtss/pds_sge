@@ -3,6 +3,7 @@ package br.imd.ufrn.sge.service;
 import br.imd.ufrn.sge.exceptions.DeletandoDadosLigadosException;
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
+import br.imd.ufrn.sge.exceptions.RecebendoValoresNullException;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
 import br.imd.ufrn.sge.repository.DiscenteRepository;
@@ -53,7 +54,12 @@ public class DadosPessoaisService {
 
     @Transactional
     public DadosPessoais salvar(DadosPessoais pessoa) {
-        return dadosPessoaisRepository.save(pessoa);
+        if(pessoa.getNome()!=null && pessoa.getEmail()!=null){
+              if (pessoa.getNome().isEmpty()||pessoa.getEmail().isEmpty()) {
+                         throw new RecebendoValoresNullException();}
+            return dadosPessoaisRepository.save(pessoa);
+        }
+        throw new RecebendoValoresNullException();
     }
 
     @Transactional
@@ -66,13 +72,13 @@ public class DadosPessoaisService {
             throw new DeletandoDadosLigadosException();
         }
     }
-
-    public List<DadosPessoais> buscarDadosPeloAnoDeCriacao(int ano) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, ano);
-
-        Date data = calendar.getTime();
-
-        return dadosPessoaisRepository.findByYearOfCreation(data);
-    }
+//tentar implementar depois
+//    public List<DadosPessoais> buscarDadosPeloAnoDeCriacao(int ano) {
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.YEAR, ano);
+//
+//        Date data = calendar.getTime();
+//
+//        return dadosPessoaisRepository.findByYearOfCreation(data);
+//    }
 }

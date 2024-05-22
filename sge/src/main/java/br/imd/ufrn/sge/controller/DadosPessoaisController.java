@@ -63,9 +63,10 @@ public class DadosPessoaisController {
             dadosPessoaisService.deletar(id);
     }
 
-    @GetMapping("/ano/{ano}")
-    public ResponseEntity<List<DadosPessoais>> buscarPessoasPeloAnoDeCriacao(@PathVariable int ano) {
-        List<DadosPessoais> pessoas = dadosPessoaisService.buscarDadosPeloAnoDeCriacao(ano);
-        return ResponseEntity.ok().body(pessoas);
-    }
+//    @GetMapping("/ano/{ano}")
+//    public ResponseEntity<List<DadosPessoais>> buscarPessoasPeloAnoDeCriacao(@PathVariable int ano) {
+//        List<DadosPessoais> pessoas = dadosPessoaisService.buscarDadosPeloAnoDeCriacao(ano);
+//        return ResponseEntity.ok().body(pessoas);
+//    }
+
 }

@@ -1,9 +1,6 @@
 package br.imd.ufrn.sge.handler;
 
-import br.imd.ufrn.sge.exceptions.DeletandoDadosLigadosException;
-import br.imd.ufrn.sge.exceptions.IdJaExisteException;
-import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
-import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
+import br.imd.ufrn.sge.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +27,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DeletandoDadosLigadosException.class)
     private ResponseEntity<String> DeletandoDadosLigadosException(DeletandoDadosLigadosException exception){
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+    @ExceptionHandler(RecebendoValoresNullException.class)
+    private ResponseEntity<String> RecebendoValoresNullException(RecebendoValoresNullException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
 
