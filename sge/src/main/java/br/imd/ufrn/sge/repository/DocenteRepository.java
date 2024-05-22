@@ -7,9 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DocenteRepository extends JpaRepository<Docente, Long> {
 
   @Query("SELECT p FROM Docente p WHERE p.dadosPessoais.nome = :nome")
   List<Docente> findByName(@Param("nome") String nome);
+
+  @Query("SELECT p FROM Docente p WHERE p.dadosPessoais.id = :idPessoa")
+  Optional<Docente> findByDadosPessoaisId(Long idPessoa);
 }

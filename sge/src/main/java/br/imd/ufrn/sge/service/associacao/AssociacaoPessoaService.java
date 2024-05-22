@@ -3,8 +3,10 @@ package br.imd.ufrn.sge.service.associacao;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
+import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.service.DadosPessoaisService;
 import br.imd.ufrn.sge.service.DiscenteService;
+import br.imd.ufrn.sge.service.DocenteService;
 import br.imd.ufrn.sge.service.MatriculaDiscenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class AssociacaoPessoaService {
 
     @Autowired
     DiscenteService discenteService;
+
+    @Autowired
+    DocenteService docenteService;
 
     @Autowired
     MatriculaDiscenteService matriculaDiscenteService;
@@ -51,6 +56,21 @@ public class AssociacaoPessoaService {
 
             return matriculaDiscenteService.salvarMatricula(matriculaDiscenteBuilder);
         }else {
+            throw new IllegalArgumentException("Pessoa com o ID " + idPessoa + " não encontrada");
+        }
+    }
+
+    public Docente associarPessoaDocente(Long idPessoa) throws IllegalArgumentException {
+        Optional<DadosPessoais> dp = dadosPessoaisService.encontrarPorId(idPessoa);
+        if (dp.isPresent()) {
+            Optional<Docente> docenteDB = docenteService.buscarDocentePorIdPessoa(idPessoa);
+
+            Docente docente = docenteDB.orElseGet(() -> docenteService.salvar(new Docente.Builder()
+                    .withDadosPessoais(dp.get())
+                    .build()));
+
+            return docente;
+        } else {
             throw new IllegalArgumentException("Pessoa com o ID " + idPessoa + " não encontrada");
         }
     }

@@ -39,7 +39,7 @@ public class DocenteService {
 }
 
 
-
-
-
+    public Optional<Docente> buscarDocentePorIdPessoa(Long idPessoa) {
+        return docenteRepository.findByDadosPessoaisId(idPessoa);
+    }
 }
