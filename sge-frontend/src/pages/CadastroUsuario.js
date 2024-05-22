@@ -5,13 +5,13 @@ import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
 import { Checkbox } from 'primereact/checkbox';
 import { Toast } from 'primereact/toast';
-import './Form.css';
+import '../assets/css/CadastroUsuario.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 
-const Form = () => {
+const CadastroUsuario = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
@@ -68,4 +68,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default CadastroUsuario;
