@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.handler;
 
+import br.imd.ufrn.sge.exceptions.DeletandoDadosLigadosException;
 import br.imd.ufrn.sge.exceptions.IdJaExisteException;
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
@@ -26,7 +27,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<String> NomeNaoEncontradoException(NomeNaoEncontradoException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
-
+    @ExceptionHandler(DeletandoDadosLigadosException.class)
+    private ResponseEntity<String> DeletandoDadosLigadosException(DeletandoDadosLigadosException exception){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
 
 
 }

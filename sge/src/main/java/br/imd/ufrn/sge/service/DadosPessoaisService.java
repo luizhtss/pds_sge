@@ -1,10 +1,15 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.exceptions.DeletandoDadosLigadosException;
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
+import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
 import br.imd.ufrn.sge.models.DadosPessoais;
 import br.imd.ufrn.sge.repository.DadosPessoaisRepository;
+import br.imd.ufrn.sge.repository.DiscenteRepository;
+import br.imd.ufrn.sge.repository.DocenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -18,6 +23,12 @@ public class DadosPessoaisService {
     @Autowired
     private DadosPessoaisRepository dadosPessoaisRepository;
 
+    @Autowired
+    private DiscenteRepository discenteRepository;
+
+    @Autowired
+    private DocenteRepository docenteRepository;
+
     public List<DadosPessoais> listarTodos() {
         return dadosPessoaisRepository.findAll();
     }
@@ -30,7 +41,14 @@ public class DadosPessoaisService {
     }
 
     public List<DadosPessoais> findByName(String name) {
+        if(name.isEmpty()){throw new NomeNaoEncontradoException();}
         return dadosPessoaisRepository.findByName(name);
+    }
+
+    public boolean pessoaExiste(Long id) {
+        Optional<DadosPessoais> pessoaExistente = encontrarPorId(id);
+        return pessoaExistente.isPresent();
+
     }
 
     @Transactional
@@ -40,7 +58,13 @@ public class DadosPessoaisService {
 
     @Transactional
     public void deletar(Long id) {
-        dadosPessoaisRepository.deleteById(id);
+        if (!pessoaExiste(id)){
+            throw new IdNaoEncontradoException();
+        }if (docenteRepository.findByDadosPessoais(id).isEmpty()&& discenteRepository.findByDadosPessoais(id).isEmpty()){
+            dadosPessoaisRepository.deleteById(id);
+        }else {
+            throw new DeletandoDadosLigadosException();
+        }
     }
 
     public List<DadosPessoais> buscarDadosPeloAnoDeCriacao(int ano) {

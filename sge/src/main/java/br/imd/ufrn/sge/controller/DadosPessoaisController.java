@@ -58,14 +58,9 @@ public class DadosPessoaisController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
+    public void deletarPessoa(@PathVariable Long id) {
         Optional<DadosPessoais> pessoaExistente = dadosPessoaisService.encontrarPorId(id);
-        if (pessoaExistente.isPresent()) {
             dadosPessoaisService.deletar(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @GetMapping("/ano/{ano}")
