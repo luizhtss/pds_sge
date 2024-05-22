@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.models.docente;
 
 import br.imd.ufrn.sge.models.DadosPessoais;
+import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
@@ -34,6 +35,36 @@ public class Docente {
 
     public void setDadosPessoais(DadosPessoais dadosPessoais) {
         this.dadosPessoais = dadosPessoais;
+    }
+
+    // Implementar Desing Pattern Builder
+    public static class Builder {
+        private Long id;
+        private DadosPessoais dadosPessoais;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder dadosPessoais(DadosPessoais dadosPessoais) {
+            this.dadosPessoais = dadosPessoais;
+            return this;
+        }
+
+
+
+        public Docente build() {
+            Docente docente = new Docente();
+            docente.setId(id);
+            docente.setDadosPessoais(dadosPessoais);
+            return docente;
+        }
+
+        public Builder withDadosPessoais(DadosPessoais dadosPessoais) {
+            this.dadosPessoais = dadosPessoais;
+            return this;
+        }
     }
 
 }
