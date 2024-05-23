@@ -17,8 +17,10 @@
     "react-dom": "^18.2.0",
     "react-final-form": "^6.5.9",
     "react-hook-form": "^7.51.1",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@react-buddy/ide-toolbox": "^2.4.0"
   },
   "watch": {
     "test": "{src,test}/*.js"
@@ -47,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.18.0"
   }
 }
