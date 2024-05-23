@@ -12,10 +12,13 @@ import 'primeicons/primeicons.css';
 const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const toast = useRef(null);
   const navigate = useNavigate();
+
+  let domain = 'http://localhost';
+  let port = 8080;
 
   const showToast = (severity, summary, detail) => {
     toast.current.show({ severity, summary, detail });
@@ -24,29 +27,44 @@ const CadastroUsuario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {
+    const dadosPessoais = {
       nome,
       email,
-      senha,
-      role
-    };
+    }
 
     try {
-      const response = await fetch('api/usuarios/criar', {
+      const response = await fetch(`${domain}:${port}/api/pessoas/criar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userData)
+        body: JSON.stringify(dadosPessoais)
       });
-
-      if (response.ok) {
-        showToast('success', 'Enviado', 'Dados enviados com sucesso!');
-        setNome('');
-        setEmail('');
-        setSenha('');
-        setRole('');
-      } else {
+       if (response.ok) {
+         const novoPessoa = await response.json();
+         const novoPessoaId = novoPessoa.id;
+         const response2 = await fetch('api/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: {
+              "user": {"login": email, "password": password},
+              "idDadosPessoais": novoPessoaId,
+              "role": role
+            }
+        });
+        if (response2.ok) {
+          showToast('success', 'Enviado', 'Dados enviados com sucesso!');
+          setNome('');
+          setEmail('');
+          setPassword('');
+          setRole('');
+        } else {
+          const errorData = await response.json();
+          showToast('error', 'Erro', errorData.message);
+        }
+      }else {
         const errorData = await response.json();
         showToast('error', 'Erro', errorData.message);
       }
@@ -70,8 +88,8 @@ const CadastroUsuario = () => {
             <InputText id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="p-field">
-            <label htmlFor="senha">Senha</label>
-            <Password id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} toggleMask />
+            <label htmlFor="password">Senha</label>
+            <Password id="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask />
           </div>
           <div className="p-field">
             <label>Você é:</label>
