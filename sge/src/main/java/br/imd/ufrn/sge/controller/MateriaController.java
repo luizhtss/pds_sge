@@ -49,12 +49,9 @@ public class MateriaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMateria(@PathVariable Long id) {
         Optional<Materia> materiaExistente = materiaService.encontrarPorId(id);
-        if (materiaExistente.isPresent()) {
             materiaService.deletar(id);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+
     }
 
     @PutMapping("/{id}")

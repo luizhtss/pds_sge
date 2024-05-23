@@ -46,7 +46,9 @@ public class MateriaService {
 
     @Transactional
     public void deletar(Long id) {
-        if (materiaRepository.existsById(id)) {materiaRepository.deleteById(id);}
-        throw new IdNaoEncontradoException();
+        if (materiaRepository.existsById(id)) {
+            materiaRepository.deleteById(id);
+        }else {throw new IdNaoEncontradoException();}
+
     }
 }

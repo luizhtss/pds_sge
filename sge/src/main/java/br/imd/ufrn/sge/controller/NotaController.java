@@ -27,13 +27,9 @@ public class NotaController {
         @GetMapping("/{id}")
         public ResponseEntity<?> obterNotasPorId(@PathVariable Long id) {
             Optional<DiscenteMateria> nota = notaService.encontrarPorId(id);
-
-            if (nota.isPresent()){
                 return ResponseEntity.ok().body(nota.get());
-            }else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro de Notas com o ID " + id + " não encontrado");
-            }
         }
+
         @GetMapping("/discente/{matricula_discente}")
         public ResponseEntity<?> obterNotasPorMatriculaDiscente(@PathVariable Long matricula_discente) {
             List<DiscenteMateria> notasEncontradas = notaService.encontrarPorMatriculaDiscente(matricula_discente);

@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.relatorio.repository.NotaRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,7 @@ public class NotaService {
     }
 
     public Optional<DiscenteMateria> encontrarPorId(Long id) {
+
         return notaRepository.findById(id);
     }
 
@@ -28,6 +30,9 @@ public class NotaService {
     }
 
     public List<DiscenteMateria> encontrarPorIdMateria(Long id_materia) {
+        if (notaRepository.findById(id_materia).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
         return notaRepository.findByMateriaId(id_materia);
     }
 
