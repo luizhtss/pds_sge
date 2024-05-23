@@ -9,10 +9,14 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 const LoginUsuario = () => {
-    const [user, setUser] = useState('');
-    const [senha, setSenha] = useState('');
+    const [login, setLogin] = useState('');
+    const [password, setPassword] = useState('');
     const toast = useRef(null);
     const navigate = useNavigate();
+
+    let domain = 'http://localhost';
+    let port = 8080;
+
 
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
@@ -22,27 +26,27 @@ const LoginUsuario = () => {
         e.preventDefault();
 
         const loginData = {
-            user,
-            senha
+            login,
+            password
         };
 
         try {
-            const response = await fetch('api/usuarios/login', {
+            const response = await fetch(`${domain}:${port}/api/auth/login` , {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(loginData)
+                body: {"user":JSON.stringify(loginData)}
             });
 
             if (response.ok) {
-                showToast('success', 'Success', 'Logged in successfully!');
+                showToast('success', 'Success', 'Logado com sucesso!');
             } else {
                 const errorData = await response.json();
                 showToast('error', 'Error', errorData.message);
             }
         } catch (error) {
-            showToast('error', 'Error', 'An error occurred while logging in.');
+            showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');
             console.error('Error logging in:', error);
         }
     };
@@ -53,12 +57,12 @@ const LoginUsuario = () => {
             <h1>Login Form</h1>
             <form onSubmit={handleSubmit}>
                 <div className="p-field">
-                    <label htmlFor="user">Usuário</label>
-                    <InputText id="user" value={user} onChange={(e) => setUser(e.target.value)} />
+                    <label htmlFor="login">Usuário</label>
+                    <InputText id="login" value={login} onChange={(e) => setLogin(e.target.value)} />
                 </div>
                 <div className="p-field">
-                    <label htmlFor="senha">Senha</label>
-                    <InputText id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                    <label htmlFor="password">Senha</label>
+                    <InputText id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="p-field">
                     <Button type="submit" label="Login" className="p-button-primary" />
