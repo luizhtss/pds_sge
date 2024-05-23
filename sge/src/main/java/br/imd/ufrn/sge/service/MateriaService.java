@@ -34,9 +34,10 @@ public class MateriaService {
     public Materia salvar(Materia materia) {
         return materiaRepository.save(materia);
     }
-
+//salvando materia com o id do docente
     @Transactional
     public Materia salvar(Long id,Materia materia) {
+        if (!docenteRepository.existsById(id)){throw new IdNaoEncontradoException();}
         materia.setDocente(docenteRepository.findById(id).get());
         return materiaRepository.save(materia);
     }
