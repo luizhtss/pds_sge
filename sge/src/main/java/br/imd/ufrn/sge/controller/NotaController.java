@@ -26,25 +26,35 @@ public class NotaController {
 
         @GetMapping("/{id}")
         public ResponseEntity<?> obterNotasPorId(@PathVariable Long id) {
-            Optional<DiscenteMateria> nota = notaService.encontrarPorId(id);
+            try {
+                Optional<DiscenteMateria> nota = notaService.encontrarPorId(id);
                 return ResponseEntity.ok().body(nota.get());
+            }
+      catch (IllegalArgumentException e){
+                e.printStackTrace();
+                return ResponseEntity.status(400).body(e.getMessage());
+            }
         }
 
         @GetMapping("/discente/{matricula_discente}")
         public ResponseEntity<?> obterNotasPorMatriculaDiscente(@PathVariable Long matricula_discente) {
+            try {
             List<DiscenteMateria> notasEncontradas = notaService.encontrarPorMatriculaDiscente(matricula_discente);
-
             if (!notasEncontradas.isEmpty()) {
                 return ResponseEntity.ok().body(notasEncontradas);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno com a matrícula " + matricula_discente + " não encontrado");
+            }  }
+            catch (IllegalArgumentException e){
+                e.printStackTrace();
+                return ResponseEntity.status(400).body(e.getMessage());
             }
         }
 
         @GetMapping("/materia/{id}")
         public ResponseEntity<?> obterNotasPorIdMateria(@PathVariable Long id) {
-            List<DiscenteMateria> notasEncontradas = notaService.encontrarPorIdMateria(id);
 
+            List<DiscenteMateria> notasEncontradas = notaService.encontrarPorIdMateria(id);
             if (!notasEncontradas.isEmpty()) {
                 return ResponseEntity.ok().body(notasEncontradas);
             } else {
