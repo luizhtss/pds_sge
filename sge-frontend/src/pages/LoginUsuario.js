@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
-import '../assets/css/LoginUsuario.css';
+import '../assets/css/CadastroUsuario.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -11,6 +12,7 @@ const LoginUsuario = () => {
     const [user, setUser] = useState('');
     const [senha, setSenha] = useState('');
     const toast = useRef(null);
+    const navigate = useNavigate();
 
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
@@ -19,14 +21,12 @@ const LoginUsuario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Example code to send login data to the backend API
         const loginData = {
             user,
             senha
         };
 
         try {
-            // Send the login data to the backend API
             const response = await fetch('api/usuarios/login', {
                 method: 'POST',
                 headers: {
@@ -35,18 +35,13 @@ const LoginUsuario = () => {
                 body: JSON.stringify(loginData)
             });
 
-            // Check if the request was successful
             if (response.ok) {
-                // Login successful, handle success
                 showToast('success', 'Success', 'Logged in successfully!');
-                // Optionally, perform any additional actions after successful login
             } else {
-                // Login failed, handle error
                 const errorData = await response.json();
                 showToast('error', 'Error', errorData.message);
             }
         } catch (error) {
-            // Handle unexpected errors
             showToast('error', 'Error', 'An error occurred while logging in.');
             console.error('Error logging in:', error);
         }
@@ -66,11 +61,11 @@ const LoginUsuario = () => {
                     <InputText id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
                 </div>
                 <div className="p-field">
-                    <Button type="submit" label="Login" />
+                    <Button type="submit" label="Login" className="p-button-primary" />
                 </div>
             </form>
             <div className="p-field">
-                <Button label="Ir para Cadastro" onClick={() => history.push('/cadastro-usuario')} />
+                <Button label="Ir para Cadastro" className="p-button-secondary" onClick={() => navigate('/cadastro-usuario')} />
             </div>
         </div>
     );

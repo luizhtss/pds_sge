@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -14,8 +15,8 @@ const CadastroUsuario = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [role, setRole] = useState('');
-
   const toast = useRef(null);
+  const navigate = useNavigate();
 
   const showToast = (severity, summary, detail) => {
     toast.current.show({ severity, summary, detail });
@@ -40,27 +41,21 @@ const CadastroUsuario = () => {
         body: JSON.stringify(userData)
       });
 
-      // Check if the request was successful
       if (response.ok) {
-        // Data was successfully saved in the database
         showToast('success', 'Enviado', 'Dados enviados com sucesso!');
-        // Optionally, reset the form fields
         setNome('');
         setEmail('');
         setSenha('');
         setRole('');
       } else {
-        // Handle errors if the request was not successful
         const errorData = await response.json();
         showToast('error', 'Erro', errorData.message);
       }
     } catch (error) {
-      // Handle any unexpected errors
       showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
       console.error('Error submitting form:', error);
     }
   };
-
 
   return (
       <div className="form-container">
@@ -93,11 +88,11 @@ const CadastroUsuario = () => {
             </div>
           </div>
           <div className="p-field">
-            <Button type="submit" label="Submit" />
+            <Button type="submit" label="Submit" className="p-button-primary" />
           </div>
         </form>
         <div className="p-field">
-          <a href="/">Voltar para o Login</a>
+          <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')} />
         </div>
       </div>
   );
