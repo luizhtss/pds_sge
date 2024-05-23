@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
-import { RadioButton } from 'primereact/radiobutton';
 import { Toast } from 'primereact/toast';
 import '../assets/css/CadastroUsuario.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -76,23 +75,27 @@ const CadastroUsuario = () => {
           </div>
           <div className="p-field">
             <label>Você é:</label>
-            <div className="p-formgrid p-grid">
-              <div className="p-col-6">
-                <RadioButton inputId="docente" name="role" value="docente" onChange={(e) => setRole(e.value)} checked={role === 'docente'} />
-                <label htmlFor="docente">Docente</label>
-              </div>
-              <div className="p-col-6">
-                <RadioButton inputId="discente" name="role" value="discente" onChange={(e) => setRole(e.value)} checked={role === 'discente'} />
-                <label htmlFor="discente">Discente</label>
-              </div>
+            <div>
+              <label htmlFor="discente" className="p-radiobutton-label">
+                <input type="radio" id="discente" name="role" value="Discente" onChange={(e) => setRole(e.target.value)}
+                       checked={role === 'Discente'}/>
+                <span className="p-radiobutton-icon"></span>
+                Discente
+              </label>
+              <label htmlFor="docente" className="p-radiobutton-label">
+                <input type="radio" id="docente" name="role" value="Docente" onChange={(e) => setRole(e.target.value)}
+                       checked={role === 'Docente'}/>
+                <span className="p-radiobutton-icon"></span>
+                Docente
+              </label>
             </div>
           </div>
           <div className="p-field">
-            <Button type="submit" label="Submit" className="p-button-primary" />
+            <Button type="submit" label="Submit" className="p-button-primary"/>
           </div>
         </form>
         <div className="p-field">
-          <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')} />
+          <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')}/>
         </div>
       </div>
   );
