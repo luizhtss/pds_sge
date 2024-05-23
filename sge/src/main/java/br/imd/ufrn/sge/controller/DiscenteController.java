@@ -29,13 +29,8 @@ public class DiscenteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarDiscente(@PathVariable Long id) {
-        Optional<Discente> discenteExistente = discenteService.encontrarDiscente(id);
-        if (discenteExistente.isPresent()) {
             discenteService.deletarDiscente(id);
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 
 

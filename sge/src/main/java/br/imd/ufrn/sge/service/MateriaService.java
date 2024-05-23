@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.service;
 
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
+import br.imd.ufrn.sge.exceptions.RecebendoValoresNullException;
 import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.repository.DocenteRepository;
 import br.imd.ufrn.sge.repository.MateriaRepository;
@@ -32,15 +33,20 @@ public class MateriaService {
 
     @Transactional
     public Materia salvar(Materia materia) {
+        if(materia.getNome().isEmpty()){throw new RecebendoValoresNullException("Nome de materia não pode ser vazio");}
         return materiaRepository.save(materia);
     }
-
+//salvando materia com o id do docente
     @Transactional
     public Materia salvar(Long id,Materia materia) {
+        if (!docenteRepository.existsById(id)){throw new IdNaoEncontradoException();}
         materia.setDocente(docenteRepository.findById(id).get());
         return materiaRepository.save(materia);
     }
 
     @Transactional
-    public void deletar(Long id) { materiaRepository.deleteById(id);}
+    public void deletar(Long id) {
+        if (materiaRepository.existsById(id)) {materiaRepository.deleteById(id);}
+        throw new IdNaoEncontradoException();
+    }
 }
