@@ -38,6 +38,13 @@ public class MateriaController {
         Materia novaMateria = materiaService.salvar(materia);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaMateria);
     }
+    //cria uma materia e liga ao docente por meio do id
+    @PostMapping("/criar/{id}")
+    public ResponseEntity<Materia> criarMateriaDocenteComId(@PathVariable Long id, @RequestBody Materia materia) {
+        Materia novaMateria = materiaService.salvar(id,materia);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaMateria);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarMateria(@PathVariable Long id) {

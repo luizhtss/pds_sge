@@ -26,4 +26,15 @@ public class AssosiacaoPessoaController {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
+
+    @PostMapping("/docente/{idPessoa}")
+    public ResponseEntity<?> associarPessoaDocente(@PathVariable Long idPessoa) {
+        try{
+            associacaoPessoaService.associarPessoaDocente(idPessoa);
+            return ResponseEntity.ok().body("Docente associado com sucesso");
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
 }
