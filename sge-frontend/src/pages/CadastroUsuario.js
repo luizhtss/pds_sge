@@ -91,7 +91,7 @@ const CadastroUsuario = () => {
             </div>
           </div>
           <div className="p-field">
-            <Button type="submit" label="Submit" className="p-button-primary"/>
+            <Button type="submit" label="Cadastrar" className="p-button-primary"/>
           </div>
         </form>
         <div className="p-field">
