@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service.associacao;
 
+import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.service.MateriaService;
@@ -28,10 +29,10 @@ public class AssociacaoMateriaService {
                 turma.getMaterias().add(materia);
                 return turmaService.salvar(turma);
             } else {
-                throw new IllegalArgumentException("Turma com o ID " + idTurma + " não encontrada");
+                throw new IdNaoEncontradoException("Turma com o ID não encontrada");
             }
         } else {
-            throw new IllegalArgumentException("Materia com o ID " + idMateria + " não encontrada");
+            throw new IdNaoEncontradoException("Materia com o ID não encontrada");
         }
     }
 

@@ -19,12 +19,7 @@ public class DiscenteController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obterDiscentePorId(@PathVariable Long id) {
         Optional<Discente> discentes = discenteService.encontrarDiscente(id);
-
-        if (discentes.isPresent()){
             return ResponseEntity.ok().body(discentes.get());
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discente com o ID " + id + " não encontrada");
-        }
     }
     @PostMapping("/criar")
     public ResponseEntity<Discente> criarDiscente(@RequestBody Discente discentes) {
