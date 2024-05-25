@@ -7,7 +7,7 @@ import '../assets/css/CadastroUsuario.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import { FormControl, FormLabel, FormGroup, FormControlLabel,RadioGroup,Radio } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel,RadioGroup,Radio } from '@mui/material';
 
 const CadastroDadosPessoais = () => {
     const [nome, setNome] = useState('');
