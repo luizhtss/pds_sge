@@ -53,7 +53,7 @@ public class LLMAProvider implements ILLMProvider {
         Map<String, Object> requestBodyMap = new HashMap<>();
         Map<String, Object> inputMap = new HashMap<>();
         inputMap.put("top_p", 1);
-        inputMap.put("prompt", "Dados do relatório acadêmico: " + data);
+        inputMap.put("prompt", "Gere um relatorio academico com esses dados: " + data);
         inputMap.put("temperature", config.getTemperatureDefault());
         inputMap.put("system_prompt", this.systemPromptRelatorioAcademico.replace("\n", " "));
         inputMap.put("max_new_tokens", config.getMaxTokensDefault());
