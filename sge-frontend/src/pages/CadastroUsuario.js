@@ -13,7 +13,7 @@ const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [matricula, setMatricula] = useState('');
   const toast = useRef(null);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const CadastroUsuario = () => {
     const cadastroData = {
       nome,
       email,
-      senha,
+      password,
       matricula
     }
 
@@ -59,7 +59,7 @@ const CadastroUsuario = () => {
           </div>
           <div className="p-field">
             <label htmlFor="email">Matrícula</label>
-            <InputText id="email" type="email" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
+            <InputText id="email" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
           </div>
           <div className="p-field">
             <label htmlFor="email">Email</label>
