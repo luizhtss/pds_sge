@@ -14,8 +14,8 @@ const LoginUsuario = () => {
     const toast = useRef(null);
     const navigate = useNavigate();
 
-    let domain = 'http://localhost';
-    let port = 8080;
+    const domain = 'http://localhost';
+    const port = 8080;
 
 
     const showToast = (severity, summary, detail) => {
@@ -36,7 +36,7 @@ const LoginUsuario = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: {"user":JSON.stringify(loginData)}
+                body: JSON.stringify(loginData)
             });
 
             if (response.ok) {

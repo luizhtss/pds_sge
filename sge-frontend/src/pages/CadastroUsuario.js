@@ -13,12 +13,12 @@ const CadastroUsuario = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [matricula, setMatricula] = useState('');
   const toast = useRef(null);
   const navigate = useNavigate();
 
-  let domain = 'http://localhost';
-  let port = 8080;
+  const domain = 'http://localhost';
+  const port = 8080;
 
   const showToast = (severity, summary, detail) => {
     toast.current.show({ severity, summary, detail });
@@ -27,47 +27,21 @@ const CadastroUsuario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dadosPessoais = {
+    const cadastroData = {
       nome,
       email,
+      password,
+      matricula
     }
 
     try {
-      const response = await fetch(`${domain}:${port}/api/pessoas/criar`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosPessoais)
+       const response2 = await fetch(`${domain}:${port}/api/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cadastroData)
       });
-       if (response.ok) {
-         const novoPessoa = await response.json();
-         const novoPessoaId = novoPessoa.id;
-         const response2 = await fetch('api/auth/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: {
-              "user": {"login": email, "password": password},
-              "idDadosPessoais": novoPessoaId,
-              "role": role
-            }
-        });
-        if (response2.ok) {
-          showToast('success', 'Enviado', 'Dados enviados com sucesso!');
-          setNome('');
-          setEmail('');
-          setPassword('');
-          setRole('');
-        } else {
-          const errorData = await response.json();
-          showToast('error', 'Erro', errorData.message);
-        }
-      }else {
-        const errorData = await response.json();
-        showToast('error', 'Erro', errorData.message);
-      }
     } catch (error) {
       showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
       console.error('Error submitting form:', error);
@@ -80,33 +54,20 @@ const CadastroUsuario = () => {
         <h1>Cadastro</h1>
         <form onSubmit={handleSubmit}>
           <div className="p-field">
-            <label htmlFor="nome">Nome</label>
-            <InputText id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+            <label htmlFor="nome">Nome Completo</label>
+            <InputText id="nome" value={nome} onChange={(e) => setNome(e.target.value)}/>
+          </div>
+          <div className="p-field">
+            <label htmlFor="email">Matrícula</label>
+            <InputText id="email" value={matricula} onChange={(e) => setMatricula(e.target.value)}/>
           </div>
           <div className="p-field">
             <label htmlFor="email">Email</label>
-            <InputText id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <InputText id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
           </div>
           <div className="p-field">
             <label htmlFor="password">Senha</label>
-            <Password id="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask />
-          </div>
-          <div className="p-field">
-            <label>Você é:</label>
-            <div>
-              <label htmlFor="discente" className="p-radiobutton-label">
-                <input type="radio" id="discente" name="role" value="Discente" onChange={(e) => setRole(e.target.value)}
-                       checked={role === 'Discente'}/>
-                <span className="p-radiobutton-icon"></span>
-                Discente
-              </label>
-              <label htmlFor="docente" className="p-radiobutton-label">
-                <input type="radio" id="docente" name="role" value="Docente" onChange={(e) => setRole(e.target.value)}
-                       checked={role === 'Docente'}/>
-                <span className="p-radiobutton-icon"></span>
-                Docente
-              </label>
-            </div>
+            <Password id="password" value={password} onChange={(e) => setPassword(e.target.value)} toggleMask/>
           </div>
           <div className="p-field">
             <Button type="submit" label="Cadastrar" className="p-button-primary"/>

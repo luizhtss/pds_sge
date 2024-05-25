@@ -1,14 +1,16 @@
+version: '3.8'
+
 services:
   springboot:
     build:
       context: .
       dockerfile: sge/Dockerfile
     ports:
-      - "8080:8080"  # Mapear a porta do contêiner para a porta do host
+      - "8080:8080"  # Map the container port to the host port
     depends_on:
-      - postgresql  # Garantir que o contêiner do PostgreSQL esteja pronto antes de iniciar o Spring Boot
+      - postgresql  # Ensure PostgreSQL is ready before starting Spring Boot
     volumes:
-      - ./sge:/app  # Montar o diretório da aplicação Spring Boot dentro do contêiner
+      - ./sge:/app  # Mount the Spring Boot app directory
 
   postgresql:
     image: postgres:latest
@@ -17,18 +19,28 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: pds_sge
     ports:
-      - "5432:5432"  # Mapear a porta do contêiner para a porta do host
+      - "5432:5432"  # Map the container port to the host port
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Persistir os dados do PostgreSQL em um volume
+      - pgdata:/var/lib/postgresql/data  # Persist PostgreSQL data
 
   react:
     build:
       context: .
       dockerfile: sge-frontend/Dockerfile.react
     ports:
-      - "3000:3000"  # Mapear a porta do contêiner para a porta do host
+      - "3000:3000"  # Map the container port to the host port
+    volumes:
+      - ./sge-frontend/src:/app/src
+      - ./sge-frontend/public:/app/public
+      - ./sge-frontend/package.json:/app/package.json
+      - ./sge-frontend/package-lock.json:/app/package-lock.json
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - HOST=0.0.0.0
     depends_on:
-      - springboot  # Garantir que o contêiner do Spring Boot esteja pronto antes de iniciar o React
+      - springboot  # Ensure Spring Boot is ready before starting React
 
 volumes:
   pgdata:
