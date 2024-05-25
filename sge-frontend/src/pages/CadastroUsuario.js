@@ -35,13 +35,15 @@ const CadastroUsuario = () => {
     }
 
     try {
-       const response2 = await fetch(`${domain}:${port}/api/auth/register`, {
+       const response = await fetch(`${domain}:${port}/api/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(cadastroData)
       });
+
+      showToast('success', 'Success', 'Usuário cadastrado com sucesso!');
     } catch (error) {
       showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
       console.error('Error submitting form:', error);

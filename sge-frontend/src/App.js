@@ -12,7 +12,7 @@ function App() {
                 <Route path="/" element={<LoginUsuario />} />
                 <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
                 <Route path="/cadastro-pessoa" element={<CadastroDadosPessoais />} />
-                <Route path="/cadastro-notas" element={<CadastroNotas />} />
+                <Route path="/cadastro-notas/:id" element={<CadastroNotas />} />
             </Routes>
         </Router>
     );

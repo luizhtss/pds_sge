@@ -42,6 +42,7 @@ const CadastroDadosPessoais = () => {
                 },
                 body: JSON.stringify(pessoaData)
             });
+            showToast('success', 'Success', 'Dados Pessoais cadastrados com sucesso!');
         } catch (error) {
             showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
             console.error('Error submitting form:', error);

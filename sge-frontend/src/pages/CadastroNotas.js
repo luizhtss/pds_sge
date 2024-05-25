@@ -9,9 +9,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 const CadastroNotas = () => {
-    const [nota1, setNota1] = useState('');
-    const [nota2, setNota2] = useState('');
-    const [nota3, setNota3] = useState('');
+    const [notas, setNotas] = useState({ unidade1: '', unidade2: '', unidade3: '' });
     const { id } = useParams();
     const toast = useRef(null);
     const navigate = useNavigate();
@@ -23,28 +21,39 @@ const CadastroNotas = () => {
         toast.current.show({ severity, summary, detail });
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Allow only numbers
+        if (!isNaN(value)) {
+            setNotas((prevNotas) => ({
+                ...prevNotas,
+                [name]: value
+            }));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const notasData = {
-            nota1,
-            nota2,
-            nota3
-        }
-
+        console.log(id)
+        console.log(JSON.stringify(notas))
         try {
-            const response2 = await fetch(`${domain}:${port}/api/notas/${id}`, {
-                method: 'POST',
+            const response = await fetch(`${domain}:${port}/api/notas/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(notasData)
+                body: JSON.stringify(notas)
             });
+            console.log(response)
+
+            showToast('success', 'Success', 'Notas cadastradas com sucesso!');
         } catch (error) {
-            showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
+            showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar as notas.');
             console.error('Error submitting form:', error);
         }
     };
+
 
     return (
         <div className="form-container">
@@ -52,20 +61,41 @@ const CadastroNotas = () => {
             <h1>Cadastro de Notas</h1>
             <form onSubmit={handleSubmit}>
                 <div className="p-field">
-                    <label htmlFor="nota1">Unidade 1</label>
-                    <InputText id="nota1" type="number" value={nota1} onChange={(e) => setNota1(e.target.value)}/>
+                    <label htmlFor="unidade1">Unidade 1</label>
+                    <InputText
+                        id="unidade1"
+                        name="unidade1"
+                        type="number"
+                        value={notas.unidade1}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="p-field">
-                    <label htmlFor="nota2">Unidade 2</label>
-                    <InputText id="nota2" type="number" value={nota2} onChange={(e) => setNota2(e.target.value)}/>
+                    <label htmlFor="unidade2">Unidade 2</label>
+                    <InputText
+                        id="unidade2"
+                        name="unidade2"
+                        type="number"
+                        value={notas.unidade2}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="p-field">
-                    <label htmlFor="nota3">Unidade 3</label>
-                    <InputText id="nota3" type="number" value={nota3} onChange={(e) => setNota3(e.target.value)}/>
+                    <label htmlFor="unidade3">Unidade 3</label>
+                    <InputText
+                        id="unidade3"
+                        name="unidade3"
+                        type="number"
+                        value={notas.unidade3}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="p-field">
+                    <Button label="Enviar" type="submit" className="p-button-primary" />
                 </div>
             </form>
             <div className="p-field">
-                <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')}/>
+                <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')} />
             </div>
         </div>
     );
