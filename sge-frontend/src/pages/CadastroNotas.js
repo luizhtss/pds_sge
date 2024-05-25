@@ -35,8 +35,6 @@ const CadastroNotas = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(id)
-        console.log(JSON.stringify(notas))
         try {
             const response = await fetch(`${domain}:${port}/api/notas/${id}`, {
                 method: 'PUT',
@@ -45,7 +43,6 @@ const CadastroNotas = () => {
                 },
                 body: JSON.stringify(notas)
             });
-            console.log(response)
 
             showToast('success', 'Success', 'Notas cadastradas com sucesso!');
         } catch (error) {
