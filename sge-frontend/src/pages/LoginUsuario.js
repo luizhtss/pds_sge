@@ -36,7 +36,7 @@ const LoginUsuario = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: {"user":JSON.stringify(loginData)}
+                body: JSON.stringify(loginData)
             });
 
             if (response.ok) {
