@@ -9,6 +9,7 @@ import ListAlunosTurma from "./components/ListAlunosTurma";
 import ListMaterias from "./components/ListMaterias";
 import ListTurmas from "./components/ListTurmas";
 import HomeDocente from "./pages/HomeDocente";
+import Relatorio from "./pages/Relatorio";
 import Perfil from "./components/Perfil";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/lista-turmas/:id" element={<ListTurmas />} />
                 <Route path="/home-docente/:id" element={<HomeDocente />} />
                 <Route path="/perfil/:id" element={<Perfil />} />
+                <Route path="/relatorio/:id" element={<Relatorio />} />
             </Routes>
         </Router>
     );
