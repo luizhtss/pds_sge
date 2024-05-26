@@ -31,7 +31,7 @@ public class RelatorioService {
         if (matriculaDiscenteDB.isPresent()) {
             if (notaService.todasUnidadesPreenchidas(idMatriculaDiscente)) {
                 String data = dadosAcademicoFetcher.fetchData(matriculaDiscenteDB.get());
-                return relatorioProvider.gerarRelatorioBaseAcademico(data);
+                return relatorioProvider.gerarRelatorioBaseAcademico(data, matriculaDiscenteDB.get());
             } else {
                 throw new IllegalArgumentException("Impossível gerar relatório acadêmico, nem todas as unidades estão preenchidas.");
             }

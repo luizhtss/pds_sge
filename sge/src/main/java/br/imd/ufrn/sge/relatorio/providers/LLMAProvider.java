@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.relatorio.providers;
 
+import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.relatorio.configuration.LLMAProviderConfiguration;
 import br.imd.ufrn.sge.relatorio.interfaces.ILLMProvider;
 import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
@@ -47,7 +48,7 @@ public class LLMAProvider implements ILLMProvider {
 
     @Override
     @CircuitBreaker(name = "gerarRelatorioBaseAcademico", fallbackMethod = "gerarRelatorioBaseAcademicoOffline")
-    public Relatorio gerarRelatorioBaseAcademico(String data) throws InterruptedException, IOException {
+    public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
         OkHttpClient client = new OkHttpClient();
 
         Map<String, Object> requestBodyMap = new HashMap<>();
@@ -86,15 +87,13 @@ public class LLMAProvider implements ILLMProvider {
 
             if ("processing".equals(status)) {
                 System.out.println("Aguardando 5 segundos antes da próxima solicitação...");
-                Thread.sleep(5000); // Esperar 5 segundos antes da próxima solicitação
+                Thread.sleep(5000);
             } else {
-                // Imprimir o campo "output" como uma única string
                 RelatorioAcademico relatorioAcademico = new RelatorioAcademico();
                 String output = getOutput(resultUrl);
                 relatorioAcademico.setTexto(output);
                 relatorioAcademico.setEnchancedByAI(true);
-                System.out.println("Output:");
-                System.out.println(output);
+                relatorioAcademico.setMatriculaDiscente(matriculaDiscente);
                 return relatorioAcademico;
             }
         }
