@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import '../assets/css/ListaAlunos.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -39,28 +41,13 @@ const ListAlunosTurma = () => {
         <div className="list-alunos-container">
             <Toast ref={toast} />
             <h1>Lista de Alunos</h1>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>ALUNO</th>
-                    <th>UNIDADE 1</th>
-                    <th>UNIDADE 2</th>
-                    <th>UNIDADE 3</th>
-                    <th>FREQUÊNCIA</th>
-                </tr>
-                </thead>
-                <tbody>
-                {alunos.map(dis_mat => (
-                    <tr key={dis_mat.id}>
-                        <td>{dis_mat.discente.discente.dadosPessoais.nome}</td>
-                        <td>{dis_mat.unidade1}</td>
-                        <td>{dis_mat.unidade2}</td>
-                        <td>{dis_mat.unidade3}</td>
-                        <td>{(dis_mat.presenca)/50*100}%</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <DataTable value={alunos} responsiveLayout="scroll">
+                <Column field="discente.discente.dadosPessoais.nome" header="ALUNO" />
+                <Column field="unidade1" header="UNIDADE 1" />
+                <Column field="unidade2" header="UNIDADE 2" />
+                <Column field="unidade3" header="UNIDADE 3" />
+                <Column body={(rowData) => `${(rowData.presenca / 50 * 100).toFixed(2)}%`} header="FREQUÊNCIA" />
+            </DataTable>
         </div>
     );
 };
