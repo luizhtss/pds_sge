@@ -1,0 +1,8 @@
+.profile-panel {
+    padding: 20px; /* Add padding for space between borders and text */
+    margin: 0; /* Remove margin */
+}
+.profile-label {
+    font-size: 18px;
+    font-weight: bold;
+}

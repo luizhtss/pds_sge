@@ -30,6 +30,20 @@ public class MateriaService {
         return materiaRepository .findById(id);
     }
 
+    public Optional<Materia> encontrarPorDocente(Long id) {
+        if (materiaRepository .findByDocenteId(id).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
+        return materiaRepository .findByDocenteId(id);
+    }
+
+    public Optional<Materia> encontrarPorTurma(Long id) {
+        if (materiaRepository .findByTurmaId(id).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
+        return materiaRepository .findByTurmaId(id);
+    }
+
 
     @Transactional
     public Materia salvar(Materia materia) {

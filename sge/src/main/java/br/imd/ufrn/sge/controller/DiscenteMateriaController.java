@@ -17,14 +17,14 @@ public class DiscenteMateriaController {
         @Autowired
         private DiscenteMateriaService disMatService;
 
-        @GetMapping("/notas")
+        @GetMapping("/")
         public List<DiscenteMateria> listarNotas() {
             return disMatService.listarTodos();
         }
 
 
-        @GetMapping("/notas/{id}")
-        public ResponseEntity<?> obterNotasPorId(@PathVariable Long id) {
+        @GetMapping("/{id}")
+        public ResponseEntity<?> obterDiscenteMateriaPorId(@PathVariable Long id) {
             Optional<DiscenteMateria> nota = disMatService.encontrarPorId(id);
 
             if (nota.isPresent()){
@@ -33,8 +33,8 @@ public class DiscenteMateriaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registro de Notas com o ID " + id + " não encontrado");
             }
         }
-        @GetMapping("/notas/discente/{matricula_discente}")
-        public ResponseEntity<?> obterNotasPorMatriculaDiscente(@PathVariable Long matricula_discente) {
+        @GetMapping("/discente/{matricula_discente}")
+        public ResponseEntity<?> obterMateriaPorMatriculaDiscente(@PathVariable Long matricula_discente) {
             List<DiscenteMateria> notasEncontradas = disMatService.encontrarPorMatriculaDiscente(matricula_discente);
 
             if (!notasEncontradas.isEmpty()) {
@@ -44,8 +44,8 @@ public class DiscenteMateriaController {
             }
         }
 
-        @GetMapping("/notas/materia/{id}")
-        public ResponseEntity<?> obterNotasPorIdMateria(@PathVariable Long id) {
+        @GetMapping("/materia/{id}")
+        public ResponseEntity<?> obterDiscentePorIdMateria(@PathVariable Long id) {
             List<DiscenteMateria> notasEncontradas = disMatService.encontrarPorIdMateria(id);
 
             if (!notasEncontradas.isEmpty()) {
@@ -56,7 +56,7 @@ public class DiscenteMateriaController {
         }
 
         @PutMapping("/notas/{id}")
-        public ResponseEntity<DiscenteMateria> atualizarNota(@PathVariable Long id, @RequestBody DiscenteMateria disMat) {
+        public ResponseEntity<DiscenteMateria> atualizarNotas(@PathVariable Long id, @RequestBody DiscenteMateria disMat) {
             Optional<DiscenteMateria> disMatExistente = disMatService.encontrarPorId(id);
             if (disMatExistente.isPresent()) {
                 DiscenteMateria discenteMateria = disMatExistente.get();

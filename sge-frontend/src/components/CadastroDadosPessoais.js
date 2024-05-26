@@ -35,7 +35,7 @@ const CadastroDadosPessoais = () => {
         }
 
         try {
-            const response2 = await fetch(`${domain}:${port}/api/pessoas/criar`, {
+            const response = await fetch(`${domain}:${port}/api/pessoas/criar`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

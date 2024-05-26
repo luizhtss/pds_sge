@@ -33,6 +33,28 @@ public class MateriaController {
         }
     }
 
+    @GetMapping("/docente/{id}")
+    public ResponseEntity<?> obterMateriaPorDocente (@PathVariable Long id) {
+        Optional<Materia> materia= materiaService.encontrarPorDocente(id);
+
+        if (materia.isPresent()){
+            return ResponseEntity.ok().body(materia.get());
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foram encontradas nenhuma matétia par o docente de id " + id);
+        }
+    }
+
+    @GetMapping("/turma/{id}")
+    public ResponseEntity<?> obterMateriaPorTurma (@PathVariable Long id) {
+        Optional<Materia> materia= materiaService.encontrarPorTurma(id);
+
+        if (materia.isPresent()){
+            return ResponseEntity.ok().body(materia.get());
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foram encontradas nenhuma matétia para a turma de id " + id);
+        }
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<Materia> criarMateria(@RequestBody Materia materia) {
         Materia novaMateria = materiaService.salvar(materia);
