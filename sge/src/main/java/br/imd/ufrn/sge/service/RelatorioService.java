@@ -24,7 +24,7 @@ public class RelatorioService {
     MatriculaDiscenteService matriculaDiscenteService;
 
     @Autowired
-    NotaService notaService;
+    DiscenteMateriaService notaService;
 
     public Relatorio obterRelatorioAcademico(ILLMProvider relatorioProvider, Long idMatriculaDiscente) throws IOException, InterruptedException, IllegalArgumentException {
         Optional<MatriculaDiscente> matriculaDiscenteDB = matriculaDiscenteService.findById(idMatriculaDiscente);

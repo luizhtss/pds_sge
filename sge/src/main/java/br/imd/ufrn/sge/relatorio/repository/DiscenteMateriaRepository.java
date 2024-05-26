@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NotaRepository extends JpaRepository<DiscenteMateria, Long> {
+public interface DiscenteMateriaRepository extends JpaRepository<DiscenteMateria, Long> {
 
     @Query("SELECT n FROM DiscenteMateria n WHERE n.matricula_discente.discente.id = :matricula_discente")
     List<DiscenteMateria> findByDiscenteMatricula(@Param("matricula_discente") Long matricula_discente);

@@ -8,8 +8,8 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-const CadastroNotas = () => {
-    const [notas, setNotas] = useState({ unidade1: '', unidade2: '', unidade3: '' });
+const CadastroFrequencia = () => {
+    const [presenca, setFrequencia] = useState('');
     const { id } = useParams();
     const toast = useRef(null);
     const navigate = useNavigate();
@@ -20,33 +20,21 @@ const CadastroNotas = () => {
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
     };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        // Allow only numbers
-        if (!isNaN(value)) {
-            setNotas((prevNotas) => ({
-                ...prevNotas,
-                [name]: value
-            }));
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const Teste = {presenca};
         try {
-            const response = await fetch(`${domain}:${port}/api/discente-materia/notas/${id}`, {
+            const response = await fetch(`${domain}:${port}/api/discente-materia/frequencia/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(notas)
+                body: JSON.stringify(Teste)
             });
-
-            showToast('success', 'Success', 'Notas cadastradas com sucesso!');
+            showToast('success', 'Success', 'Frequencia cadastrada com sucesso!');
         } catch (error) {
-            showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar as notas.');
+            showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar a frequencia.');
             console.error('Error submitting form:', error);
         }
     };
@@ -58,33 +46,13 @@ const CadastroNotas = () => {
             <h1>Cadastro de Notas</h1>
             <form onSubmit={handleSubmit}>
                 <div className="p-field">
-                    <label htmlFor="unidade1">Unidade 1</label>
+                    <label htmlFor="presenca">Frequencia</label>
                     <InputText
-                        id="unidade1"
-                        name="unidade1"
+                        id="presenca"
+                        name="presenca"
                         type="number"
-                        value={notas.unidade1}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="p-field">
-                    <label htmlFor="unidade2">Unidade 2</label>
-                    <InputText
-                        id="unidade2"
-                        name="unidade2"
-                        type="number"
-                        value={notas.unidade2}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="p-field">
-                    <label htmlFor="unidade3">Unidade 3</label>
-                    <InputText
-                        id="unidade3"
-                        name="unidade3"
-                        type="number"
-                        value={notas.unidade3}
-                        onChange={handleChange}
+                        value={presenca}
+                        onChange={(e) => {if (!isNaN(e.target.value)) { setFrequencia(e.target.value)}}}
                     />
                 </div>
                 <div className="p-field">
@@ -98,4 +66,4 @@ const CadastroNotas = () => {
     );
 };
 
-export default CadastroNotas;
+export default CadastroFrequencia;
