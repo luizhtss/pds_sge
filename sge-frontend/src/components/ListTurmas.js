@@ -1,53 +1,81 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom'; // Import Link
 import { Toast } from 'primereact/toast';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import '../assets/css/ListaAlunos.css';
+import '../assets/css/ListTurmas.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-const ListMaterias = () => {
-    const [materias, setMaterias] = useState([]);
+const ListTurmas = () => {
+    const [turmaData, setTurmaData] = useState([]);
     const { id } = useParams();
+    const [loading, setLoading] = useState(true);
     const toast = useRef(null);
 
     const domain = 'http://localhost';
     const port = 8080;
 
     const showToast = (severity, summary, detail) => {
-        toast.current.show({ severity, summary, detail });
+        if (toast.current) {
+            toast.current.show({ severity, summary, detail });
+        }
     };
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchTurmaData = async () => {
             try {
-                const response = await fetch(`${domain}:${port}/api/discente-materia/discente/${id}`);
-                if (!response.ok) {
+                const responseTurma = await fetch(`${domain}:${port}/api/turmas/${id}`);
+                console.log('Fetching turmas:', responseTurma);
+                if (!responseTurma.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const data = await response.json();
-                console.log(data);
+                const dataTurma = await responseTurma.json();
+                console.log('Turma data:', dataTurma);
 
-                setMaterias(data);
+                const responseMateria = await fetch(`${domain}:${port}/api/materias/docente/${dataTurma.id}`);
+                console.log('Fetching materias for turma:', dataTurma.id, responseMateria);
+                if (!responseMateria.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const dataMateria = await responseMateria.json();
+                console.log('Materia data for turma:', dataTurma.id, dataMateria);
+
+                setTurmaData([{ ...dataTurma, materias: [dataMateria] }]);
             } catch (error) {
-                showToast('error', 'Error', 'Não foi possível listar os alunos.');
+                console.error('Error fetching turmas:', error);
+                showToast('error', 'Error', 'Não foi possível listar os dados.');
+            } finally {
+                setLoading(false);
             }
         };
-        fetchData();
+
+        fetchTurmaData();
     }, [id]);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!turmaData.length) {
+        return <div>No data found</div>;
+    }
+
     return (
-        <div className="list-alunos-container">
-            <Toast ref={toast} />
-            <h1>Lista de Materias</h1>
-            <DataTable value={materias}>
-                <Column field="materia.nome" header="MATÉRIA" />
-                <Column field="materia.descricao" header="DESCRIÇÃO" />
+        <div className="list-turma-container">
+            <Toast ref={toast}/>
+            <h1>Lista de Turmas</h1>
+            <DataTable value={turmaData}>
+                <Column
+                    body={(rowData) => (
+                        <Link to={`/lista-alunos-turma/${rowData.materias[0].id}`}>{`${rowData.nome} - ${rowData.materias.map(materia => materia.nome).join(', ')}`}</Link>
+                    )}
+                    style={{ fontSize: 'larger' }}
+                />
             </DataTable>
         </div>
     );
 };
 
-export default ListMaterias;
+export default ListTurmas;

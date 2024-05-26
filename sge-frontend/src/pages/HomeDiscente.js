@@ -1,8 +1,7 @@
 import React from 'react';
-import ListTurmas from "../components/ListTurmas";
 import Perfil from "../components/Perfil";
-import '../assets/css/HomeDocente.css';
 import ListMaterias from "../components/ListMaterias";
+import '../assets/css/HomeDocente.css';
 
 const HomeDiscente = () => {
     return (
