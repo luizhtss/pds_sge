@@ -11,6 +11,7 @@ import ListTurmas from "./components/ListTurmas";
 import HomeDocente from "./pages/HomeDocente";
 import HomeDiscente from "./pages/HomeDiscente";
 import Perfil from "./components/Perfil";
+import Relatorio from './pages/Relatorio';
 
 function App() {
     return (
