@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import '../assets/css/ListaAlunos.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -8,9 +10,8 @@ import 'primeicons/primeicons.css';
 
 const ListMaterias = () => {
     const [materias, setMaterias] = useState([]);
-    const { matricula } = useParams();
+    const { id } = useParams();
     const toast = useRef(null);
-    const navigate = useNavigate();
 
     const domain = 'http://localhost';
     const port = 8080;
@@ -22,9 +23,8 @@ const ListMaterias = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${domain}:${port}/api/discente-materia/discente/${matricula}`);
-
-
+                const response = await fetch(`${domain}:${port}/api/discente-materia/discente/${id}`);
+                console.log(response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -35,28 +35,20 @@ const ListMaterias = () => {
             }
         };
         fetchData();
-    }, [matricula]);
+    }, [id]);
 
     return (
         <div className="list-alunos-container">
             <Toast ref={toast} />
             <h1>Lista de Materias</h1>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>MATÉRIA</th>
-                    <th>DESCRIÇÃO</th>
-                </tr>
-                </thead>
-                <tbody>
-                {materias.map(dis_mat => (
-                    <tr key={dis_mat.id}>
-                        <td>{dis_mat.materia.nome}</td>
-                        <td>{dis_mat.materia.descricao}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <DataTable value={materias}>
+                <Column field="materia.nome" header="MATÉRIA" />
+                <Column field="materia.descricao" header="DESCRIÇÃO" />
+                <Column field="unidade1" header="UNIDADE 1" />
+                <Column field="unidade2" header="UNIDADE 2" />
+                <Column field="unidade3" header="UNIDADE 3" />
+                <Column field="presenca" header="FREQUÊNCIA" />
+            </DataTable>
         </div>
     );
 };
