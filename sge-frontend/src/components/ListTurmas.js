@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // Import Link
 import { Toast } from 'primereact/toast';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -67,7 +67,12 @@ const ListTurmas = () => {
             <Toast ref={toast}/>
             <h1>Lista de Turmas</h1>
             <DataTable value={turmaData}>
-                <Column body={(rowData) => `${rowData.nome} - ${rowData.materias.map(materia => materia.nome).join(', ')}`} style={{ fontSize: 'larger' }} />
+                <Column
+                    body={(rowData) => (
+                        <Link to={`/lista-alunos-turma/${rowData.materias[0].id}`}>{`${rowData.nome} - ${rowData.materias.map(materia => materia.nome).join(', ')}`}</Link>
+                    )}
+                    style={{ fontSize: 'larger' }}
+                />
             </DataTable>
         </div>
     );
