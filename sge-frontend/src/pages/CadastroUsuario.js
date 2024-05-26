@@ -42,8 +42,11 @@ const CadastroUsuario = () => {
           },
           body: JSON.stringify(cadastroData)
       });
-
-      showToast('success', 'Success', 'Usuário cadastrado com sucesso!');
+      if (response.ok) {
+        showToast('success', 'Success', 'Usuário cadastrado com sucesso!');
+      } else {
+        showToast('error', 'Error', 'Ocorreu um erro ao enviar os dados.');
+      }
     } catch (error) {
       showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
       console.error('Error submitting form:', error);

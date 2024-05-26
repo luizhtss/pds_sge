@@ -43,8 +43,11 @@ const CadastroNotas = () => {
                 },
                 body: JSON.stringify(notas)
             });
-
-            showToast('success', 'Success', 'Notas cadastradas com sucesso!');
+            if (response.ok) {
+                showToast('success', 'Success', 'Notas cadastradas com sucesso!');
+            } else {
+                showToast('error', 'Error', 'Ocorreu um erro ao cadastrar as notas');
+            }
         } catch (error) {
             showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar as notas.');
             console.error('Error submitting form:', error);

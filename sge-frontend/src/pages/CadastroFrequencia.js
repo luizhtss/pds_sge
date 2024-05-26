@@ -32,7 +32,11 @@ const CadastroFrequencia = () => {
                 },
                 body: JSON.stringify(Teste)
             });
-            showToast('success', 'Success', 'Frequencia cadastrada com sucesso!');
+            if (response.ok) {
+                showToast('success', 'Success', 'Frequencia cadastrada com sucesso!');
+            } else {
+                showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar a frequencia.');
+            }
         } catch (error) {
             showToast('error', 'Erro', 'Ocorreu um erro ao cadastrar a frequencia.');
             console.error('Error submitting form:', error);

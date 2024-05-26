@@ -38,8 +38,11 @@ const LoginUsuario = () => {
                 },
                 body: JSON.stringify(loginData)
             });
-
-            showToast('success', 'Success', 'Usuário logado com sucesso!');
+            if (response.ok) {
+                showToast('success', 'Success', 'Usuário logado com sucesso!');
+            } else {
+                showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');
+            }
         } catch (error) {
             showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');
             console.error('Error logging in:', error);
