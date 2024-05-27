@@ -60,34 +60,28 @@ const ObservacoesHandler = () => {
         toast.current.show({ severity, summary, detail });
     };
 
-    const onEditorValueChange = (props, value) => {
-        let updatedObservacoes = [...observacoes];
-        updatedObservacoes[props.rowIndex][props.field] = value;
-        setObservacoes(updatedObservacoes);
-    };
-
     const onRowEditChange = (e) => {
         setEditingRows(e.data);
     };
 
-    const onRowEditComplete = async (event) => {
-        const { data: rowData } = event;
+    const onRowEditComplete = async (e) => {
+        const { newData, index } = e;
 
         try {
             const observacaoData = {
-                observacao: rowData.observacao,
+                id: newData.id,
+                observacao: newData.observacao,
                 docenteResponsavel: { id: id },
                 matriculaDiscente: { id: matricula_discente }
             };
-
-            const response = await fetch(`${domain}:${port}/api/observacoes/${rowData.id}`, {
+            console.log(JSON.stringify(observacaoData))
+            const response = await fetch(`${domain}:${port}/api/observacoes/${newData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(observacaoData),
             });
-
             if (response.ok) {
                 showToast('success', 'Success', 'Observação salva com sucesso!');
                 console.log('Observação saved successfully.');
@@ -95,6 +89,9 @@ const ObservacoesHandler = () => {
                 showToast('error', 'Erro', 'Ocorreu um erro ao salvar a observação.');
                 console.log('Error response from server:', response);
             }
+            const updatedObs = [...observacoes];
+            updatedObs[index] = newData;
+            setObservacoes(updatedObs);
         } catch (error) {
             showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
             console.log('Error submitting observacao:', error);
@@ -121,11 +118,11 @@ const ObservacoesHandler = () => {
         }
     };
 
-    const inputEditor = (props) => {
+    const inputEditor = (rowData) => {
         return (
             <InputTextarea
-                value={props.rowData.observacao}
-                onChange={(e) => onEditorValueChange(props, e.target.value)}
+                value={rowData.value}
+                onChange={(e) => rowData.editorCallback(e.target.value)}
                 rows={5}
                 autoResize
             />
@@ -164,7 +161,7 @@ const ObservacoesHandler = () => {
     return (
         <div className="form-container">
             <Toast ref={toast} />
-            <h3>{DiscenteNome}</h3>
+            <h3>{DiscenteNome}</h3>x
             <form>
                 <DataTable value={observacoes} editMode="row" dataKey="id"
                            editingRows={editingRows} onRowEditChange={onRowEditChange}

@@ -3,6 +3,7 @@ package br.imd.ufrn.sge.service;
 import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.MatriculaDiscenteNaoEncontradaException;
 import br.imd.ufrn.sge.models.discente.ObservacaoDiscente;
+import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.repository.ObservacaoDiscenteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class ObservacaoDiscenteService {
         if (matriculaDiscenteService.encontrarMatriculaPorIdDiscente(observacaoDiscente.getMatriculaDiscente().getId()).isEmpty())
             throw new MatriculaDiscenteNaoEncontradaException("Matrícula do discente não encontrada.");
 
-        observacaoDiscente.setDocenteResponsavel(null);
+        Docente d = observacaoDiscente.getDocenteResponsavel();
+        observacaoDiscente.setDocenteResponsavel(d);
         return observacaoDiscenteRepository.save(observacaoDiscente);
     }
 
