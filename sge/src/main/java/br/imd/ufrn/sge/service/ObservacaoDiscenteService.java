@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.MatriculaDiscenteNaoEncontradaException;
 import br.imd.ufrn.sge.models.discente.ObservacaoDiscente;
 import br.imd.ufrn.sge.repository.ObservacaoDiscenteRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,6 +26,9 @@ public class ObservacaoDiscenteService {
 
     public List<ObservacaoDiscente> encontrarPorMatriculaDiscente(Long idMatriculaDiscente) {
         return observacaoDiscenteRepository.findByMatriculaDiscenteId(idMatriculaDiscente);
+    }
+    public Optional<ObservacaoDiscente> encontrarPorId(Long id) {
+        return observacaoDiscenteRepository.findById(id);
     }
 
     public ObservacaoDiscente salvarObservacao(ObservacaoDiscente observacaoDiscente) throws MatriculaDiscenteNaoEncontradaException{
@@ -53,10 +58,10 @@ public class ObservacaoDiscenteService {
         return observacaoDiscenteRepository.save(observacaoDiscente);
     }
 
-    public void deletarObservacao(ObservacaoDiscente observacaoDiscente) throws IllegalArgumentException{
-        if (observacaoDiscenteRepository.findByMatriculaDiscenteId(observacaoDiscente.getMatriculaDiscente().getId()).isEmpty())
-            throw new IllegalArgumentException("Observação não encontrada.");
-
-        observacaoDiscenteRepository.delete(observacaoDiscente);
+    public void deletarObservacao(Long id) throws IllegalArgumentException{
+        if (encontrarPorId(id).isPresent()){
+            throw new IdNaoEncontradoException();
+        }
+        observacaoDiscenteRepository.deleteById(id);
     }
 }

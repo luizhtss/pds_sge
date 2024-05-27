@@ -10,6 +10,7 @@ import HomeDocente from "./pages/HomeDocente";
 import HomeDiscente from "./pages/HomeDiscente";
 import Perfil from "./components/Perfil";
 import Relatorio from "./pages/Relatorio";
+import ObservacoesHandler from "./components/ObservacoesHandler";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/home-discente/:id" element={<HomeDiscente />} />
                 <Route path="/perfil/:id" element={<Perfil />} />
                 <Route path="/relatorio/:id" element={<Relatorio />} />
+                <Route path="/observacoes/:id/:matricula_discente" element={<ObservacoesHandler />} />
             </Routes>
         </Router>
     );

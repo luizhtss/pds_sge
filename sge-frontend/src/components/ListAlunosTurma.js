@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -15,6 +15,7 @@ const ListAlunosTurma = () => {
     const [editingRows, setEditingRows] = useState({});
     const { id } = useParams();
     const toast = useRef(null);
+    const navigate = useNavigate();
 
     const domain = 'http://localhost';
     const port = 8080;
@@ -28,11 +29,12 @@ const ListAlunosTurma = () => {
         const fetchAlunos = async () => {
             try {
                 const response = await fetch(`${domain}:${port}/api/discente-materia/materia/${id}`);
+                console.log(response)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-
+                console.log(data)
                 const alunosWithMatricula = await Promise.all(data.map(async (aluno) => {
                     const matriculaResponse = await fetch(`${domain}:${port}/api/matricula/${aluno.discente.id}`);
                     if (!matriculaResponse.ok) {
@@ -134,6 +136,12 @@ const ListAlunosTurma = () => {
         );
     };
 
+    const observacoesButtonTemplate = (rowData) => {
+        return (
+            <Button label="Observações" icon="pi pi-eye" className="p-button-rounded p-button-info" onClick={() => navigate(`/observacoes/${id}/${rowData.matricula}`)} />
+        );
+    };
+
     return (
         <div className="list-alunos-container">
             <Toast ref={toast} />
@@ -146,6 +154,7 @@ const ListAlunosTurma = () => {
                 <Column field="unidade3" header="UNIDADE 3" editor={inputNumberEditor} />
                 <Column body={presencaTemplate} header="FREQUÊNCIA" />
                 <Column body={relatorioTemplate} header="RELATÓRIO" />
+                <Column body={observacoesButtonTemplate} header="OBSERVAÇÕES" />
                 <Column rowEditor headerStyle={{ width: '7rem' }} bodyStyle={{ textAlign: 'center' }} />
             </DataTable>
         </div>

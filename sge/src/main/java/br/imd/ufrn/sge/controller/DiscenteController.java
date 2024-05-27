@@ -21,6 +21,13 @@ public class DiscenteController {
         Optional<Discente> discentes = discenteService.encontrarDiscente(id);
             return ResponseEntity.ok().body(discentes.get());
     }
+
+    @GetMapping("/matricula/{mat}")
+    public ResponseEntity<?> obterDiscentePorMatricula(@PathVariable Long mat) {
+        Optional<Discente> discentes = discenteService.encontrarDiscentePorMat(mat);
+        return ResponseEntity.ok().body(discentes.get());
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<Discente> criarDiscente(@RequestBody Discente discentes) {
         Discente novoDiscente = discenteService.salvarDiscente(discentes);
