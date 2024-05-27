@@ -7,12 +7,14 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import '../assets/css/Relatorio.css';
+import '../assets/css/Relatorio.css';  // Certifique-se de que este caminho está correto
 
 const Relatorio = () => {
     const { id } = useParams();
     const [relatorio, setRelatorio] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [nome, setNome] = useState('');
+    const [matricula, setMatricula] = useState('');
+    const [loading, setLoading] = useState(false);
     const toast = useRef(null);
 
     const handleChange = (event) => {
@@ -20,12 +22,14 @@ const Relatorio = () => {
     };
 
     const handleSubmit = () => {
-        setLoading(true); 
+        setLoading(true);
         fetch(`http://localhost:8080/api/relatorio/academico/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                setRelatorio(data.relatorio);
-                setLoading(false); 
+                setRelatorio(data.texto);
+                setNome(data.nomeEstudante);
+                setMatricula(data.matricula);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching relatorio data:', error);
@@ -35,13 +39,13 @@ const Relatorio = () => {
                     detail: 'Failed to fetch relatorio data',
                     life: 3000,
                 });
-                setLoading(false); 
+                setLoading(false);
             });
     };
 
     return (
         <div className="relatorio-container">
-            <Card title="Relatório">
+            <Card title={`Relatório ${nome ? `de ${nome}` : ''} ${matricula ? `| #${matricula}` : ''}`}>
                 <div className="relatorio-input">
                     <label htmlFor="relatorio-textarea">Relatório:</label>
                     <textarea
@@ -50,7 +54,7 @@ const Relatorio = () => {
                         onChange={handleChange}
                         maxLength={3000}
                         disabled={true}
-                        rows={20} 
+                        rows={20}
                     />
                 </div>
                 <div className="button-container">
