@@ -68,7 +68,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return this.senha;
     }
 
     @Override
@@ -94,6 +94,14 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public DadosPessoais getDadosPessoais() {
+        return dadosPessoais;
+    }
+
+    public void setDadosPessoais(DadosPessoais dadosPessoais) {
+        this.dadosPessoais = dadosPessoais;
     }
 
 }

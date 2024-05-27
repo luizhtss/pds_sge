@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DadosPessoaisRepository extends JpaRepository<DadosPessoais, Long> {
@@ -16,5 +17,8 @@ public interface DadosPessoaisRepository extends JpaRepository<DadosPessoais, Lo
 
     @Query("SELECT p FROM DadosPessoais p WHERE p.nome = :nome")
     List<DadosPessoais> findByName(@Param("nome") String nome);
+
+    @Query("SELECT p FROM DadosPessoais p WHERE p.email = :email")
+    Optional<DadosPessoais> findByEmail(String email);
 }
 

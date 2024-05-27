@@ -26,8 +26,10 @@ const LoginUsuario = () => {
         e.preventDefault();
 
         const loginData = {
-            login,
-            password
+            user: {
+                "login": login,
+                "senha": password
+            }
         };
 
         try {

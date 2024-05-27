@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.controller.auth;
 
 
+import br.imd.ufrn.sge.dto.UserRegisterDTO;
 import br.imd.ufrn.sge.dto.UserReqResponseDTO;
 import br.imd.ufrn.sge.service.auth.UsuarioManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserManagementAuthController {
     private UsuarioManagementService usuarioManagementService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserReqResponseDTO> register(@RequestBody UserReqResponseDTO userReqResponseDTO){
+    public ResponseEntity<UserReqResponseDTO> register(@RequestBody UserRegisterDTO userReqResponseDTO){
         try {
             UserReqResponseDTO userReqResponseDTO1 = usuarioManagementService.register(userReqResponseDTO);
             return ResponseEntity.ok().body(userReqResponseDTO1);
