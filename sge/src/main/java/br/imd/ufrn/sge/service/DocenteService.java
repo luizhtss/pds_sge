@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class DocenteService {
@@ -53,7 +55,17 @@ public class DocenteService {
           if (dadosPessoaisJaExistem(docente)){
               throw new IdJaExisteException();
           }
+          docente.setMatricula(gerarMatricula());
         return docenteRepository.save(docente);
+    }
+
+    private  String gerarMatricula() {
+        int anoAtual = Year.now().getValue();
+
+        Random random = new Random();
+        int numero = random.nextInt(100000);
+
+        return String.format("S%04d%05d", anoAtual, numero);
     }
 
     @Transactional

@@ -35,7 +35,7 @@ const CadastroUsuario = () => {
     }
 
     try {
-       const response = await fetch(`${domain}:${port}/api/auth/register`, {
+       const response = await fetch(`${domain}:${port}/auth/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

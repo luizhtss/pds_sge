@@ -7,7 +7,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import '../assets/css/Relatorio.css';  // Certifique-se de que este caminho está correto
+import '../assets/css/Relatorio.css';
 
 const Relatorio = () => {
     const { id } = useParams();

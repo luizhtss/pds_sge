@@ -26,12 +26,14 @@ const LoginUsuario = () => {
         e.preventDefault();
 
         const loginData = {
-            login,
-            password
+            user: {
+                "login": login,
+                "senha": password
+            }
         };
 
         try {
-            const response = await fetch(`${domain}:${port}/api/auth/login` , {
+            const response = await fetch(`${domain}:${port}/auth/login` , {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

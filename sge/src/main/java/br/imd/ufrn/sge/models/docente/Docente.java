@@ -21,6 +21,10 @@ public class Docente {
     @JoinColumn(name = "id_dados_pessoais", nullable = false)
     private DadosPessoais dadosPessoais;
 
+
+    @Column(name = "matricula", nullable = false, unique = true)
+    private String matricula;
+
     public Long getId() {
         return id;
     }
@@ -41,6 +45,7 @@ public class Docente {
     public static class Builder {
         private Long id;
         private DadosPessoais dadosPessoais;
+        private String matricula;
 
         public Builder id(Long id) {
             this.id = id;
@@ -58,6 +63,7 @@ public class Docente {
             Docente docente = new Docente();
             docente.setId(id);
             docente.setDadosPessoais(dadosPessoais);
+            docente.setMatricula(matricula);
             return docente;
         }
 
@@ -65,6 +71,15 @@ public class Docente {
             this.dadosPessoais = dadosPessoais;
             return this;
         }
+
+        public Builder withMatricula(String matricula) {
+            this.matricula = matricula;
+            return this;
+        }
+    }
+
+    public void setMatricula(String matricula) {
+        this.setMatricula(matricula);
     }
 
 }
