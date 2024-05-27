@@ -18,7 +18,7 @@ public class DadosAcademicoFetcher implements IDataFetcher {
             float notaPrimeiraUnidade = discenteMateria.getUnidade1();
             float notaSegundaUnidade = discenteMateria.getUnidade2();
             float notaTerceiraUnidade = discenteMateria.getUnidade3();
-
+            dataDb.append("Nome do aluno: ").append(matriculaDiscente.getDiscente().getDadosPessoais().getNome()).append("\n");
             dataDb.append("Materia: ").append(materia.getNome()).append(". Notas: ");
             dataDb.append(String.format("%.2f", notaPrimeiraUnidade)).append(", ");
             dataDb.append(String.format("%.2f", notaSegundaUnidade)).append(", ");

@@ -33,7 +33,7 @@ const LoginUsuario = () => {
         };
 
         try {
-            const response = await fetch(`${domain}:${port}/api/auth/login`, {
+            const response = await fetch(`${domain}:${port}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -45,11 +45,11 @@ const LoginUsuario = () => {
                 const userData = await response.json();
                 showToast('success', 'Success', 'Usuário logado com sucesso!');
 
-                if (userData.cargo === "Docente") {
+               /* if (userData.cargo === "Docente") {
                     navigate('/home-docente/${userData.id}');
                 } else {
                     navigate('/home-discente/${userData.id}');
-                }
+                }*/
 
             } else {
                 showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');

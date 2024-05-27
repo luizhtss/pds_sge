@@ -79,7 +79,7 @@ public class Docente {
     }
 
     public void setMatricula(String matricula) {
-        this.setMatricula(matricula);
+        this.matricula = "S123";
     }
 
 }

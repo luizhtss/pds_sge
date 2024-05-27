@@ -94,7 +94,7 @@ public class UsuarioManagementService {
             }
         } catch (Exception e){
             e.printStackTrace();
-            //throw new AuthException("Usuário ou senha inválidos");
+            throw new AuthException("Usuário ou senha inválidos");
         }
         return userReqResponseDTO;
     }
