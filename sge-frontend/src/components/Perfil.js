@@ -6,6 +6,7 @@ import logo from '../assets/images/logo.svg';
 
 const Perfil = () => {
     const [userData, setUserData] = useState(null);
+    const [matricula, setMatricula] = useState('');
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const domain = 'http://localhost';
@@ -20,15 +21,22 @@ const Perfil = () => {
                 }
                 const userData = await response.json();
                 setUserData(userData);
+
+                const matriculaResponse = await fetch(`${domain}:${port}/api/matricula/${id}`);
+                if (!matriculaResponse.ok) {
+                    throw new Error('Failed to fetch matricula data');
+                }
+                const matriculaData = await matriculaResponse.json();
+                setMatricula(matriculaData.matricula); // assuming the response has a field 'matricula'
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching data:', error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchUserData();
-    }, []);
+    }, [id]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -42,7 +50,7 @@ const Perfil = () => {
                     <div>
                         <p className="profile-label">Nome: {userData.nome}</p>
                         <p className="profile-label">Email: {userData.email}</p>
-                        <p className="profile-label">Matricula: 1{/*userData.matricula*/}</p>
+                        <p className="profile-label">Matricula: {matricula}</p>
                     </div>
                 </div>
             </Panel>

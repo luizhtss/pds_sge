@@ -17,7 +17,6 @@ const LoginUsuario = () => {
     const domain = 'http://localhost';
     const port = 8080;
 
-
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
     };
@@ -31,15 +30,24 @@ const LoginUsuario = () => {
         };
 
         try {
-            const response = await fetch(`${domain}:${port}/api/auth/login` , {
+            const response = await fetch(`${domain}:${port}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(loginData)
             });
+
             if (response.ok) {
+                const userData = await response.json();
                 showToast('success', 'Success', 'Usuário logado com sucesso!');
+
+                if (userData.cargo === "Docente") {
+                    navigate(`/home-docente/${userData.id}`);
+                } else {
+                    navigate(`/home-discente/${userData.id}`);
+                }
+
             } else {
                 showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');
             }

@@ -31,7 +31,17 @@ const ListAlunosTurma = () => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setAlunos(data);
+
+                const alunosWithMatricula = await Promise.all(data.map(async (aluno) => {
+                    const matriculaResponse = await fetch(`${domain}:${port}/api/matricula/${aluno.discente.id}`);
+                    if (!matriculaResponse.ok) {
+                        throw new Error('Failed to fetch matricula data');
+                    }
+                    const matriculaData = await matriculaResponse.json();
+                    return { ...aluno, matricula: matriculaData.matricula };
+                }));
+
+                setAlunos(alunosWithMatricula);
             } catch (error) {
                 showToast('error', 'Error', 'Não foi possível listar os alunos.');
             }
@@ -117,6 +127,12 @@ const ListAlunosTurma = () => {
         );
     };
 
+    const relatorioTemplate = (rowData) => {
+        return (
+            <Button label="Relatório" icon="pi pi-file" className="p-button-rounded p-button-info" onClick={() => window.location.href = `${domain}:${port}/api/relatorio/academico/${rowData.matricula}`} />
+        );
+    };
+
     return (
         <div className="list-alunos-container">
             <Toast ref={toast} />
@@ -128,6 +144,7 @@ const ListAlunosTurma = () => {
                 <Column field="unidade2" header="UNIDADE 2" editor={inputNumberEditor} />
                 <Column field="unidade3" header="UNIDADE 3" editor={inputNumberEditor} />
                 <Column body={presencaTemplate} header="FREQUÊNCIA" />
+                <Column body={relatorioTemplate} header="RELATÓRIO" />
                 <Column rowEditor headerStyle={{ width: '7rem' }} bodyStyle={{ textAlign: 'center' }} />
             </DataTable>
         </div>
