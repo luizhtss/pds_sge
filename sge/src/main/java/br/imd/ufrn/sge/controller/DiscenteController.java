@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/api/discente", produces="application/json")
+@RequestMapping(path="/api/discentes", produces="application/json")
 public class DiscenteController {
     @Autowired
     private DiscenteService discenteService;

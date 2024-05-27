@@ -7,12 +7,11 @@ import '../assets/css/CadastroUsuario.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import { FormControl, FormLabel, FormControlLabel,RadioGroup,Radio } from '@mui/material';
+import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 
 const CadastroDadosPessoais = () => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const [matricula, setMatricula] = useState('');
     const [role, setRole] = useState('');
     const toast = useRef(null);
     const navigate = useNavigate();
@@ -30,23 +29,61 @@ const CadastroDadosPessoais = () => {
         const pessoaData = {
             nome,
             email,
-            matricula,
-            role
-        }
+        };
 
         try {
-            const response = await fetch(`${domain}:${port}/api/pessoas/criar`, {
+            const pessoaResponse = await fetch(`${domain}:${port}/api/pessoas/criar`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(pessoaData)
             });
-            if (response.ok) {
-                showToast('success', 'Success', 'Dados Pessoais cadastrados com sucesso!');
-            } else {
-                showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
+            if (!pessoaResponse.ok) {
+                throw new Error('Failed to create pessoa');
             }
+            const dadosPessoais = await pessoaResponse.json();
+            const pessoaId = dadosPessoais.id;
+
+            let roleEndpoint = '';
+            if (role === 'Docente') {
+                roleEndpoint = '/api/docentes/criar';
+            } else if (role === 'Discente') {
+                roleEndpoint = '/api/discentes/criar';
+            }
+
+            const roleResponse = await fetch(`${domain}:${port}${roleEndpoint}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"dadosPessoais" : dadosPessoais})
+            });
+            if (!roleResponse.ok) {
+                throw new Error('Failed to create discente/docente');
+            }
+
+            let associationEndpoint = '';
+            if (role === 'Docente') {
+                associationEndpoint = `/api/associacao/pessoa/docente/${pessoaId}`;
+            } else if (role === 'Discente') {
+                associationEndpoint = `/api/associacao/pessoa/discente/${pessoaId}`;
+            }
+
+            const associationResponse = await fetch(`${domain}:${port}${associationEndpoint}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+
+            if (!associationResponse.ok) {
+                throw new Error('Failed to associate pessoa with discente/docente');
+            }
+
+            showToast('success', 'Success', 'Dados Pessoais cadastrados com sucesso!');
+            navigate('/cadastro-usuario');
         } catch (error) {
             showToast('error', 'Erro', 'Ocorreu um erro ao enviar os dados.');
             console.error('Error submitting form:', error);
@@ -60,16 +97,11 @@ const CadastroDadosPessoais = () => {
             <form onSubmit={handleSubmit}>
                 <div className="p-field">
                     <label htmlFor="nome">Nome Completo</label>
-                    <InputText id="nome" value={nome} onChange={(e) => setNome(e.target.value)}/>
-                </div>
-                <div className="p-field">
-                    <label htmlFor="email">Matrícula</label>
-                    <InputText id="email" type="email" value={matricula}
-                               onChange={(e) => setMatricula(e.target.value)}/>
+                    <InputText id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
                 </div>
                 <div className="p-field">
                     <label htmlFor="email">Email</label>
-                    <InputText id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <InputText id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Cargo</FormLabel>
@@ -79,16 +111,16 @@ const CadastroDadosPessoais = () => {
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                     >
-                        <FormControlLabel value="female" control={<Radio />} label="Docente" />
-                        <FormControlLabel value="male" control={<Radio />} label="Discente" />
+                        <FormControlLabel value="Docente" control={<Radio />} label="Docente" />
+                        <FormControlLabel value="Discente" control={<Radio />} label="Discente" />
                     </RadioGroup>
                 </FormControl>
                 <div className="p-field">
-                    <Button type="submit" label="Cadastrar" className="p-button-primary"/>
+                    <Button type="submit" label="Cadastrar" className="p-button-primary" />
                 </div>
             </form>
             <div className="p-field">
-                <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')}/>
+                <Button label="Voltar para o Login" className="p-button-secondary" onClick={() => navigate('/')} />
             </div>
         </div>
     );

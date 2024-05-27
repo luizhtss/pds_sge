@@ -17,6 +17,7 @@ const LoginUsuario = () => {
     const domain = 'http://localhost';
     const port = 8080;
 
+
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
     };
@@ -43,9 +44,9 @@ const LoginUsuario = () => {
                 showToast('success', 'Success', 'Usuário logado com sucesso!');
 
                 if (userData.cargo === "Docente") {
-                    navigate(`/home-docente/${userData.id}`);
+                    navigate('/home-docente/${userData.id}');
                 } else {
-                    navigate(`/home-discente/${userData.id}`);
+                    navigate('/home-discente/${userData.id}');
                 }
 
             } else {

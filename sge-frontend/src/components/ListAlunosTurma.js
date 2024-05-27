@@ -18,6 +18,7 @@ const ListAlunosTurma = () => {
 
     const domain = 'http://localhost';
     const port = 8080;
+    const port_react = 3000;
 
     const showToast = (severity, summary, detail) => {
         toast.current.show({ severity, summary, detail });
@@ -129,7 +130,7 @@ const ListAlunosTurma = () => {
 
     const relatorioTemplate = (rowData) => {
         return (
-            <Button label="Relatório" icon="pi pi-file" className="p-button-rounded p-button-info" onClick={() => window.location.href = `${domain}:${port}/api/relatorio/academico/${rowData.matricula}`} />
+            <Button label="Relatório" icon="pi pi-file" className="p-button-rounded p-button-info" onClick={() => window.location.href = `${domain}:${port_react}/relatorio/${rowData.matricula}`} />
         );
     };
 
