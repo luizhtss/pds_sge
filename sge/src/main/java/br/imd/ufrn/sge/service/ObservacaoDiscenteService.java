@@ -4,6 +4,7 @@ import br.imd.ufrn.sge.exceptions.IdNaoEncontradoException;
 import br.imd.ufrn.sge.exceptions.MatriculaDiscenteNaoEncontradaException;
 import br.imd.ufrn.sge.models.discente.ObservacaoDiscente;
 import br.imd.ufrn.sge.repository.ObservacaoDiscenteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class ObservacaoDiscenteService {
         return observacaoDiscenteRepository.findById(id);
     }
 
+    @Transactional
     public ObservacaoDiscente salvarObservacao(ObservacaoDiscente observacaoDiscente) throws MatriculaDiscenteNaoEncontradaException{
 
         if (observacaoDiscente.getMatriculaDiscente() == null) {
@@ -40,6 +42,7 @@ public class ObservacaoDiscenteService {
         if (matriculaDiscenteService.encontrarMatriculaPorIdDiscente(observacaoDiscente.getMatriculaDiscente().getId()).isEmpty())
             throw new MatriculaDiscenteNaoEncontradaException("Matrícula do discente não encontrada.");
 
+        observacaoDiscente.setDocenteResponsavel(null);
         return observacaoDiscenteRepository.save(observacaoDiscente);
     }
 

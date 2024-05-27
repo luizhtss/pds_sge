@@ -18,7 +18,7 @@ public class ObservacaoDiscente {
     private MatriculaDiscente matriculaDiscente;
 
     @ManyToOne
-    @JoinColumn(name = "id_docente", nullable = false)
+    @JoinColumn(name = "id_docente", nullable = true)
     private Docente docenteResponsavel;
 
     public Long getId() {
@@ -40,6 +40,16 @@ public class ObservacaoDiscente {
     public Docente getDocenteResponsavel() {
         return docenteResponsavel;
     }
+
+    public void setDocenteResponsavel(Docente docenteResponsavel) {
+        this.docenteResponsavel = docenteResponsavel;
+    }
+
+    public void setMatriculaDiscente(MatriculaDiscente matriculaDiscente) {
+        this.matriculaDiscente = matriculaDiscente;
+    }
+
+
 
 
 }
