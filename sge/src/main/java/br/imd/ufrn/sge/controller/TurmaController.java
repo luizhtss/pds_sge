@@ -2,6 +2,7 @@ package br.imd.ufrn.sge.controller;
 
 import br.imd.ufrn.sge.exceptions.NomeNaoEncontradoException;
 import br.imd.ufrn.sge.models.discente.Discente;
+import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import br.imd.ufrn.sge.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class TurmaController {
     @GetMapping("{id}/discentes")
     public Optional<Discente> listarDiscentesTurma(@PathVariable Long id) {
         return turmaService.listarMatriculados(id);
+    }
+
+    @GetMapping("docentes/{id}")
+    public Optional<Materia> listarMateriasDoDocenteNaTurma(@PathVariable Long id_docente) {
+        return turmaService.findMateriasDocente(id_docente);
     }
 
     @GetMapping("/{id}")
