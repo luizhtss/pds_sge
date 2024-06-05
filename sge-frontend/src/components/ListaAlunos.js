@@ -9,7 +9,7 @@ const ListaAlunos = () => {
             const data = await response.json();
             setAlunos(data);
         };
-
+ss
         fetchAlunos();
     }, []);
 
