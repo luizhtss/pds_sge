@@ -1,0 +1,13 @@
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Margin above buttons */
+}
+
+.p-button-success {
+    flex: 1;
+}
+
+.p-button-secondary {
+    flex: 1;
+}

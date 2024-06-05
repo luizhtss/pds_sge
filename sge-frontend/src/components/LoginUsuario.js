@@ -26,12 +26,14 @@ const LoginUsuario = () => {
         e.preventDefault();
 
         const loginData = {
-            login,
-            password
+            user: {
+                "login": login,
+                "senha": password
+            }
         };
 
         try {
-            const response = await fetch(`${domain}:${port}/api/auth/login` , {
+            const response = await fetch(`${domain}:${port}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,10 +42,17 @@ const LoginUsuario = () => {
             });
 
             if (response.ok) {
-                showToast('success', 'Success', 'Logado com sucesso!');
+                const userData = await response.json();
+                showToast('success', 'Success', 'Usuário logado com sucesso!');
+
+               /* if (userData.cargo === "Docente") {
+                    navigate('/home-docente/${userData.id}');
+                } else {
+                    navigate('/home-discente/${userData.id}');
+                }*/
+
             } else {
-                const errorData = await response.json();
-                showToast('error', 'Error', errorData.message);
+                showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');
             }
         } catch (error) {
             showToast('error', 'Error', 'Ocorreu um erro ao fazer seu login.');

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/api/discente", produces="application/json")
+@RequestMapping(path="/api/discentes", produces="application/json")
 public class DiscenteController {
     @Autowired
     private DiscenteService discenteService;
@@ -21,6 +21,13 @@ public class DiscenteController {
         Optional<Discente> discentes = discenteService.encontrarDiscente(id);
             return ResponseEntity.ok().body(discentes.get());
     }
+
+    @GetMapping("/matricula/{mat}")
+    public ResponseEntity<?> obterDiscentePorMatricula(@PathVariable Long mat) {
+        Optional<Discente> discentes = discenteService.encontrarDiscentePorMat(mat);
+        return ResponseEntity.ok().body(discentes.get());
+    }
+
     @PostMapping("/criar")
     public ResponseEntity<Discente> criarDiscente(@RequestBody Discente discentes) {
         Discente novoDiscente = discenteService.salvarDiscente(discentes);

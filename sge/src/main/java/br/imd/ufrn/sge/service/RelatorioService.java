@@ -24,14 +24,14 @@ public class RelatorioService {
     MatriculaDiscenteService matriculaDiscenteService;
 
     @Autowired
-    NotaService notaService;
+    DiscenteMateriaService notaService;
 
     public Relatorio obterRelatorioAcademico(ILLMProvider relatorioProvider, Long idMatriculaDiscente) throws IOException, InterruptedException, IllegalArgumentException {
         Optional<MatriculaDiscente> matriculaDiscenteDB = matriculaDiscenteService.findById(idMatriculaDiscente);
         if (matriculaDiscenteDB.isPresent()) {
             if (notaService.todasUnidadesPreenchidas(idMatriculaDiscente)) {
                 String data = dadosAcademicoFetcher.fetchData(matriculaDiscenteDB.get());
-                return relatorioProvider.gerarRelatorioBaseAcademico(data);
+                return relatorioProvider.gerarRelatorioBaseAcademico(data, matriculaDiscenteDB.get());
             } else {
                 throw new IllegalArgumentException("Impossível gerar relatório acadêmico, nem todas as unidades estão preenchidas.");
             }

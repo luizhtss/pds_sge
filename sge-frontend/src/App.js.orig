@@ -2,15 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginUsuario from './components/LoginUsuario';
 import CadastroUsuario from './components/CadastroUsuario';
+import CadastroNotas from "./components/CadastroNotas";
 import CadastroDadosPessoais from "./components/CadastroDadosPessoais";
+import CadastroFrequencia from "./components/CadastroFrequencia";
 import ListAlunosTurma from "./components/ListAlunosTurma";
 import ListMaterias from "./components/ListMaterias";
 import ListTurmas from "./components/ListTurmas";
 import HomeDocente from "./pages/HomeDocente";
-import HomeDiscente from "./pages/HomeDiscente";
-import Perfil from "./components/Perfil";
+<<<<<<< HEAD
 import Relatorio from "./pages/Relatorio";
-import ObservacoesHandler from "./components/ObservacoesHandler";
+=======
+import HomeDiscente from "./pages/HomeDiscente";
+>>>>>>> 05e51ead4252f5c78268a4d926fda9f175fe09cf
+import Perfil from "./components/Perfil";
 
 function App() {
     return (
@@ -19,6 +23,8 @@ function App() {
                 <Route path="/" element={<LoginUsuario />} />
                 <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
                 <Route path="/cadastro-pessoa" element={<CadastroDadosPessoais />} />
+                <Route path="/cadastro-notas/:id" element={<CadastroNotas />} />
+                <Route path="/cadastro-frequencia/:id" element={<CadastroFrequencia />} />
                 <Route path="/lista-alunos-turma/:id" element={<ListAlunosTurma />} />
                 <Route path="/lista-materias/:matricula" element={<ListMaterias/>} />
                 <Route path="/lista-turmas/:id" element={<ListTurmas />} />
@@ -26,7 +32,6 @@ function App() {
                 <Route path="/home-discente/:id" element={<HomeDiscente />} />
                 <Route path="/perfil/:id" element={<Perfil />} />
                 <Route path="/relatorio/:id" element={<Relatorio />} />
-                <Route path="/observacoes/:id/:matricula_discente" element={<ObservacoesHandler />} />
             </Routes>
         </Router>
     );

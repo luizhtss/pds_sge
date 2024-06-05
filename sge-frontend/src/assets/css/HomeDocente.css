@@ -1,0 +1,13 @@
+.home-docente-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.turma-container {
+    flex: 0 0 70%;
+}
+
+.perfil-container {
+    flex: 0 0 30%;
+}

@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.relatorio.controller;
 
+import br.imd.ufrn.sge.dto.RelatorioDTO;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.relatorio.providers.LLMAProvider;
 import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
@@ -32,15 +33,18 @@ public class RelatorioController {
     RelatorioPessoalRepository relatorioPessoalRepository;
 
     @GetMapping("/academico/{idMatriculaDiscente}")
-    ResponseEntity<RelatorioAcademico> getRelatorioAcademico(@PathVariable Long idMatriculaDiscente) {
+    ResponseEntity<RelatorioDTO> getRelatorioAcademico(@PathVariable Long idMatriculaDiscente) {
         RelatorioAcademico rel = null;
+        RelatorioDTO relDTO = new RelatorioDTO();
         try {
             rel = (RelatorioAcademico) relatorioService.obterRelatorioAcademico(llmaProvider, idMatriculaDiscente);
         } catch (IOException | InterruptedException e) {
             return ResponseEntity.internalServerError().build();
         }
-        //relatorioAcademicoRepository.save(rel);
-        return ResponseEntity.ok().body(rel);
+        relDTO.setTexto(rel.getTexto());
+        relDTO.setNomeEstudante(rel.getMatriculaDiscente().getDiscente().getDadosPessoais().getNome());
+        relDTO.setMatricula(rel.getMatriculaDiscente().getMatricula());
+        return ResponseEntity.ok().body(relDTO);
     }
 
     @GetMapping("/pessoal/{idMatriculaDiscente}")

@@ -33,6 +33,16 @@ public class DiscenteService {
         }
         return discenteRepository.findById(id);
     }
+
+
+    public Optional<Discente> encontrarDiscentePorMat(Long mat) {
+        if (discenteRepository.findByMatricula(mat).isEmpty()){
+            throw new IdNaoEncontradoException();
+        }
+        return discenteRepository.findByMatricula(mat);
+    }
+
+
     @Transactional
     public boolean dadosPessoaisJaExistem(Discente docente) {
         List<Discente> dadosPessoaisJaExistem = discenteRepository.findByDadosPessoais(docente.getDadosPessoais().getId());

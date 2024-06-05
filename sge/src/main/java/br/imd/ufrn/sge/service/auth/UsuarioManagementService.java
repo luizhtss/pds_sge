@@ -1,5 +1,6 @@
 package br.imd.ufrn.sge.service.auth;
 
+import br.imd.ufrn.sge.dto.UserRegisterDTO;
 import br.imd.ufrn.sge.dto.UserReqResponseDTO;
 import br.imd.ufrn.sge.exceptions.AuthException;
 import br.imd.ufrn.sge.models.DadosPessoais;
@@ -34,25 +35,36 @@ public class UsuarioManagementService {
     UserService userService;
 
 
-    public UserReqResponseDTO register(UserReqResponseDTO userReqResponseDTO) throws AuthException{
+    public UserReqResponseDTO register(UserRegisterDTO userRegisterDTO) throws AuthException{
         UserReqResponseDTO userReqResponseDTO1 = new UserReqResponseDTO();
 
-        Optional<DadosPessoais> dadosPessoais = dadosPessoaisService.encontrarPorId(userReqResponseDTO.getIdDadosPessoais());
+        String matricula = userRegisterDTO.getMatricula();
+
+        boolean isDiscente = false;
+
+        if (matricula.toCharArray()[0] == 'S') {
+            isDiscente = true;
+        }else{
+            isDiscente = false;
+        }
+
+
+
+        Optional<DadosPessoais> dadosPessoais = dadosPessoaisService.findByEmail(userRegisterDTO.getEmail());
 
         if (dadosPessoais.isEmpty())
             throw new AuthException("Dados pessoais não encontrado");
 
-        if (userService.findUserByIdDadosPessoais(userReqResponseDTO.getIdDadosPessoais()).isPresent())
-            throw new AuthException("Usuário já cadastrado no sistema.");
 
-        if (userService.findByLogin(userReqResponseDTO.getUser().getLogin()).isPresent())
+        if (userService.findByLogin(userRegisterDTO.getEmail()).isPresent())
             throw new AuthException("Login já existe no sistema.");
 
 
         Usuario user = new Usuario();
-        user.setLogin(userReqResponseDTO.getUser().getLogin());
-        user.setRole(userReqResponseDTO.getUser().getRole());
-        user.setSenha(passwordEncoder.encode(userReqResponseDTO.getUser().getPassword()));
+        user.setLogin(userRegisterDTO.getEmail());
+        user.setRole(isDiscente ? "DISCENTE" : "DOCENTE");
+        user.setSenha(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        user.setDadosPessoais(dadosPessoais.get());
         Usuario usuario = userService.save(user);
 
 
@@ -67,9 +79,9 @@ public class UsuarioManagementService {
         UserReqResponseDTO userReqResponseDTO = new UserReqResponseDTO();
 
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUser().getLogin(), loginRequest.getUser().getPassword()));
             Optional<Usuario> user =  userService.findByLogin(loginRequest.getUser().getLogin());
             if (user.isPresent()){
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUser().getLogin(), loginRequest.getUser().getPassword()));
                 String token = jwtService.generateToken(user.get());
                 String refreshToken = jwtService.refreshToken(new HashMap<>(),user.get());
                 userReqResponseDTO.setToken(token);
@@ -78,9 +90,10 @@ public class UsuarioManagementService {
                 userReqResponseDTO.setMessage("Usuário autenticado com sucesso");
                 userReqResponseDTO.setStatusCode(200);
             }else {
-                throw new AuthException("Dados pessoais não encontrado");
+                throw new AuthException("Dados não encontrado");
             }
         } catch (Exception e){
+            e.printStackTrace();
             throw new AuthException("Usuário ou senha inválidos");
         }
         return userReqResponseDTO;
@@ -108,7 +121,7 @@ public class UsuarioManagementService {
         UserReqResponseDTO userReqResponseDTO = new UserReqResponseDTO();
         Optional<Usuario> user = userService.findByLogin(login);
         if (user.isPresent()){
-            userReqResponseDTO.setUser(user.get());
+           // userReqResponseDTO.setUser(user.get());
             userReqResponseDTO.setStatusCode(200);
         }else {
             throw new AuthException("Usuário não encontrado");
@@ -121,8 +134,7 @@ public class UsuarioManagementService {
         Optional<Usuario> user = userService.findByLogin(userReqResponseDTO.getUser().getLogin());
         if (user.isPresent()){
             user.get().setLogin(userReqResponseDTO.getUser().getLogin());
-            user.get().setRole(userReqResponseDTO.getUser().getRole());
-            user.get().setSenha(passwordEncoder.encode(userReqResponseDTO.getUser().getPassword()));
+            user.get().setSenha(passwordEncoder.encode(userReqResponseDTO.getUser().getLogin()));
             Usuario usuario = userService.save(user.get());
             if (usuario.getId() >0 ){
                 userReqResponseDTO1.setMessage("Usuário atualizado com sucesso");

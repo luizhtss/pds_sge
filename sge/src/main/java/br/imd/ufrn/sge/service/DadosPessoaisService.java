@@ -12,8 +12,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +41,10 @@ public class DadosPessoaisService {
     public List<DadosPessoais> findByName(String name) {
         if(name.isEmpty()){throw new NomeNaoEncontradoException();}
         return dadosPessoaisRepository.findByName(name);
+    }
+
+    public Optional<DadosPessoais> findByEmail(String email) {
+        return dadosPessoaisRepository.findByEmail(email);
     }
 
     public boolean pessoaExiste(Long id) {
