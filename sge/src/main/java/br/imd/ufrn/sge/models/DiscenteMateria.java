@@ -1,8 +1,13 @@
 package br.imd.ufrn.sge.models;
+import br.imd.ufrn.sge.models.discente.Discente;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class DiscenteMateria {
 
@@ -28,8 +33,8 @@ public class DiscenteMateria {
     @Column(name = "unidade_3")
     private Float unidade3;
 
-    @Column(name = "presenca")
-    private Integer presenca = 0;
+    @OneToMany(mappedBy = "discenteMateria", cascade = CascadeType.ALL)
+    private List<Frequencia> frequencias = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -63,11 +68,11 @@ public class DiscenteMateria {
         this.unidade3 = unidade3;
     }
 
-    public MatriculaDiscente getDiscente() {
+    public MatriculaDiscente getMatricula_discente() {
         return matricula_discente;
     }
 
-    public void setDiscente(MatriculaDiscente matricula_discente) {
+    public void setMatricula_discente(MatriculaDiscente matricula_discente) {
         this.matricula_discente = matricula_discente;
     }
 
@@ -79,16 +84,11 @@ public class DiscenteMateria {
         this.materia = materia;
     }
 
-    public Integer getPresenca() {
-        return presenca;
+    public List<Frequencia> getFrequencias() {
+        return frequencias;
     }
 
-    public void setPresenca(Integer presenca) {
-        this.presenca = presenca;
+    public void addFrequencia(Frequencia frequencia) {
+        this.frequencias.add(frequencia);
     }
-
-    public void setMatriculaDiscente(MatriculaDiscente matDis) {
-        this.matricula_discente = matDis;
-    }
-
 }
