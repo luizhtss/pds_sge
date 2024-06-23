@@ -21,8 +21,6 @@ public class Frequencia {
     @Column(name = "presenca")
     private boolean presenca;
 
-    @Column(name = "tempoAulaMinutos")
-    private int tempoAulaMinutos;
 
     public boolean isPresenca() {
         return presenca;
@@ -40,11 +38,4 @@ public class Frequencia {
         return data;
     }
 
-    public int getTempoAulaMinutos() {
-        return tempoAulaMinutos;
-    }
-
-    public void setTempoAulaMinutos(int tempoAulaMinutos) {
-        this.tempoAulaMinutos = tempoAulaMinutos;
-    }
 }

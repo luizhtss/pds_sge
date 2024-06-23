@@ -33,6 +33,19 @@ public class DiscenteMateria {
     @Column(name = "unidade_3")
     private Float unidade3;
 
+    @Column(name = "prova final")
+    private Float provaFinal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private MatriculaDiscente.Status status = MatriculaDiscente.Status.MATRICULADO;
+
+    public enum Status {
+        MATRICULADO,
+        APROVADO,
+        REPROVADO
+    }
+
     @OneToMany(mappedBy = "discenteMateria", cascade = CascadeType.ALL)
     private List<Frequencia> frequencias = new ArrayList<>();
 
@@ -68,6 +81,14 @@ public class DiscenteMateria {
         this.unidade3 = unidade3;
     }
 
+    public Float getProvaFinal() {
+        return provaFinal;
+    }
+
+    public void setProvaFinal(Float provaFinal) {
+        this.provaFinal = provaFinal;
+    }
+
     public MatriculaDiscente getMatricula_discente() {
         return matricula_discente;
     }
@@ -90,5 +111,17 @@ public class DiscenteMateria {
 
     public void addFrequencia(Frequencia frequencia) {
         this.frequencias.add(frequencia);
+    }
+
+    public void setFrequencias(List<Frequencia> frequencias) {
+        this.frequencias = frequencias;
+    }
+
+    public MatriculaDiscente.Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(MatriculaDiscente.Status status) {
+        this.status = status;
     }
 }
