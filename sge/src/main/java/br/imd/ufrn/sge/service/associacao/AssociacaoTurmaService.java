@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.service.turmas;
+package br.imd.ufrn.sge.service.associacao;
 
 import br.imd.ufrn.sge.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -38,6 +38,10 @@ public class TurmaService {
         return turmaRepository.findByName(name);
     }
 
+    public Optional<Materia> findMateriasDocente(Long idDocente) {
+        return turmaRepository.findMateriasDocente(idDocente);
+    }
+
     @Transactional
     public Turma salvar(Turma t) {
         return turmaRepository.save(t);

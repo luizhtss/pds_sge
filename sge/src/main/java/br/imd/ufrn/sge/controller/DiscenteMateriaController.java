@@ -1,7 +1,9 @@
 package br.imd.ufrn.sge.controller;
 
 import br.imd.ufrn.sge.models.DiscenteMateria;
+import br.imd.ufrn.sge.models.Frequencia;
 import br.imd.ufrn.sge.service.DiscenteMateriaService;
+import br.imd.ufrn.sge.service.FrequenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,11 @@ public class DiscenteMateriaController {
         @Autowired
         private DiscenteMateriaService disMatService;
 
-        @GetMapping("/")
+        @Autowired
+        private FrequenciaService frequenciaService;
+
+
+    @GetMapping("/")
         public List<DiscenteMateria> listarNotas() {
             return disMatService.listarTodos();
         }
@@ -55,33 +61,38 @@ public class DiscenteMateriaController {
             }
         }
 
-        @PutMapping("/notas/{id}")
-        public ResponseEntity<DiscenteMateria> atualizarNotas(@PathVariable Long id, @RequestBody DiscenteMateria disMat) {
-            Optional<DiscenteMateria> disMatExistente = disMatService.encontrarPorId(id);
-            if (disMatExistente.isPresent()) {
-                DiscenteMateria discenteMateria = disMatExistente.get();
-                if(disMat.getUnidade1() != null)
-                    discenteMateria.setUnidade1(disMat.getUnidade1());
-                if(disMat.getUnidade2() != null)
-                    discenteMateria.setUnidade2(disMat.getUnidade2());
-                if(disMat.getUnidade3() != null)
-                    discenteMateria.setUnidade3(disMat.getUnidade3());
-                DiscenteMateria notaAtualizada = disMatService.salvar(discenteMateria);
-                return ResponseEntity.ok().body(notaAtualizada);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-
     @PutMapping("/frequencia/{id}")
-    public ResponseEntity<DiscenteMateria> atualizarFrequencia(@PathVariable Long id, @RequestBody DiscenteMateria disMat) {
+    public ResponseEntity<DiscenteMateria> atualizarFrequencia(@PathVariable Long id, @RequestBody List<Frequencia> frequencias) {
         Optional<DiscenteMateria> disMatExistente = disMatService.encontrarPorId(id);
         if (disMatExistente.isPresent()) {
             DiscenteMateria discenteMateria = disMatExistente.get();
-            if(disMat.getPresenca() != null)
-                discenteMateria.setPresenca(disMat.getPresenca());
-            DiscenteMateria disMatAtualizada= disMatService.salvar(discenteMateria);
+
+            // Save the new Frequencia records
+            List<Frequencia> savedFrequencias = frequenciaService.salvar(frequencias);
+
+            // Add the new Frequencias to the DiscenteMateria
+            for (Frequencia frequencia : savedFrequencias) {
+                discenteMateria.addFrequencia(frequencia);
+            }
+
+            DiscenteMateria disMatAtualizada = disMatService.salvar(discenteMateria);
             return ResponseEntity.ok().body(disMatAtualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/calcular-nota/{id}/{tipo}")
+    public ResponseEntity<?> calcularNota(@PathVariable Long id, @PathVariable String tipo) {
+        Optional<DiscenteMateria> disMatExistente = disMatService.encontrarPorId(id);
+        if (disMatExistente.isPresent()) {
+            DiscenteMateria discenteMateria = disMatExistente.get();
+            try {
+                float notaCalculada = disMatService.calcularNota(discenteMateria, tipo);
+                return ResponseEntity.ok().body("Nota calculada: " + notaCalculada);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
         } else {
             return ResponseEntity.notFound().build();
         }
