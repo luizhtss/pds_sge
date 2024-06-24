@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class LLMAProvider extends AbstractLLMProvider {
+public class LLAMA2 extends AbstractLLMProvider {
 
     private final String systemPromptRelatorioAcademico;
     private final String systemPromptRelatorioPessoal;
 
     @Autowired
     public LLMAProvider(OkHttpClient client, ObjectMapper objectMapper, LLMProviderConfiguration config, ResourceLoader resourceLoader) throws IOException {
-        super(client, objectMapper, config, "llama", resourceLoader);
+        super(client, objectMapper, config, "llama2", resourceLoader);
         this.systemPromptRelatorioAcademico = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
         this.systemPromptRelatorioPessoal = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
     }
