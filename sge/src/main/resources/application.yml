@@ -1,0 +1,6 @@
+llm:
+  models:
+    llama2:
+      apiUrl: "https://api.replicate.com/v1/models/meta/llama-2-70b-chat/predictions"
+      apiToken: "r8_KoeiH9mT3lS4LX1UfCFKcY68vOJ9OIf26fmqc"
+      basePrompt: "llm/system_prompt_llama.txt"
