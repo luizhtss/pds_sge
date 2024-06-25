@@ -13,7 +13,7 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 
-public abstract class AbstractLLMProvider implements ILLMProvider {
+public abstract class AbstractLLMModel implements ILLMProvider {
 
     protected final OkHttpClient client;
     protected final ObjectMapper objectMapper;
@@ -21,18 +21,19 @@ public abstract class AbstractLLMProvider implements ILLMProvider {
     protected final FileLoader fileLoader;
 
     @Autowired
-    public AbstractLLMProvider(OkHttpClient client, ObjectMapper objectMapper, LLMProviderConfiguration config, String modelName, ResourceLoader resourceLoader) throws IOException {
-        this.client = client;
-        this.objectMapper = objectMapper;
+    public AbstractLLMProvider(String modelName) throws IOException {
+        this.client = new OkHttpClient();
+        this.objectMapper = new ObjectMapper();
         this.modelConfig = config.getModels().get(modelName);
         this.fileLoader = new FileLoader(resourceLoader);
     }
 
     @Override
-    public abstract Relatorio gerarRelatorioBaseAcademico(String data) throws InterruptedException, IOException;
+    public abstract Relatorio gerarRelatorio(String data) throws InterruptedException, IOException;
 
-    protected abstract String getStatus(String url) throws IOException;
-
-    protected abstract String getOutput(String url) throws IOException;
+    public  void carregarPrompt(){
+        this.systemPromptRelatorioAcademico = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
+        this.systemPromptRelatorioPessoal = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
+    }
 
 }

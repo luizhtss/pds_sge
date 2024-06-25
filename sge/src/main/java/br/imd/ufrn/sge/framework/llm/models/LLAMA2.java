@@ -16,21 +16,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class LLMAProvider extends AbstractLLMProvider {
+public class LLAMA2 extends AbstractLLMProvider {
 
     private final String systemPromptRelatorioAcademico;
     private final String systemPromptRelatorioPessoal;
 
     @Autowired
     public LLMAProvider(OkHttpClient client, ObjectMapper objectMapper, LLMProviderConfiguration config, ResourceLoader resourceLoader) throws IOException {
-        super(client, objectMapper, config, "llama", resourceLoader);
+        super(client, objectMapper, config, "llama2", resourceLoader);
         this.systemPromptRelatorioAcademico = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
         this.systemPromptRelatorioPessoal = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
     }
 
     @Override
     @CircuitBreaker(name = "gerarRelatorioBaseAcademico", fallbackMethod = "gerarRelatorioBaseAcademicoOffline")
-    public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
+    public Relatorio gerarRelatorio(String data) throws InterruptedException, IOException {
         Map<String, Object> requestBodyMap = new HashMap<>();
         Map<String, Object> inputMap = new HashMap<>();
         inputMap.put("top_p", 1);
@@ -77,7 +77,6 @@ public class LLMAProvider extends AbstractLLMProvider {
         }
     }
 
-    @Override
     protected String getStatus(String url) throws IOException {
         url = "https://api.replicate.com/v1/predictions/" + url;
         System.out.println("Obtendo status da URL: " + url);
@@ -93,7 +92,6 @@ public class LLMAProvider extends AbstractLLMProvider {
         return jsonNode.get("status").asText();
     }
 
-    @Override
     protected String getOutput(String url) throws IOException {
         url = "https://api.replicate.com/v1/predictions/" + url;
 

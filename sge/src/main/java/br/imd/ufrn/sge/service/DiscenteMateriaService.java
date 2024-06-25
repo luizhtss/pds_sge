@@ -1,12 +1,16 @@
 package br.imd.ufrn.sge.service;
 
+import br.imd.ufrn.sge.framework.notas.INotaStrategy;
+import br.imd.ufrn.sge.framework.notas.NotaAmericanaStrategy;
+import br.imd.ufrn.sge.framework.notas.NotaNormalStrategy;
+import br.imd.ufrn.sge.framework.notas.NotaPonderadaStrategy;
 import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.relatorio.repository.DiscenteMateriaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -15,6 +19,11 @@ public class DiscenteMateriaService {
     @Autowired
     private DiscenteMateriaRepository discenteMateriaRepository;
 
+    private final Map<String, INotaStrategy> mapStrategy = Map.of(
+            "normal", new NotaNormalStrategy(),
+            "americana", new NotaAmericanaStrategy(),
+            "ponderada", new NotaPonderadaStrategy()
+    );
     public List<DiscenteMateria> listarTodos() {
         return discenteMateriaRepository.findAll();
     }
@@ -39,5 +48,14 @@ public class DiscenteMateriaService {
     public DiscenteMateria salvar(DiscenteMateria nota) {
         return discenteMateriaRepository.save(nota);
     }
+
+    public float calcularNota(DiscenteMateria discenteMateria, String tipo) {
+        INotaStrategy strategy = mapStrategy.get(tipo.toLowerCase());
+        if (strategy == null) {
+            throw new IllegalArgumentException("Tipo de nota inválido");
+        }
+        return strategy.calcularMedia(discenteMateria.getUnidade1(), discenteMateria.getUnidade2(), discenteMateria.getUnidade3());
+    }
+
 
 }

@@ -82,4 +82,20 @@ public class DiscenteMateriaController {
         }
     }
 
+    @GetMapping("/calcular-nota/{id}/{tipo}")
+    public ResponseEntity<?> calcularNota(@PathVariable Long id, @PathVariable String tipo) {
+        Optional<DiscenteMateria> disMatExistente = disMatService.encontrarPorId(id);
+        if (disMatExistente.isPresent()) {
+            DiscenteMateria discenteMateria = disMatExistente.get();
+            try {
+                float notaCalculada = disMatService.calcularNota(discenteMateria, tipo);
+                return ResponseEntity.ok().body("Nota calculada: " + notaCalculada);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
