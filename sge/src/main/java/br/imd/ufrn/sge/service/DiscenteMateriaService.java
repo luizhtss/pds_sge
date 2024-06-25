@@ -4,6 +4,7 @@ import br.imd.ufrn.sge.framework.notas.INotaStrategy;
 import br.imd.ufrn.sge.framework.notas.NotaAmericanaStrategy;
 import br.imd.ufrn.sge.framework.notas.NotaNormalStrategy;
 import br.imd.ufrn.sge.framework.notas.NotaPonderadaStrategy;
+import br.imd.ufrn.sge.framework.notas.strategy.NotaContext;
 import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.relatorio.repository.DiscenteMateriaRepository;
 import jakarta.transaction.Transactional;
@@ -22,8 +23,14 @@ public class DiscenteMateriaService {
     private final Map<String, INotaStrategy> mapStrategy = Map.of(
             "normal", new NotaNormalStrategy(),
             "americana", new NotaAmericanaStrategy(),
-            "ponderada", new NotaPonderadaStrategy()
+            "ead", new NotaPonderadaStrategy()
     );
+
+//    private final Map<String, AprovacaoTemplate> mapStatusTemplate = Map.of(
+//            "normal", new AprovacaoSimples(),
+//            "americana", new AprovacaoSubstituicao(),
+//            "ead", new AprovacaoUFRN()
+//    );
     public List<DiscenteMateria> listarTodos() {
         return discenteMateriaRepository.findAll();
     }
@@ -51,10 +58,12 @@ public class DiscenteMateriaService {
 
     public float calcularNota(DiscenteMateria discenteMateria, String tipo) {
         INotaStrategy strategy = mapStrategy.get(tipo.toLowerCase());
+        NotaContext context = new NotaContext();
         if (strategy == null) {
             throw new IllegalArgumentException("Tipo de nota inválido");
         }
-        return strategy.calcularMedia(discenteMateria.getUnidade1(), discenteMateria.getUnidade2(), discenteMateria.getUnidade3());
+        context.setNotaStrategy(strategy);
+        return context.calcularMedia(discenteMateria.getUnidade1(), discenteMateria.getUnidade2(), discenteMateria.getUnidade3());
     }
 
 
