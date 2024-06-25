@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.framework.frequencia;
+package br.imd.ufrn.sge.framework.aprovacao_materia;
 
 import br.imd.ufrn.sge.models.DiscenteMateria;
 import br.imd.ufrn.sge.models.Frequencia;
