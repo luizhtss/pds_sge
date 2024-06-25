@@ -35,8 +35,12 @@ public class LLAMA2 extends AbstractLLMModel {
     }
 
     @Override
-    @CircuitBreaker(name = "gerarRelatorioBaseAcademico", fallbackMethod = "gerarRelatorioBaseAcademicoOffline")
     public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
+        return processarRelatorio(data, matriculaDiscente);
+    }
+
+    @Override
+    protected Relatorio processarRelatorio(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
         Map<String, Object> requestBodyMap = new HashMap<>();
         Map<String, Object> inputMap = new HashMap<>();
         inputMap.put("top_p", 1);
@@ -84,7 +88,7 @@ public class LLAMA2 extends AbstractLLMModel {
         }
     }
 
-    protected String getStatus(String url) throws IOException {
+    private String getStatus(String url) throws IOException {
         url = "https://api.replicate.com/v1/predictions/" + url;
         System.out.println("Obtendo status da URL: " + url);
 
@@ -99,7 +103,7 @@ public class LLAMA2 extends AbstractLLMModel {
         return jsonNode.get("status").asText();
     }
 
-    protected String getOutput(String url) throws IOException {
+    private String getOutput(String url) throws IOException {
         url = "https://api.replicate.com/v1/predictions/" + url;
 
         Request request = new Request.Builder()

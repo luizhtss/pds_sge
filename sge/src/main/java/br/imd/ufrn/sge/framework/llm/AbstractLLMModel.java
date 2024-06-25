@@ -1,6 +1,5 @@
 package br.imd.ufrn.sge.framework.llm;
 
-
 import br.imd.ufrn.sge.framework.config.LLMProviderConfiguration;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.relatorio.interfaces.ILLMProvider;
@@ -20,7 +19,6 @@ public abstract class AbstractLLMModel implements ILLMProvider {
     protected String llmName;
     protected String promptBase;
 
-
     protected AbstractLLMModel(OkHttpClient client, ObjectMapper objectMapper, LLMProviderConfiguration.ModelConfig modelConfig, FileLoader fileLoader, String llmName) {
         this.client = client;
         this.objectMapper = objectMapper;
@@ -29,13 +27,18 @@ public abstract class AbstractLLMModel implements ILLMProvider {
         this.llmName = llmName;
     }
 
+    // Template method.
     @Override
-    public abstract Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException;
+    public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
+        carregarPromptBase();
+        return processarRelatorio(data, matriculaDiscente);
+    }
 
-
-    public  void carregarPromptBase() throws IOException{
+    protected void carregarPromptBase() throws IOException {
         String prompt = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
         promptBase = prompt;
     }
+
+    protected abstract Relatorio processarRelatorio(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException;
 
 }
