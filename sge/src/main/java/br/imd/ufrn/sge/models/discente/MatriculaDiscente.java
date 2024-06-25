@@ -34,7 +34,8 @@ public class MatriculaDiscente {
     public enum Status {
         MATRICULADO,
         APROVADO,
-        REPROVADO
+        REPROVADO,
+        PROGRESSAO_PARCIAL
     }
 
     @Column(name = "ano", nullable = false)
