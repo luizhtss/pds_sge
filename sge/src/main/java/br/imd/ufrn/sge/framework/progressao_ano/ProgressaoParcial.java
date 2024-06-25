@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.framework.aprovacao_ano;
+package br.imd.ufrn.sge.framework.progressao_ano;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 
 import java.util.List;
