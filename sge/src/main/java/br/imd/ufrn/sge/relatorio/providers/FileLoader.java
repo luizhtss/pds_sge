@@ -17,6 +17,10 @@ public class FileLoader {
         this.resourceLoader = resourceLoader;
     }
 
+    public FileLoader() {
+        this.resourceLoader = new ClassPathXmlApplicationContext();
+    }
+
     public String carregarArquivoComoString(String caminhoDoArquivo) throws IOException {
         Resource resource = resourceLoader.getResource("classpath:" + caminhoDoArquivo);
         StringBuilder stringBuilder = new StringBuilder();

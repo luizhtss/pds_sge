@@ -1,4 +1,4 @@
-package br.imd.ufrn.sge.relatorio.configuration;
+package br.imd.ufrn.sge.framework.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

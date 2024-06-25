@@ -19,14 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class LLAMA2 extends AbstractLLMModel {
+public class LLAMA3 extends AbstractLLMModel {
 
 
     @Autowired
-    public LLAMA2(LLMProviderConfiguration config) throws IOException {
-        super(new OkHttpClient(), new ObjectMapper(), config.getModels().get("llama2"), new FileLoader(), "llama2");
+    public LLAMA3(LLMProviderConfiguration config) throws IOException {
+        super(new OkHttpClient(), new ObjectMapper(), config.getModels().get("llama3"), new FileLoader(), "llama3");
         carregarPromptBase();
-
     }
 
     @Override
