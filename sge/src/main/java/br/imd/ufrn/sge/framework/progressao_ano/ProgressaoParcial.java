@@ -1,8 +1,10 @@
 package br.imd.ufrn.sge.framework.progressao_ano;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("ProgressaoParcial")
 public class ProgressaoParcial implements IProgressaoStrategy {
     @Override
     public void aprovaAno(MatriculaDiscente matriculaDiscente, List<Boolean> materiasStatus) {
