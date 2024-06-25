@@ -1,6 +1,7 @@
 package br.imd.ufrn.sge.repository;
 
 import br.imd.ufrn.sge.models.discente.Discente;
+import br.imd.ufrn.sge.models.materia.Materia;
 import br.imd.ufrn.sge.models.turma.Turma;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +25,7 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
     @Query("SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END FROM MatriculaDiscente d WHERE d.id = :idMatriculaDiscente AND d.turma.id = :idTurma")
     boolean isDiscenteMatriculado(@Param("idMatriculaDiscente") Long idMatriculaDiscente, @Param("idTurma") Long idTurma);
 
+    @Query("SELECT m FROM Materia m JOIN Docente d ON m.docente.id = d.id WHERE d.id = :idDocente")
+    Optional<Materia> findMateriasDocente(@Param("idDocente") Long idDocente);
 }
 
