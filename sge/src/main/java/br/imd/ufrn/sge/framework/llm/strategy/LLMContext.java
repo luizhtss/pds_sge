@@ -7,14 +7,14 @@ import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 import java.io.IOException;
 
 public class LLMContext {
-    private ILLMProvider strategy;
+    private ILLMProvider model;
 
-    public void setStrategy(ILLMProvider strategy) {
-        this.strategy = strategy;
+    public void setModelo(ILLMProvider model) {
+        this.model = model;
     }
 
 
     public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente  matriculaDiscente) throws InterruptedException, IOException {
-        return strategy.gerarRelatorioBaseAcademico(data, matriculaDiscente);
+        return model.gerarRelatorioBaseAcademico(data, matriculaDiscente);
     }
 }
