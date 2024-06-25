@@ -47,6 +47,11 @@ public class LLMAProvider implements ILLMProvider {
     }
 
     @Override
+    public Relatorio gerarRelatorioBasePessoal(String data) throws IOException, InterruptedException {
+        return null;
+    }
+
+    @Override
     @CircuitBreaker(name = "gerarRelatorioBaseAcademico", fallbackMethod = "gerarRelatorioBaseAcademicoOffline")
     public Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException {
         OkHttpClient client = new OkHttpClient();

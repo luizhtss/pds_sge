@@ -1,15 +1,13 @@
-package br.imd.ufrn.sge.relatorio.providers;
+package br.imd.ufrn.sge.framework.llm;
 
-package br.imd.ufrn.sge.relatorio.providers;
 
+import br.imd.ufrn.sge.framework.config.LLMProviderConfiguration;
 import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
-import br.imd.ufrn.sge.relatorio.configuration.LLMProviderConfiguration;
 import br.imd.ufrn.sge.relatorio.interfaces.ILLMProvider;
+import br.imd.ufrn.sge.relatorio.providers.FileLoader;
 import br.imd.ufrn.sge.relatorio.relatorio.Relatorio;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 
@@ -19,21 +17,25 @@ public abstract class AbstractLLMModel implements ILLMProvider {
     protected final ObjectMapper objectMapper;
     protected final LLMProviderConfiguration.ModelConfig modelConfig;
     protected final FileLoader fileLoader;
+    protected String llmName;
+    protected String promptBase;
 
-    @Autowired
-    public AbstractLLMProvider(String modelName) throws IOException {
-        this.client = new OkHttpClient();
-        this.objectMapper = new ObjectMapper();
-        this.modelConfig = config.getModels().get(modelName);
-        this.fileLoader = new FileLoader(resourceLoader);
+
+    protected AbstractLLMModel(OkHttpClient client, ObjectMapper objectMapper, LLMProviderConfiguration.ModelConfig modelConfig, FileLoader fileLoader, String llmName) {
+        this.client = client;
+        this.objectMapper = objectMapper;
+        this.modelConfig = modelConfig;
+        this.fileLoader = fileLoader;
+        this.llmName = llmName;
     }
 
     @Override
-    public abstract Relatorio gerarRelatorio(String data) throws InterruptedException, IOException;
+    public abstract Relatorio gerarRelatorioBaseAcademico(String data, MatriculaDiscente matriculaDiscente) throws InterruptedException, IOException;
 
-    public  void carregarPrompt(){
-        this.systemPromptRelatorioAcademico = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
-        this.systemPromptRelatorioPessoal = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
+
+    public  void carregarPromptBase() throws IOException{
+        String prompt = fileLoader.carregarArquivoComoString(modelConfig.getBasePrompt());
+        promptBase = prompt;
     }
 
 }
