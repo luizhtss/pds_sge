@@ -48,12 +48,12 @@ public class RelatorioController {
         int loadBalancer = random.nextInt(2);
 
         if(loadBalancer == 0) {
-            context.setStrategy(new LLAMA2(null));
+            context.setModelo(new LLAMA2(null));
         } else {
-            context.setStrategy(new LLAMA3(null));
+            context.setModelo(new LLAMA3(null));
         }
 
-        context.gerarRelatorioBaseAcademico("Dados do relatório acadêmico", null);
+        context.gerarRelatorioBaseAcademico("...", null);
 
         try {
             rel = (RelatorioAcademico) relatorioService.obterRelatorioAcademico(llmaProvider, idMatriculaDiscente);
