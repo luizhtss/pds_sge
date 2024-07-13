@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,7 +22,8 @@ public class Frequencia {
     private DiscenteMateria discenteMateria;
 
     @Column(name = "timestamp")
-    private LocalDateTime data = LocalDateTime.now();
+    @JsonProperty("timestamp")
+    private Long timestamp;
 
     @Column(name = "presenca")
     private boolean presenca;
@@ -35,12 +37,12 @@ public class Frequencia {
         this.presenca = presenca;
     }
 
-    public LocalDateTime getData() {
-        return data;
+    public Long getTimeStamp() {
+        return timestamp;
     }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
+    public void setTimeStamp(Long timeStamp) {
+        this.timestamp = timeStamp;
     }
 
     public DiscenteMateria getDiscenteMateria() {
@@ -57,12 +59,12 @@ public class Frequencia {
         if (!(o instanceof Frequencia)) return false;
         Frequencia that = (Frequencia) o;
         return presenca == that.presenca &&
-                Objects.equals(data, that.data) &&
+                Objects.equals(timestamp, that.timestamp) &&
                 Objects.equals(discenteMateria, that.discenteMateria);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, presenca, discenteMateria);
+        return Objects.hash(timestamp, presenca, discenteMateria);
     }
 }

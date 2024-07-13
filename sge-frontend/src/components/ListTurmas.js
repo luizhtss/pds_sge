@@ -34,7 +34,7 @@ const ListTurmas = () => {
                 const dataTurma = await responseTurma.json();
                 console.log('Turma data:', dataTurma);
 
-                const responseMateria = await fetch(`${domain}:${port}/api/materias/docente/${dataTurma.id}`);
+                const responseMateria = await fetch(`${domain}:${port}/api/materias/docente/2`);
                 console.log('Fetching materias for turma:', dataTurma.id, responseMateria);
                 if (!responseMateria.ok) {
                     throw new Error('Network response was not ok');

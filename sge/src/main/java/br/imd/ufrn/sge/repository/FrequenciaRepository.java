@@ -9,5 +9,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FrequenciaRepository extends JpaRepository<Frequencia, Long> {
-    List<Frequencia> findByDiscenteMateriaAndData(DiscenteMateria discenteMateria, LocalDateTime data);
+    List<Frequencia> findByDiscenteMateria(DiscenteMateria discenteMateria);
 }

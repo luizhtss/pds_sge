@@ -100,6 +100,24 @@ public class DiscenteMateriaController {
         }
     }
 
+    @PostMapping("/frequencia/{id}")
+    public ResponseEntity<?> adicionarFrequencia(@PathVariable Long id, @RequestBody Frequencia frequencia) {
+        Optional<DiscenteMateria> disMatExistenteOpt = disMatService.encontrarPorId(id);
+        if (disMatExistenteOpt.isPresent()) {
+            DiscenteMateria discenteMateria = disMatExistenteOpt.get();
+            frequencia.setDiscenteMateria(discenteMateria);
+
+            Frequencia savedFrequencia = frequenciaService.salvar(frequencia);
+            if (savedFrequencia != null) {
+                return ResponseEntity.ok().body(discenteMateria.getFrequencias());
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Frequencia already exists.");
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/frequencia/{discenteMateriaId}")
     public ResponseEntity<?> obterFrequenciasPorDiscenteMateriaId(@PathVariable Long discenteMateriaId) {
         Optional<DiscenteMateria> discenteMateriaOpt = disMatService.encontrarPorId(discenteMateriaId);

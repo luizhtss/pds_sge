@@ -23,7 +23,7 @@ public class FrequenciaService {
     }
 
     public Frequencia salvar(Frequencia frequencia) {
-        List<Frequencia> existingFrequencias = frequenciaRepository.findByDiscenteMateriaAndData(frequencia.getDiscenteMateria(), frequencia.getData());
+        List<Frequencia> existingFrequencias = frequenciaRepository.findByDiscenteMateria(frequencia.getDiscenteMateria());
         for (Frequencia existingFrequencia : existingFrequencias) {
             if (existingFrequencia.equals(frequencia)) {
                 return existingFrequencia; // Return the existing one if it's a duplicate

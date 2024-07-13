@@ -65,4 +65,11 @@ public class MateriaService {
         }else {throw new IdNaoEncontradoException();}
 
     }
+
+    @Transactional
+    public Materia associarDocente(Long id, Long idDocente) {
+        Materia materia = materiaRepository.findById(id).get();
+        materia.setDocente(docenteRepository.findById(idDocente).get());
+        return materiaRepository.save(materia);
+    }
 }

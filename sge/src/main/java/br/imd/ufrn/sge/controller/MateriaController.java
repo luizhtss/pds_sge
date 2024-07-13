@@ -44,6 +44,12 @@ public class MateriaController {
         }
     }
 
+    @PutMapping("/associarDocente/{id}/{idDocente}")
+    public ResponseEntity<?> associarDocente (@PathVariable Long id, @PathVariable Long idDocente) {
+        Materia materia = materiaService.associarDocente(id, idDocente);
+        return ResponseEntity.ok().body(materia);
+    }
+
     @GetMapping("/turma/{id}")
     public ResponseEntity<?> obterMateriaPorTurma (@PathVariable Long id) {
         Optional<Materia> materia= materiaService.encontrarPorTurma(id);
