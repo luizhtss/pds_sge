@@ -17,8 +17,8 @@ public interface MateriaRepository extends JpaRepository<Materia, Long>, JpaSpec
     @Query("SELECT m FROM Materia m JOIN Docente d ON d.id = m.docente.id WHERE d.id = :idDocente")
     Optional<Materia> findByDocenteId(@Param("idDocente") Long idDocente);
 
-    @Query("SELECT m FROM Materia m JOIN m.turmas tm WHERE tm.id = :idTurma")
-    Optional<Materia> findByTurmaId(@Param("idTurma") Long idTurma);
+    @Query("SELECT m FROM Materia m JOIN m.turma tm WHERE tm.id = :idTurma")
+    List<Materia> findByTurmaId(@Param("idTurma") Long idTurma);
 
 
 }

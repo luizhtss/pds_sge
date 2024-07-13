@@ -37,7 +37,7 @@ public class MateriaService {
         return materiaRepository .findByDocenteId(id);
     }
 
-    public Optional<Materia> encontrarPorTurma(Long id) {
+    public List<Materia> encontrarPorTurma(Long id) {
         if (materiaRepository .findByTurmaId(id).isEmpty()){
             throw new IdNaoEncontradoException();
         }

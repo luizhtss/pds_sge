@@ -34,7 +34,7 @@ public class MateriaController {
     }
 
     @GetMapping("/docente/{id}")
-    public ResponseEntity<?> obterMateriaPorDocente (@PathVariable Long id) {
+    public ResponseEntity<?> obterMateriasPorDocente (@PathVariable Long id) {
         Optional<Materia> materia= materiaService.encontrarPorDocente(id);
 
         if (materia.isPresent()){
@@ -52,10 +52,10 @@ public class MateriaController {
 
     @GetMapping("/turma/{id}")
     public ResponseEntity<?> obterMateriaPorTurma (@PathVariable Long id) {
-        Optional<Materia> materia= materiaService.encontrarPorTurma(id);
+        List<Materia> materia= materiaService.encontrarPorTurma(id);
 
-        if (materia.isPresent()){
-            return ResponseEntity.ok().body(materia.get());
+        if (!materia.isEmpty()){
+            return ResponseEntity.ok().body(materia);
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foram encontradas nenhuma matétia para a turma de id " + id);
         }

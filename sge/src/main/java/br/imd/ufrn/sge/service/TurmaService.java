@@ -34,6 +34,10 @@ public class TurmaService {
         return turmaRepository.findById(id);
     }
 
+    public List<Turma> encontrarPorDocente(Long id_docente) {
+        return turmaRepository.findByDocente(id_docente);
+    }
+
     public List<Turma> findByName(String name) {
         return turmaRepository.findByName(name);
     }

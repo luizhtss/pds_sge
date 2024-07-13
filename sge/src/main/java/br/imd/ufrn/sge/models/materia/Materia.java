@@ -2,6 +2,7 @@ package br.imd.ufrn.sge.models.materia;
 
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.models.turma.Turma;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -28,9 +29,18 @@ public class Materia {
     private String descricao;
 
 
-    @ManyToMany(mappedBy = "materias", cascade = CascadeType.ALL)
-    private Set<Turma> turmas;
+    @ManyToOne
+    @JoinColumn(name = "id_turma", nullable = false)
+    @JsonBackReference
+    private Turma turma;
 
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
     public Long getId() {
         return id_materia;
     }

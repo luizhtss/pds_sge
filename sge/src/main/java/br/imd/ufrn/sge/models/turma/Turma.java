@@ -5,6 +5,7 @@ import br.imd.ufrn.sge.models.discente.MatriculaDiscente;
 import br.imd.ufrn.sge.models.docente.Docente;
 import br.imd.ufrn.sge.models.docente.MatriculaDocente;
 import br.imd.ufrn.sge.models.materia.Materia;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -28,13 +29,11 @@ public class Turma {
     /**
      * Definindo junção de turmas com materias
      * */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "TurmaMateria",
-            joinColumns = @JoinColumn(name = "id_turma"),
-            inverseJoinColumns = @JoinColumn(name = "id_materia")
-    )
-    Set<Materia> materias;
+
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Materia> materias;
+
 
     public Long getId() {
         return id;
@@ -67,6 +66,4 @@ public class Turma {
     public void setMaterias(Set<Materia> materias) {
         this.materias = materias;
     }
-
-
 }

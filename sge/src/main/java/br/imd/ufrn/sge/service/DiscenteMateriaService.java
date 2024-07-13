@@ -81,10 +81,12 @@ public class DiscenteMateriaService {
             nota.setUnidade1(nota_nova.getUnidade1());
         if(nota_nova.getUnidade2() != null)
             nota.setUnidade2(nota_nova.getUnidade2());
-        if(nota_nova.getUnidade3() != null)
-            nota.setUnidade3(nota_nova.getUnidade3());
-        if(nota_nova.getProvaFinal() != null) {
-            nota.setProvaFinal(nota_nova.getProvaFinal());
+        if(nota_nova.getUnidade3() != null || nota_nova.getProvaFinal() != null) {
+            if (nota_nova.getUnidade3() != null)
+                nota.setUnidade3(nota_nova.getUnidade3());
+            if (nota_nova.getProvaFinal() != null) {
+                nota.setProvaFinal(nota_nova.getProvaFinal());
+            }
             String strategyChoice = globalStrategy.getEscolhaStrategy().toLowerCase();
             AprovacaoTemplate template = mapAprovacaoTemplate.get(strategyChoice);
             template.aprovacaoMethod(nota, nota.getFrequencias());

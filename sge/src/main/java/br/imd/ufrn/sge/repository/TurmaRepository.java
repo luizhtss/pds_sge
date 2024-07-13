@@ -19,6 +19,10 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
     @Query("SELECT t FROM Turma t WHERE t.id = :id")
     Optional<Turma> findById(@Param("id") Long id);
 
+    @Query("SELECT t FROM Turma t JOIN MatriculaDocente d ON d member of t.docentes WHERE d.matriculaDocente.id = :id_docente")
+    List<Turma> findByDocente(@Param("id_docente") Long id_docente);
+
+
     @Query("SELECT d FROM Discente d JOIN MatriculaDiscente md ON md.discente.id = d.id WHERE md.turma.id = :idTurma")
         Optional<Discente> findMatriculados(@Param("idTurma") Long idTurma);
 

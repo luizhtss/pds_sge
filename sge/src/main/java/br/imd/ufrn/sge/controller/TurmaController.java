@@ -46,6 +46,18 @@ public class TurmaController {
         }
     }
 
+    @GetMapping("/docente/{id_docente}")
+    public ResponseEntity<?> obterTurmasPorDocente (@PathVariable Long id_docente) {
+        List<Turma> turmas= turmaService.encontrarPorDocente(id_docente);
+
+        if (!turmas.isEmpty()) {
+            return ResponseEntity.ok().body(turmas);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Turmas do docente " + id_docente + " não encontrada");
+        }
+    }
+
+
     @GetMapping("/nome/{nome}")
     public ResponseEntity<List<Turma>> buscarTurmaPeloNome(@PathVariable String nome) {
         try{
